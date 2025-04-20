@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Inter", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@layer components {
+  /* Custom component classes */
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-md transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium py-3 px-6 rounded-md transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply border border-primary-500 text-primary-500 hover:bg-primary-50 font-medium py-3 px-6 rounded-md transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+
+  .section {
+    @apply py-16 px-4 md:px-8 max-w-7xl mx-auto;
+  }
+
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+
+  .heading-lg {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Custom Progress Bar Component */
+.lf-progress {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.lf-progress:focus {
+  outline: none;
+  border: none;
+}
+
+.lf-progress::-moz-range-track {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.lf-progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+
+.lf-progress::-moz-range-thumb {
+  -moz-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+
+.lf-progress::-ms-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.lf-progress::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.lf-progress::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.lf-progress::-ms-thumb {
+  border: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+
+.lf-progress:focus::-ms-fill-lower {
+  background: #ccc;
+}
+
+.lf-progress:focus::-ms-fill-upper {
+  background: #ccc;
+}
+
+/* Popover Component */
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  padding: 10px;
+  z-index: 50;
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-arrow {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  bottom: -9px;
+  border-style: solid;
+  border-width: 10px 10px 0px 10px;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Utilities */
+@media (max-width: 640px) {
+  .heading-xl {
+    font-size: 2.5rem;
+  }
+
+  .heading-lg {
+    font-size: 2rem;
+  }
+}
+
+/* Custom Form Elements */
+.form-input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-select {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+}
+
+/* Shadows */
+.shadow-custom {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
