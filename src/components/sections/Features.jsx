@@ -143,7 +143,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="features" className="py-20 bg-gray-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="heading-lg text-gray-900 mb-4">
@@ -170,4 +170,4 @@ const Features = () => {
   );
 };
 
-export default Features; // This exports the main Features component as default
+export default Features;

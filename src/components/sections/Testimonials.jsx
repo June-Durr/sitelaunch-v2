@@ -61,7 +61,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="testimonials" className="py-20 bg-gray-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="heading-lg text-gray-900 mb-4">
@@ -84,13 +84,6 @@ const Testimonials = () => {
               image={testimonial.image}
             />
           ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">
-            Join these successful businesses today
-          </h3>
-          <button className="btn-primary">Start Your Free Trial</button>
         </div>
       </div>
     </section>

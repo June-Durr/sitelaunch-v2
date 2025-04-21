@@ -25,6 +25,15 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Scroll to section function
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      setIsMobileMenuOpen(false);
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -44,30 +53,30 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              to="/features"
-              className="text-gray-700 hover:text-primary-500 font-medium"
+            <button
+              onClick={() => scrollToSection("features")}
+              className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
             >
               Features
-            </Link>
-            <Link
-              to="/templates"
-              className="text-gray-700 hover:text-primary-500 font-medium"
+            </button>
+            <button
+              onClick={() => scrollToSection("templates")}
+              className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
             >
               Templates
-            </Link>
-            <Link
-              to="/pricing"
-              className="text-gray-700 hover:text-primary-500 font-medium"
+            </button>
+            <button
+              onClick={() => scrollToSection("pricing")}
+              className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
             >
               Pricing
-            </Link>
-            <Link
-              to="/blog"
+            </button>
+            <a
+              href="#"
               className="text-gray-700 hover:text-primary-500 font-medium"
             >
               Blog
-            </Link>
+            </a>
           </nav>
 
           {/* Desktop CTA Buttons */}
@@ -119,34 +128,30 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white mt-4 rounded-lg shadow-lg p-4">
             <nav className="flex flex-col space-y-4">
-              <Link
-                to="/features"
-                className="text-gray-700 hover:text-primary-500 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection("features")}
+                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
               >
                 Features
-              </Link>
-              <Link
-                to="/templates"
-                className="text-gray-700 hover:text-primary-500 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("templates")}
+                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
               >
                 Templates
-              </Link>
-              <Link
-                to="/pricing"
-                className="text-gray-700 hover:text-primary-500 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection("pricing")}
+                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
               >
                 Pricing
-              </Link>
-              <Link
-                to="/blog"
+              </button>
+              <a
+                href="#"
                 className="text-gray-700 hover:text-primary-500 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Blog
-              </Link>
+              </a>
               <div className="flex flex-col space-y-2 pt-2 border-t border-gray-100">
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button variant="outline" size="sm" fullWidth>

@@ -3,7 +3,10 @@ import Button from "../common/Button";
 
 const Hero = () => {
   return (
-    <section className="pt-32 pb-20 bg-gradient-to-br from-white to-blue-50">
+    <section
+      id="hero"
+      className="pt-32 pb-20 bg-gradient-to-br from-white to-blue-50"
+    >
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
