@@ -2,7 +2,7 @@ import React from "react";
 
 const TestimonialCard = ({ quote, author, position, company, image }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
+    <div className="bg-white rounded-3xl shadow-md p-6 border border-gray-100">
       <div className="flex items-start mb-4">
         <svg
           className="text-primary-300 w-10 h-10 mr-2 flex-shrink-0"
@@ -61,7 +61,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-gray-50">
+    <section id="testimonials" className="py-20 bg-purple-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="heading-lg text-gray-900 mb-4">

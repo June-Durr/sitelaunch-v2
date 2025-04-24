@@ -1,10 +1,145 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Button from "../common/Button";
 import AnimatedDemo from "../common/AnimatedDemo";
 
 const EnhancedHero = () => {
   const [email, setEmail] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const canvasRef = useRef(null);
+
+  // Set loaded state after a small delay to trigger animations
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Network background animation
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+    let particles = [];
+    let connections = [];
+
+    // Set canvas dimensions
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    // Initialize particles
+    function initParticles() {
+      particles = [];
+      connections = [];
+
+      // Create particles
+      const particleCount = Math.floor((canvas.width * canvas.height) / 20000);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          radius: Math.random() * 2 + 1,
+          color: `rgba(${Math.random() * 100 + 100}, ${
+            Math.random() * 50 + 50
+          }, ${Math.random() * 200 + 55}, ${Math.random() * 0.5 + 0.5})`,
+          glow: Math.random() > 0.8, // Only some particles will glow
+        });
+      }
+
+      // Create connections between particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          if (Math.random() > 0.97) {
+            connections.push({
+              from: i,
+              to: j,
+            });
+          }
+        }
+      }
+    }
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw connections
+      ctx.lineWidth = 0.3;
+      connections.forEach((connection) => {
+        const p1 = particles[connection.from];
+        const p2 = particles[connection.to];
+
+        const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+        const maxDistance = 200;
+
+        if (distance < maxDistance) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+
+          // Calculate opacity based on distance
+          const opacity = 1 - distance / maxDistance;
+          ctx.strokeStyle = `rgba(120, 70, 200, ${opacity * 0.4})`;
+          ctx.stroke();
+        }
+      });
+
+      // Update and draw particles
+      particles.forEach((particle) => {
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color;
+        ctx.fill();
+
+        // Add glow effect for some particles
+        if (particle.glow) {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.radius * 2, 0, Math.PI * 2);
+          const gradient = ctx.createRadialGradient(
+            particle.x,
+            particle.y,
+            particle.radius * 0.5,
+            particle.x,
+            particle.y,
+            particle.radius * 3
+          );
+          gradient.addColorStop(0, "rgba(255, 150, 50, 0.8)");
+          gradient.addColorStop(1, "rgba(255, 150, 50, 0)");
+          ctx.fillStyle = gradient;
+          ctx.fill();
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -65,53 +200,6 @@ const EnhancedHero = () => {
     },
   };
 
-  const browserVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.9,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 1,
-        delay: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  // Background decoration elements
-  const Decorations = () => (
-    <>
-      <motion.div
-        className="absolute -top-20 right-1/4 w-72 h-72 bg-primary-100 rounded-full opacity-70 blur-3xl"
-        animate={{
-          scale: [1, 1.05, 1],
-          opacity: [0.7, 0.5, 0.7],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      />
-      <motion.div
-        className="absolute top-40 -left-20 w-60 h-60 bg-secondary-500 rounded-full opacity-30 blur-3xl"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          delay: 2,
-        }}
-      />
-    </>
-  );
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
@@ -119,12 +207,66 @@ const EnhancedHero = () => {
   };
 
   return (
-    <section
-      id="hero"
-      className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-primary-900"
-    >
-      {/* Decorative elements */}
-      <Decorations />
+    <section id="hero" className="relative pt-32 pb-20 overflow-hidden">
+      {/* Network background canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ background: "linear-gradient(to bottom, #0a0328, #17093d)" }}
+      />
+
+      {/* Enhanced background with animated gradients */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Main background gradient overlay */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br from-transparent via-gray-900/40 to-gray-900/60 transition-opacity duration-1000 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        ></div>
+
+        {/* Large purple glow */}
+        <motion.div
+          className="absolute w-[150%] h-[150%] bg-purple-600 rounded-full opacity-15 blur-3xl"
+          initial={{ x: "-50%", y: "-90%" }}
+          animate={
+            isLoaded
+              ? {
+                  x: "-50%",
+                  y: "-50%",
+                  scale: [1, 1.1, 1],
+                  opacity: [0.1, 0.2, 0.1],
+                }
+              : {}
+          }
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+
+        {/* Blue-teal glow */}
+        <motion.div
+          className="absolute w-[100%] h-[100%] bg-primary-600 rounded-full opacity-10 blur-3xl"
+          initial={{ right: "-20%", bottom: "-40%" }}
+          animate={
+            isLoaded
+              ? {
+                  right: "-30%",
+                  bottom: "-30%",
+                  scale: [1, 1.2, 1],
+                  opacity: [0.1, 0.15, 0.1],
+                }
+              : {}
+          }
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 1,
+          }}
+        />
+      </div>
 
       <div className="container-custom relative z-10">
         <motion.div
@@ -164,13 +306,28 @@ const EnhancedHero = () => {
                   required
                   className="px-4 py-3 rounded-md bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent flex-grow"
                 />
-                <Button
-                  variant="secondary"
+
+                {/* Updated orange button with arrow */}
+                <button
                   type="submit"
-                  className="whitespace-nowrap"
+                  className="group bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm py-3 px-6 rounded-md font-medium inline-flex items-center transition-all duration-200"
                 >
-                  Start my trial →
-                </Button>
+                  Start my trial
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </button>
               </form>
             </motion.div>
 
@@ -184,8 +341,36 @@ const EnhancedHero = () => {
             </motion.p>
           </div>
 
-          {/* Hero Demo - Full Width */}
-          <motion.div className="w-full max-w-4xl" variants={browserVariants}>
+          {/* Hero Demo - Full Width with 3D effect */}
+          <motion.div
+            className="w-full max-w-4xl"
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              rotateX: 45,
+              y: 100,
+              z: -100,
+            }}
+            animate={
+              isLoaded
+                ? {
+                    opacity: 1,
+                    scale: 1,
+                    rotateX: 0,
+                    y: 0,
+                    z: 0,
+                  }
+                : {}
+            }
+            transition={{
+              duration: 1.2,
+              ease: [0.215, 0.61, 0.355, 1], // Ease out cubic
+            }}
+            style={{
+              perspective: "1000px",
+              transformStyle: "preserve-3d",
+            }}
+          >
             {/* Browser mockup */}
             <div className="relative bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200">
               {/* Browser header */}
@@ -223,6 +408,16 @@ const EnhancedHero = () => {
                 </div>
               </div>
             </div>
+
+            {/* 3D shadow effect */}
+            <div
+              className="absolute inset-0 -z-10 blur opacity-30 bg-black rounded-lg transform translate-y-6 scale-95"
+              style={{
+                transformOrigin: "bottom",
+                background:
+                  "linear-gradient(to bottom, rgba(30,10,60,0.8), rgba(10,5,35,0.3))",
+              }}
+            ></div>
           </motion.div>
         </motion.div>
 

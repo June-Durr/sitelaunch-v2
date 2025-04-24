@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Button from "../common/Button";
-import GradientBackground from "../common/GradientBackground"; // Import the new component
+import GradientBackground from "../common/GradientBackground"; // Import the component
 
 const FeatureCard = ({ icon, title, description }) => {
   return (
@@ -10,7 +10,7 @@ const FeatureCard = ({ icon, title, description }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300"
+      className="bg-white rounded-3xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300"
     >
       <div className="w-12 h-12 bg-primary-100 text-primary-500 rounded-lg flex items-center justify-center mb-4">
         {icon}
@@ -153,8 +153,8 @@ const Features = () => {
 
   return (
     <>
-      {/* First section with light background */}
-      <section id="features" className="py-20 bg-gray-50">
+      {/* First section with light purple background */}
+      <section id="features" className="py-20 bg-purple-50">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -14,7 +14,7 @@ const PricingCard = ({
   return (
     <div
       className={`
-      bg-white rounded-xl overflow-hidden border transition-all duration-300
+      bg-white rounded-3xl overflow-hidden border transition-all duration-300
       ${
         isPopular
           ? "border-primary-500 shadow-lg scale-105 z-10"
@@ -138,7 +138,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-white">
+    <section id="pricing" className="py-20 bg-purple-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="heading-lg text-gray-900 mb-4">

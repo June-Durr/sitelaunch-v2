@@ -1,5 +1,6 @@
 import React from "react";
 import EnhancedHero from "../components/sections/EnhancedHero";
+import LogoCarousel from "../components/sections/LogoCarousel";
 import Features from "../components/sections/Features";
 import Pricing from "../components/sections/Pricing";
 import Testimonials from "../components/sections/Testimonials";
@@ -29,7 +30,7 @@ const TemplateShowcase = () => {
   ];
 
   return (
-    <section id="templates" className="py-20 bg-white">
+    <section id="templates" className="py-20 bg-purple-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="heading-lg text-gray-900 mb-4">
@@ -45,7 +46,7 @@ const TemplateShowcase = () => {
           {templates.map((template, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
+              className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
             >
               <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
                 <img
@@ -92,7 +93,7 @@ const TemplateShowcase = () => {
 
 const CallToAction = () => {
   return (
-    <section className="py-20 bg-primary-500 text-white">
+    <section className="py-20 bg-gray-900 text-white">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="heading-lg mb-6">Ready to grow your business?</h2>
@@ -100,14 +101,27 @@ const CallToAction = () => {
             Start creating high-converting landing pages in minutes with our
             easy-to-use platform.
           </p>
-          <Button
-            variant="secondary"
-            size="lg"
-            className="px-8 py-3 text-lg bg-white text-primary-500 hover:bg-gray-100"
-          >
-            Start Your Free Trial
-          </Button>
-          <p className="mt-4 text-sm text-primary-100">
+
+          {/* Using the updated orange button with arrow */}
+          <button className="group bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm py-3 px-6 rounded-md font-medium inline-flex items-center">
+            Start your free trial
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </button>
+
+          <p className="mt-4 text-sm text-purple-200">
             No credit card required. 14-day free trial.
           </p>
         </div>
@@ -127,7 +141,7 @@ const IntegrationSection = () => {
   ];
 
   return (
-    <section id="integrations" className="py-20 bg-gray-50">
+    <section id="integrations" className="py-20 bg-purple-50">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="heading-lg text-gray-900 mb-4">
@@ -145,7 +159,7 @@ const IntegrationSection = () => {
               key={index}
               className="w-24 h-16 flex items-center justify-center"
             >
-              <div className="bg-gray-200 rounded w-full h-12"></div>
+              <div className="bg-white rounded-lg w-full h-12 shadow-sm"></div>
             </div>
           ))}
         </div>
@@ -158,6 +172,7 @@ const Home = () => {
   return (
     <div className="fade-in">
       <EnhancedHero />
+      <LogoCarousel />
       <Features />
       <TemplateShowcase />
       <Testimonials />
