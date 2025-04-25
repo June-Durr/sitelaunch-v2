@@ -5,6 +5,7 @@ import Features from "../components/sections/Features";
 import Pricing from "../components/sections/Pricing";
 import Testimonials from "../components/sections/Testimonials";
 import Button from "../components/common/Button";
+import CurvedSectionDivider from "../components/common/CurvedSectionDivider";
 
 // Additional sections for a complete landing page
 const TemplateShowcase = () => {
@@ -172,7 +173,13 @@ const Home = () => {
   return (
     <div className="fade-in">
       <EnhancedHero />
-      <LogoCarousel />
+
+      {/* Add curved section divider after hero */}
+      <div className="bg-purple-50">
+        <CurvedSectionDivider fillColor="#f9f7ff" position="top" />
+        <LogoCarousel />
+      </div>
+
       <Features />
       <TemplateShowcase />
       <Testimonials />
