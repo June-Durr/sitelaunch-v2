@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import AnimatedDemo from "../common/AnimatedDemo";
+import Button from "../common/Button";
 
 const EnhancedHero = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ const EnhancedHero = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Network background animation
+  // Network background animation - represents connectivity and technology
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -268,7 +268,7 @@ const EnhancedHero = () => {
         />
       </div>
 
-      <div className="container-custom relative z-10">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="flex flex-col items-center max-w-4xl mx-auto"
           variants={containerVariants}
@@ -281,16 +281,16 @@ const EnhancedHero = () => {
               className="heading-xl text-white mb-6"
               variants={titleVariants}
             >
-              Powerful Landing Pages That Convert
+              Mobile-First Web Development for Miami Businesses
             </motion.h1>
 
             <motion.p
               className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
               variants={textVariants}
             >
-              Launch high-converting landing pages faster, generate qualified
-              leads, and optimize your marketing efforts—all with one simple
-              solution.
+              We build high-performance, SEO-optimized websites and applications
+              that load fast, look great on any device, and drive measurable
+              business results.
             </motion.p>
 
             <motion.div variants={formVariants} className="flex justify-center">
@@ -307,12 +307,11 @@ const EnhancedHero = () => {
                   className="px-4 py-3 rounded-md bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent flex-grow"
                 />
 
-                {/* Updated orange button with arrow */}
                 <button
                   type="submit"
                   className="group bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm py-3 px-6 rounded-md font-medium inline-flex items-center transition-all duration-200"
                 >
-                  Start my trial
+                  Get Free Consultation
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
@@ -337,11 +336,11 @@ const EnhancedHero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 1.2 } }}
             >
-              No credit card required. 14-day free trial.
+              Miami's leading tech-forward web development agency
             </motion.p>
           </div>
 
-          {/* Hero Demo - Full Width with 3D effect */}
+          {/* Hero Demo - Multi-device display showing mobile-first approach */}
           <motion.div
             className="w-full max-w-4xl"
             initial={{
@@ -371,41 +370,106 @@ const EnhancedHero = () => {
               transformStyle: "preserve-3d",
             }}
           >
-            {/* Browser mockup */}
-            <div className="relative bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200">
-              {/* Browser header */}
-              <div className="bg-gray-100 px-4 py-2 border-b border-gray-200 flex items-center">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="mx-auto bg-white rounded-full px-4 py-1 text-sm text-gray-500 flex items-center">
-                  <svg
-                    className="w-4 h-4 mr-2 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  sitelaunchstudios.com
+            {/* Multi-device mockup */}
+            <div className="relative flex justify-center items-center h-[420px]">
+              {/* Mobile - front and center */}
+              <div className="relative z-30 bg-white shadow-xl rounded-3xl border border-gray-200 w-64 h-[400px]">
+                <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-20 h-2 bg-gray-300 rounded-full"></div>
+                <div className="h-full pt-8 pb-4 px-4">
+                  <div className="bg-gray-50 h-full rounded-xl flex flex-col justify-between p-3">
+                    {/* Mobile website mockup content */}
+                    <div className="space-y-3">
+                      <div className="h-8 bg-primary-500 rounded-lg w-full flex items-center justify-center text-white text-xs font-medium">
+                        SiteLaunch
+                      </div>
+                      <div className="h-32 bg-gray-200 rounded-lg w-full"></div>
+                      <div className="h-2.5 bg-gray-300 rounded-full w-3/4"></div>
+                      <div className="h-2.5 bg-gray-300 rounded-full"></div>
+                      <div className="h-2.5 bg-gray-300 rounded-full w-5/6"></div>
+                      <div className="h-8 bg-secondary-500 rounded-lg w-full mt-3"></div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <div className="h-12 w-12 bg-gray-200 rounded-lg"></div>
+                      <div className="h-12 w-12 bg-gray-200 rounded-lg"></div>
+                      <div className="h-12 w-12 bg-gray-200 rounded-lg"></div>
+                      <div className="h-12 w-12 bg-gray-200 rounded-lg"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Browser content - Using the AnimatedDemo component */}
-              <div className="bg-white">
-                <div className="aspect-[16/9] relative overflow-hidden">
-                  <AnimatedDemo title="Spend Freely. Save Boldly." />
+              {/* Tablet - behind left */}
+              <div className="absolute left-16 top-6 z-20 bg-white shadow-xl rounded-2xl border border-gray-200 w-48 h-[350px] transform -rotate-6">
+                <div className="h-4 w-12 bg-gray-300 mx-auto rounded-b-lg"></div>
+                <div className="bg-gray-50 h-[calc(100%-16px)] p-3">
+                  {/* Tablet website mockup content */}
+                  <div className="space-y-2">
+                    <div className="h-6 bg-primary-500 rounded-md w-full flex items-center justify-center text-white text-xs font-medium">
+                      SiteLaunch
+                    </div>
+                    <div className="h-24 bg-gray-200 rounded-md w-full"></div>
+                    <div className="h-2 bg-gray-300 rounded-full w-3/4"></div>
+                    <div className="h-2 bg-gray-300 rounded-full"></div>
+                    <div className="h-2 bg-gray-300 rounded-full w-5/6"></div>
+                    <div className="h-6 bg-secondary-500 rounded-md w-full mt-2"></div>
+                    <div className="h-20 bg-gray-200 rounded-md w-full mt-3"></div>
+                  </div>
                 </div>
+              </div>
 
-                {/* Optional caption below */}
-                <div className="p-3 text-center text-gray-500 text-sm border-t border-gray-100">
-                  Not Just Another Budgeting App
+              {/* Desktop - behind right */}
+              <div className="absolute right-16 top-12 z-10 bg-white shadow-xl rounded-lg border border-gray-200 w-80 h-[300px] transform rotate-6">
+                <div className="h-6 bg-gray-100 border-b border-gray-200 rounded-t-lg flex items-center px-2">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  </div>
                 </div>
+                <div className="p-3 bg-gray-50 h-[calc(100%-24px)]">
+                  {/* Desktop website mockup content */}
+                  <div className="flex h-full">
+                    <div className="w-2/3 pr-2">
+                      <div className="h-5 bg-primary-500 rounded-md w-32 flex items-center justify-center text-white text-xs font-medium mb-2">
+                        SiteLaunch
+                      </div>
+                      <div className="h-24 bg-gray-200 rounded-md w-full mb-2"></div>
+                      <div className="h-2 bg-gray-300 rounded-full w-3/4 mb-1"></div>
+                      <div className="h-2 bg-gray-300 rounded-full mb-1"></div>
+                      <div className="h-2 bg-gray-300 rounded-full w-5/6 mb-2"></div>
+                      <div className="h-6 bg-secondary-500 rounded-md w-32"></div>
+                    </div>
+                    <div className="w-1/3 pl-2 space-y-2">
+                      <div className="h-16 bg-gray-200 rounded-md"></div>
+                      <div className="h-16 bg-gray-200 rounded-md"></div>
+                      <div className="h-16 bg-gray-200 rounded-md"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Performance indicators */}
+              <div className="absolute right-0 top-0 z-40 bg-white rounded-lg shadow-md py-1 px-2 flex items-center border border-green-100">
+                <span className="text-xs font-medium text-gray-600 mr-1">
+                  Page Speed:
+                </span>
+                <span className="text-xs font-bold text-green-500">98/100</span>
+              </div>
+
+              <div className="absolute left-24 bottom-4 z-40 bg-white rounded-lg shadow-md py-1 px-2 flex items-center border border-primary-100">
+                <span className="text-xs font-medium text-gray-600 mr-1">
+                  Mobile-First:
+                </span>
+                <span className="text-xs font-bold text-primary-500">✓</span>
+              </div>
+
+              <div className="absolute right-24 bottom-16 z-40 bg-white rounded-lg shadow-md py-1 px-2 flex items-center border border-secondary-100">
+                <span className="text-xs font-medium text-gray-600 mr-1">
+                  Conversion:
+                </span>
+                <span className="text-xs font-bold text-secondary-500">
+                  +42%
+                </span>
               </div>
             </div>
 
@@ -421,7 +485,7 @@ const EnhancedHero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Trust Logos */}
+        {/* Client Logos */}
         <motion.div
           className="mt-16"
           initial={{ opacity: 0, y: 20 }}
@@ -432,10 +496,10 @@ const EnhancedHero = () => {
           }}
         >
           <p className="text-center text-gray-400 text-sm uppercase tracking-wider mb-6">
-            Trusted by innovative businesses worldwide
+            Trusted by businesses throughout Miami
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            {/* Placeholder for company logos */}
+            {/* Placeholder for Miami business client logos */}
             {[1, 2, 3, 4, 5].map((item) => (
               <motion.div
                 key={item}
