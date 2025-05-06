@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../common/Button";
+import Modal from "../common/Modal";
+import ContactForm from "../common/ContactForm";
+// import apiService from "../../services/apiService";
 
 const ServiceTierCard = ({ tier, isActive, onClick }) => {
   const features = tier.features;
@@ -43,7 +46,11 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
           </div>
         </div>
 
-        <Button variant={isActive ? "primary" : "outline"} fullWidth>
+        <Button
+          variant={isActive ? "primary" : "outline"}
+          fullWidth
+          className={isActive ? "bg-secondary-500 hover:bg-secondary-600" : ""}
+        >
           {tier.ctaText}
         </Button>
       </div>
@@ -76,6 +83,8 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
 
 const ServiceTiers = () => {
   const [activeTier, setActiveTier] = useState(1); // Default the middle tier as active
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTier, setSelectedTier] = useState(null);
 
   const tiers = [
     {
@@ -137,6 +146,38 @@ const ServiceTiers = () => {
     },
   ];
 
+  const handleTierClick = (tierId) => {
+    setActiveTier(tierId);
+    setSelectedTier(tiers.find((tier) => tier.id === tierId));
+    setIsModalOpen(true);
+  };
+
+  const handleFormSubmit = async (formData) => {
+    try {
+      // Add selected tier information to the form data
+      const enhancedFormData = {
+        ...formData,
+        selectedTier: selectedTier ? selectedTier.title : "Not specified",
+        selectedTierDetails: selectedTier
+          ? `Tier ${selectedTier.id + 1}: ${selectedTier.title}`
+          : "Not specified",
+      };
+
+      // Submit to API service
+      await apiService.submitContactForm(enhancedFormData);
+
+      console.log(
+        "Service tier form submitted successfully:",
+        enhancedFormData
+      );
+
+      // Close modal after successful submission
+      // Note: ContactForm handles success state internally
+    } catch (error) {
+      console.error("Error submitting service tier form:", error);
+    }
+  };
+
   return (
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -158,7 +199,7 @@ const ServiceTiers = () => {
               key={tier.id}
               tier={tier}
               isActive={activeTier === tier.id}
-              onClick={() => setActiveTier(tier.id)}
+              onClick={() => handleTierClick(tier.id)}
             />
           ))}
         </div>
@@ -181,6 +222,41 @@ const ServiceTiers = () => {
           </p>
         </div>
       </div>
+
+      {/* Contact Form Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={
+          selectedTier ? `Get Started with ${selectedTier.title}` : "Contact Us"
+        }
+      >
+        <div className="mb-6">
+          <p className="text-gray-600">
+            Please fill out the form below and we'll get back to you with a
+            custom quote based on your project requirements.
+          </p>
+          {selectedTier && (
+            <div className="mt-4 p-4 bg-purple-50 rounded-lg">
+              <h4 className="font-semibold text-primary-600 mb-2">
+                Selected Service Tier: {selectedTier.title}
+              </h4>
+              <p className="text-sm text-gray-600">
+                {selectedTier.description}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <ContactForm
+          inline={false}
+          buttonText="Submit Request"
+          successMessage={`Thank you for your interest in our ${
+            selectedTier ? selectedTier.title : ""
+          } service! We'll be in touch shortly with a custom quote.`}
+          onSubmit={handleFormSubmit}
+        />
+      </Modal>
     </section>
   );
 };

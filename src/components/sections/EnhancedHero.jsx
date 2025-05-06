@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Button from "../common/Button";
+import ContactForm from "../common/ContactForm";
+// import apiService from "../../services/apiService";
 
 const EnhancedHero = () => {
-  const [email, setEmail] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const canvasRef = useRef(null);
 
@@ -14,6 +14,24 @@ const EnhancedHero = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle form submission
+  const handleFormSubmit = async (formData) => {
+    try {
+      // Add source information
+      const enhancedFormData = {
+        ...formData,
+        source: "Hero Section",
+      };
+
+      // Submit to API service
+      await apiService.submitContactForm(enhancedFormData);
+
+      console.log("Hero form submitted successfully:", enhancedFormData);
+    } catch (error) {
+      console.error("Error submitting hero form:", error);
+    }
+  };
 
   // Network background animation - represents connectivity and technology
   useEffect(() => {
@@ -200,12 +218,6 @@ const EnhancedHero = () => {
     },
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Email submitted:", email);
-  };
-
   return (
     <section id="hero" className="relative pt-32 pb-20 overflow-hidden">
       {/* Network background canvas */}
@@ -294,40 +306,13 @@ const EnhancedHero = () => {
             </motion.p>
 
             <motion.div variants={formVariants} className="flex justify-center">
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-2 w-full max-w-md"
-              >
-                <input
-                  type="email"
-                  placeholder="Work email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="px-4 py-3 rounded-md bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent flex-grow"
-                />
-
-                <button
-                  type="submit"
-                  className="group bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm py-3 px-6 rounded-md font-medium inline-flex items-center transition-all duration-200"
-                >
-                  Get Free Consultation
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </button>
-              </form>
+              {/* Progressive Contact Form */}
+              <ContactForm
+                inline={true}
+                buttonText="Get Free Consultation"
+                className="w-full max-w-md"
+                onSubmit={handleFormSubmit}
+              />
             </motion.div>
 
             <motion.p

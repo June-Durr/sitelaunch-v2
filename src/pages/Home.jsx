@@ -7,6 +7,7 @@ import Testimonials from "../components/sections/Testimonials";
 import Button from "../components/common/Button";
 import CurvedSectionDivider from "../components/common/CurvedSectionDivider";
 import { Helmet } from "react-helmet";
+import CallToAction from "../components/sections/CallToAction";
 
 // Process section showcasing mobile-first approach
 const MobileFirstApproach = () => {
@@ -185,48 +186,6 @@ const MobileFirstApproach = () => {
   );
 };
 
-// Call to action section
-const CallToAction = () => {
-  return (
-    <section className="py-20 bg-gray-900 text-white">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="heading-lg mb-6">
-            Ready to launch your digital presence?
-          </h2>
-          <p className="text-xl mb-8">
-            Partner with Miami's tech-forward web development agency
-            specializing in mobile-first, high-performance websites and
-            applications.
-          </p>
-
-          <button className="group bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm py-3 px-6 rounded-md font-medium inline-flex items-center">
-            Start your project
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </button>
-
-          <p className="mt-4 text-sm text-purple-200">
-            Get a free consultation and project estimate.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // Target Market section
 const TargetMarkets = () => {
   const markets = [
@@ -370,7 +329,7 @@ const Home = () => {
               "url": "https://sitelaunchstudios.com",
               "telephone": "+13055551234",
               "openingHours": "Mo,Tu,We,Th,Fr 09:00-17:00",
-              "priceRange": "$$",
+              "priceRange": "$",
               "image": "https://sitelaunchstudios.com/images/logo.png",
               "sameAs": [
                 "https://www.facebook.com/sitelaunchstudios",
@@ -462,7 +421,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Call to Action */}
+      {/* Call to Action with Form Modal */}
       <CallToAction />
     </div>
   );
