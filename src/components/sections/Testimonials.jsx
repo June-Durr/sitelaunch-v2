@@ -6,11 +6,11 @@ const Testimonials = () => {
   const testimonials = [
     {
       quote:
-        "SiteLaunch Studios transformed our online presence with a mobile-first website that loads lightning-fast and converts visitors into customers. Their technical expertise and focus on measurable results exceeded our expectations.",
-      author: "Sarah Johnson",
-      position: "Marketing Director",
-      company: "Miami Wellness Collective",
-      image: "/images/testimonial-1.jpg",
+        "SiteLaunch Studios created an outstanding mobile-first landing page for my marketing company. Their design perfectly balances aesthetics with functionality, featuring seamless form integration that makes it easy for potential customers to connect with us. The responsive design works flawlessly across all devices, and since implementation, we've seen a notable increase in conversions. Highly recommend their professional web design services!",
+      author: "Bohdan Mykytey",
+      position: "Software Engineer",
+      company: "Wallsteet Development",
+      image: "public/images/unnamed.png",
     },
     {
       quote:

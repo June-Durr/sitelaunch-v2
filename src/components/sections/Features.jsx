@@ -359,38 +359,195 @@ const Features = () => {
               <div className="relative">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform -rotate-1">
                   <div className="h-8 bg-gray-100 border-b border-gray-200 flex items-center px-4">
-                    <div className="ml-4 text-xs text-gray-500">
-                      Conversion Optimization
+                    <div className="flex space-x-2 mr-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      SiteLaunch A/B Testing Dashboard
                     </div>
                   </div>
                   <div className="p-4 bg-gray-50 aspect-video">
                     {/* Split test visualization */}
                     <div className="w-full h-full flex flex-col">
-                      <div className="text-center mb-4 font-bold text-gray-700">
-                        A/B Test Results
+                      <div className="text-center mb-2 font-bold text-gray-700">
+                        Landing Page Conversion Rate Comparison
                       </div>
-                      <div className="flex-1 flex items-end space-x-4 pb-8">
-                        <div className="flex-1 flex flex-col items-center">
-                          <div
-                            className="w-full bg-blue-400 rounded-t-md"
-                            style={{ height: "60%" }}
-                          ></div>
-                          <div className="mt-2 text-sm text-gray-600">
-                            Version A
+
+                      {/* Test description */}
+                      <div className="mb-3 text-xs text-gray-600 px-2 text-center">
+                        <span className="font-medium">Test duration:</span> 30
+                        days | <span className="font-medium">Traffic:</span>{" "}
+                        10,500 visitors |{" "}
+                        <span className="font-medium">Goal:</span> Lead form
+                        submissions
+                      </div>
+
+                      <div className="flex-1 flex space-x-4 pb-2">
+                        <div className="flex-1 flex flex-col">
+                          {/* Version A content */}
+                          <div className="bg-gray-100 p-2 rounded-md mb-2">
+                            <div className="font-semibold text-gray-800 text-sm">
+                              Standard Design
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <div className="text-xs text-gray-500">
+                                <div>• Traditional layout</div>
+                                <div>• Standard CTA</div>
+                              </div>
+                              <div className="bg-white rounded-md p-1 shadow-sm">
+                                <div className="text-xs text-gray-800 font-medium">
+                                  Engagement
+                                </div>
+                                {/* Mini chart for Version A */}
+                                <div className="flex h-6 items-end space-x-0.5 mt-1">
+                                  <div className="w-1 h-[20%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[30%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[25%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[40%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[35%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[45%] bg-blue-300 rounded-t"></div>
+                                  <div className="w-1 h-[55%] bg-blue-400 rounded-t"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Metrics for Version A */}
+                          <div className="flex space-x-2 mb-3">
+                            <div className="flex-1 bg-white rounded p-1.5 shadow-sm text-center">
+                              <div className="text-xs text-gray-500">
+                                Avg. Time
+                              </div>
+                              <div className="text-sm font-bold text-blue-500">
+                                1:45
+                              </div>
+                            </div>
+                            <div className="flex-1 bg-white rounded p-1.5 shadow-sm text-center">
+                              <div className="text-xs text-gray-500">
+                                Bounce
+                              </div>
+                              <div className="text-sm font-bold text-blue-500">
+                                42%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex-1 flex items-end">
+                            <div className="w-full">
+                              <div className="w-full bg-blue-400 rounded-t-md h-[60%]"></div>
+                              <div className="mt-2 text-center">
+                                <div className="text-sm text-gray-600">
+                                  Version A
+                                </div>
+                                <div className="font-medium text-blue-500 text-lg">
+                                  11.9%
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  1,250 conversions
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex-1 flex flex-col items-center">
-                          <div
-                            className="w-full bg-primary-500 rounded-t-md"
-                            style={{ height: "85%" }}
-                          ></div>
-                          <div className="mt-2 text-sm text-gray-600">
-                            Version B
+
+                        {/* Divider */}
+                        <div className="border-r border-gray-200"></div>
+
+                        <div className="flex-1 flex flex-col">
+                          {/* Version B content */}
+                          <div className="bg-primary-50 p-2 rounded-md mb-2">
+                            <div className="font-semibold text-primary-700 text-sm">
+                              Mobile-First Design
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <div className="text-xs text-primary-600">
+                                <div>• Responsive layout</div>
+                                <div>• AI-enhanced UX</div>
+                              </div>
+                              <div className="bg-white rounded-md p-1 shadow-sm">
+                                <div className="text-xs text-gray-800 font-medium">
+                                  Engagement
+                                </div>
+                                {/* Mini chart for Version B */}
+                                <div className="flex h-6 items-end space-x-0.5 mt-1">
+                                  <div className="w-1 h-[40%] bg-primary-300 rounded-t"></div>
+                                  <div className="w-1 h-[50%] bg-primary-300 rounded-t"></div>
+                                  <div className="w-1 h-[60%] bg-primary-400 rounded-t"></div>
+                                  <div className="w-1 h-[70%] bg-primary-400 rounded-t"></div>
+                                  <div className="w-1 h-[65%] bg-primary-400 rounded-t"></div>
+                                  <div className="w-1 h-[80%] bg-primary-500 rounded-t"></div>
+                                  <div className="w-1 h-[90%] bg-primary-500 rounded-t"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Metrics for Version B */}
+                          <div className="flex space-x-2 mb-3">
+                            <div className="flex-1 bg-white rounded p-1.5 shadow-sm text-center">
+                              <div className="text-xs text-gray-500">
+                                Avg. Time
+                              </div>
+                              <div className="text-sm font-bold text-primary-500">
+                                2:37
+                              </div>
+                            </div>
+                            <div className="flex-1 bg-white rounded p-1.5 shadow-sm text-center">
+                              <div className="text-xs text-gray-500">
+                                Bounce
+                              </div>
+                              <div className="text-sm font-bold text-primary-500">
+                                28%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex-1 flex items-end">
+                            <div className="w-full">
+                              <div className="w-full bg-primary-500 rounded-t-md h-[85%]"></div>
+                              <div className="mt-2 text-center">
+                                <div className="text-sm text-gray-600">
+                                  Version B
+                                </div>
+                                <div className="font-medium text-primary-500 text-lg">
+                                  17.0%
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  1,785 conversions
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="text-center text-sm font-bold text-primary-500">
-                        +42% Conversion Improvement
+
+                      {/* Results summary with improvement indicator */}
+                      <div className="bg-gray-100 rounded-lg p-2 flex justify-between items-center mt-1">
+                        <div className="text-xs text-gray-600">
+                          <span className="font-medium">Results:</span>{" "}
+                          SiteLaunch's mobile-first approach delivered
+                          measurable ROI
+                        </div>
+                        <div className="flex items-center bg-green-50 px-2 py-1 rounded border border-green-100">
+                          <svg
+                            className="w-4 h-4 text-green-500 mr-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 10l7-7m0 0l7 7m-7-7v18"
+                            />
+                          </svg>
+                          <span className="text-sm font-bold text-green-600">
+                            +42% Conversion Improvement
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

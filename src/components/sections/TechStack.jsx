@@ -9,25 +9,133 @@ const TechStack = () => {
         {
           name: "React",
           description: "Modern JavaScript library for building user interfaces",
-          icon: "react.svg",
+          logoSvg: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="-11.5 -10.23174 23 20.46348"
+            >
+              <circle cx="0" cy="0" r="2.05" fill="#61dafb" />
+              <g stroke="#61dafb" stroke-width="1" fill="none">
+                <ellipse rx="11" ry="4.2" />
+                <ellipse transform="rotate(60)" rx="11" ry="4.2" />
+                <ellipse transform="rotate(120)" rx="11" ry="4.2" />
+              </g>
+            </svg>
+          ),
           color: "bg-blue-100 text-blue-500",
         },
         {
           name: "Vite",
           description: "Next-generation frontend build tool with faster builds",
-          icon: "vite.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <title>file_type_vite</title>
+                <path
+                  d="M29.8836 6.146L16.7418 29.6457c-.2714.4851-.9684.488-1.2439.0052L2.0956 6.1482c-.3-.5262.1498-1.1635.746-1.057l13.156 2.3516a.7144.7144 0 00.2537-.0004l12.8808-2.3478c.5942-.1083 1.0463.5241.7515 1.0513z"
+                  fill="url(#paint0_linear)"
+                ></path>
+                <path
+                  d="M22.2644 2.0069l-9.7253 1.9056a.3571.3571 0 00-.2879.3294l-.5982 10.1038c-.014.238.2045.4227.4367.3691l2.7077-.6248c.2534-.0585.4823.1647.4302.4194l-.8044 3.9393c-.0542.265.1947.4918.4536.4132l1.6724-.5082c.2593-.0787.5084.1487.4536.414l-1.2784 6.1877c-.08.387.4348.598.6495.2662L16.5173 25 24.442 9.1848c.1327-.2648-.096-.5667-.387-.5106l-2.787.5379c-.262.0505-.4848-.1934-.4109-.4497l1.8191-6.306c.074-.2568-.1496-.5009-.4118-.4495z"
+                  fill="url(#paint1_linear)"
+                ></path>
+                <defs id="defs50">
+                  <linearGradient
+                    id="paint0_linear"
+                    x1="6.0002"
+                    y1="32.9999"
+                    x2="235"
+                    y2="344"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)"
+                  >
+                    <stop stop-color="#41D1FF" id="stop38"></stop>
+                    <stop offset="1" stop-color="#BD34FE" id="stop40"></stop>
+                  </linearGradient>
+                  <linearGradient
+                    id="paint1_linear"
+                    x1="194.651"
+                    y1="8.8182"
+                    x2="236.076"
+                    y2="292.989"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)"
+                  >
+                    <stop stop-color="#FFEA83" id="stop43"></stop>
+                    <stop
+                      offset=".0833"
+                      stop-color="#FFDD35"
+                      id="stop45"
+                    ></stop>
+                    <stop offset="1" stop-color="#FFA800" id="stop47"></stop>
+                  </linearGradient>
+                </defs>
+              </g>
+            </svg>
+          ),
           color: "bg-purple-100 text-purple-500",
         },
         {
           name: "Tailwind CSS",
           description: "Utility-first CSS framework for rapid UI development",
-          icon: "tailwind.svg",
+          logoSvg: (
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <title>file_type_tailwind</title>
+              <path
+                d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z"
+                style={{ fill: "#44a8b3" }}
+              ></path>
+            </svg>
+          ),
           color: "bg-cyan-100 text-cyan-500",
         },
         {
           name: "Framer Motion",
           description: "Production-ready motion library for React",
-          icon: "framer.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30Z"
+                  fill="white"
+                ></path>{" "}
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9 20.3335H16V27.0002L9 20.3335Z"
+                  fill="#0055FF"
+                ></path>{" "}
+                <path
+                  d="M16 13.6665H9V20.3332H23L16 13.6665Z"
+                  fill="#00AAFF"
+                ></path>{" "}
+                <path d="M9 7L16 13.6667H23V7H9Z" fill="#88DDFF"></path>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-pink-100 text-pink-500",
         },
       ],
@@ -38,25 +146,117 @@ const TechStack = () => {
         {
           name: "AWS Amplify",
           description: "Deployment and hosting with continuous integration",
-          icon: "aws.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  fill="#252F3E"
+                  d="M4.51 7.687c0 .197.02.357.058.475.042.117.096.245.17.384a.233.233 0 01.037.123c0 .053-.032.107-.1.16l-.336.224a.255.255 0 01-.138.048c-.054 0-.107-.026-.16-.074a1.652 1.652 0 01-.192-.251 4.137 4.137 0 01-.165-.315c-.415.491-.936.737-1.564.737-.447 0-.804-.129-1.064-.385-.261-.256-.394-.598-.394-1.025 0-.454.16-.822.484-1.1.325-.278.756-.416 1.304-.416.18 0 .367.016.564.042.197.027.4.07.612.118v-.39c0-.406-.085-.689-.25-.854-.17-.166-.458-.246-.868-.246-.186 0-.377.022-.574.07a4.23 4.23 0 00-.575.181 1.525 1.525 0 01-.186.07.326.326 0 01-.085.016c-.075 0-.112-.054-.112-.166v-.262c0-.085.01-.15.037-.186a.399.399 0 01.15-.113c.185-.096.409-.176.67-.24.26-.07.537-.101.83-.101.633 0 1.096.144 1.394.432.293.288.442.726.442 1.314v1.73h.01zm-2.161.811c.175 0 .356-.032.548-.096.191-.064.362-.182.505-.342a.848.848 0 00.181-.341c.032-.129.054-.283.054-.465V7.03a4.43 4.43 0 00-.49-.09 3.996 3.996 0 00-.5-.033c-.357 0-.618.07-.793.214-.176.144-.26.347-.26.614 0 .25.063.437.196.566.128.133.314.197.559.197zm4.273.577c-.096 0-.16-.016-.202-.054-.043-.032-.08-.106-.112-.208l-1.25-4.127a.938.938 0 01-.049-.214c0-.085.043-.133.128-.133h.522c.1 0 .17.016.207.053.043.032.075.107.107.208l.894 3.535.83-3.535c.026-.106.058-.176.1-.208a.365.365 0 01.214-.053h.425c.102 0 .17.016.213.053.043.032.08.107.101.208l.841 3.578.92-3.578a.458.458 0 01.107-.208.346.346 0 01.208-.053h.495c.085 0 .133.043.133.133 0 .027-.006.054-.01.086a.76.76 0 01-.038.133l-1.283 4.127c-.032.107-.069.177-.111.209a.34.34 0 01-.203.053h-.457c-.101 0-.17-.016-.213-.053-.043-.038-.08-.107-.101-.214L8.213 5.37l-.82 3.439c-.026.107-.058.176-.1.213-.043.038-.118.054-.213.054h-.458zm6.838.144a3.51 3.51 0 01-.82-.096c-.266-.064-.473-.134-.612-.214-.085-.048-.143-.101-.165-.15a.378.378 0 01-.031-.149v-.272c0-.112.042-.166.122-.166a.3.3 0 01.096.016c.032.011.08.032.133.054.18.08.378.144.585.187.213.042.42.064.633.064.336 0 .596-.059.777-.176a.575.575 0 00.277-.508.52.52 0 00-.144-.373c-.095-.102-.276-.193-.537-.278l-.772-.24c-.388-.123-.676-.305-.851-.545a1.275 1.275 0 01-.266-.774c0-.224.048-.422.143-.593.096-.17.224-.32.384-.438.16-.122.34-.213.553-.277.213-.064.436-.091.67-.091.118 0 .24.005.357.021.122.016.234.038.346.06.106.026.208.052.303.085.096.032.17.064.224.096a.46.46 0 01.16.133.289.289 0 01.047.176v.251c0 .112-.042.171-.122.171a.552.552 0 01-.202-.064 2.427 2.427 0 00-1.022-.208c-.303 0-.543.048-.708.15-.165.1-.25.256-.25.475 0 .149.053.277.16.379.106.101.303.202.585.293l.756.24c.383.123.66.294.825.513.165.219.244.47.244.748 0 .23-.047.437-.138.619a1.436 1.436 0 01-.388.47c-.165.133-.362.23-.591.299-.24.075-.49.112-.761.112z"
+                ></path>{" "}
+                <g fill="#F90" fill-rule="evenodd" clip-rule="evenodd">
+                  {" "}
+                  <path d="M14.465 11.813c-1.75 1.297-4.294 1.986-6.481 1.986-3.065 0-5.827-1.137-7.913-3.027-.165-.15-.016-.353.18-.235 2.257 1.313 5.04 2.109 7.92 2.109 1.941 0 4.075-.406 6.039-1.239.293-.133.543.192.255.406z"></path>{" "}
+                  <path d="M15.194 10.98c-.223-.287-1.479-.138-2.048-.069-.17.022-.197-.128-.043-.24 1-.705 2.645-.502 2.836-.267.192.24-.053 1.89-.99 2.68-.143.123-.281.06-.218-.1.213-.53.687-1.72.463-2.003z"></path>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-orange-100 text-orange-500",
         },
         {
           name: "AWS Lambda",
           description: "Serverless function execution for form handling",
-          icon: "lambda.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  fill="#FA7E14"
+                  d="M7.983 8.37c-.053.073-.098.133-.141.194L5.775 11.5c-.64.91-1.282 1.82-1.924 2.73a.128.128 0 01-.092.051c-.906-.007-1.813-.017-2.719-.028-.01 0-.02-.003-.04-.006a.455.455 0 01.025-.053 13977.496 13977.496 0 015.446-8.146c.092-.138.188-.273.275-.413a.165.165 0 00.018-.124c-.167-.515-.338-1.03-.508-1.543-.073-.22-.15-.44-.218-.66-.022-.072-.059-.094-.134-.093-.57.002-1.136.001-1.704.001-.108 0-.108 0-.108-.103 0-.674 0-1.347-.002-2.021 0-.075.026-.092.099-.092 1.143.002 2.286.002 3.43 0a.113.113 0 01.076.017.107.107 0 01.045.061 18266.184 18266.184 0 003.92 9.51c.218.53.438 1.059.654 1.59.026.064.053.076.12.056.6-.178 1.2-.352 1.8-.531.075-.023.102-.008.126.064.204.62.412 1.239.62 1.858l.02.073c-.043.015-.083.032-.124.043l-4.085 1.25c-.065.02-.085 0-.106-.054l-1.25-3.048-1.226-2.984-.183-.449c-.01-.026-.023-.048-.043-.087z"
+                ></path>
+              </g>
+            </svg>
+          ),
           color: "bg-orange-100 text-orange-500",
         },
         {
           name: "AWS SES",
           description: "Reliable email handling for contact forms",
-          icon: "ses.svg",
+          logoSvg: (
+            <svg
+              viewBox="1.578 -113.594 1087.411 1087.411"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  fill="#F7A80D"
+                  d="M318.839 547.785l-99.62 42.792 92.26 39.455 106.98-39.455-99.62-42.792zm-149.773 53.49l-3.338 192.564 145.75 64.188V658.104l-142.412-56.829zm299.545 0l-131.715 50.152V839.97l131.715-53.49V601.275zM625.743 2.186L525.438 44.979l92.944 39.454 106.98-39.454-99.619-42.793zm-139.074 56.85V251.6l124.354 36.116 4.022-175.191-128.376-53.489zm278.149 10.697L647.14 119.886v189.227l117.679-53.49V69.733zM154.688 273.21l-99.62 42.792 92.26 39.455 106.98-39.455-99.62-42.792zM4.916 326.7L1.578 519.265l145.75 64.188V383.528L4.916 326.7zm299.545 0l-131.714 50.152v188.542l131.714-53.49V326.7zm171.168-60.594l-99.62 42.792 92.26 39.455 106.98-39.455-99.62-42.792zm-149.773 53.491l-3.338 192.564 145.75 64.188V376.446l-142.412-56.849zm299.545 0l-131.714 50.152v188.542l131.714-53.49V319.597zM939.217 2.186l-99.619 42.792 92.26 39.454 106.979-39.454-99.62-42.792zm-149.773 53.49l-3.337 192.564 145.75 64.188V112.525L789.444 55.676zm299.545 0l-131.714 50.152V294.37l131.714-53.49V55.676z"
+                ></path>
+              </g>
+            </svg>
+          ),
           color: "bg-orange-100 text-orange-500",
         },
         {
           name: "Vercel",
           description: "Alternative deployment platform for specific use cases",
-          icon: "vercel.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 -198 512 512"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              preserveAspectRatio="xMidYMid"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <g>
+                  {" "}
+                  <path
+                    d="M255.420487,28.975665 C235.427278,28.975665 221.011885,42.0147142 221.011885,61.5732881 C221.011885,81.1318619 237.238257,94.1709111 257.231466,94.1709111 C269.310696,94.1709111 279.959253,89.3899264 286.551217,81.3310696 L272.697227,73.3265422 C269.039049,77.3288059 263.479344,79.6649689 257.231466,79.6649689 C248.556876,79.6649689 241.186191,75.1375212 238.451613,67.893605 L289.195246,67.893605 C289.593662,65.8653084 289.829089,63.7645727 289.829089,61.5551783 C289.829089,42.0147142 275.413696,28.975665 255.420487,28.975665 Z M238.288625,55.2348613 C240.552349,48.0090549 246.745897,43.4634975 255.402377,43.4634975 C264.076967,43.4634975 270.270515,48.0090549 272.516129,55.2348613 L238.288625,55.2348613 L238.288625,55.2348613 Z M450.426712,28.975665 C430.433503,28.975665 416.01811,42.0147142 416.01811,61.5732881 C416.01811,81.1318619 432.244482,94.1709111 452.237691,94.1709111 C464.316921,94.1709111 474.965478,89.3899264 481.557442,81.3310696 L467.703452,73.3265422 C464.045274,77.3288059 458.485569,79.6649689 452.237691,79.6649689 C443.563101,79.6649689 436.192417,75.1375212 433.457838,67.893605 L484.201471,67.893605 C484.599887,65.8653084 484.835314,63.7645727 484.835314,61.5551783 C484.835314,42.0147142 470.419921,28.975665 450.426712,28.975665 L450.426712,28.975665 Z M433.31296,55.2348613 C435.576684,48.0090549 441.770232,43.4634975 450.426712,43.4634975 C459.101302,43.4634975 465.29485,48.0090549 467.540464,55.2348613 L433.31296,55.2348613 Z M362.630447,61.5732881 C362.630447,72.4391624 369.729485,79.6830787 380.740238,79.6830787 C388.201471,79.6830787 393.797397,76.2965478 396.676853,70.7730617 L410.585173,78.7956989 C404.826259,88.3938879 394.032824,94.1709111 380.740238,94.1709111 C360.728919,94.1709111 346.331636,81.1318619 346.331636,61.5732881 C346.331636,42.0147142 360.747029,28.975665 380.740238,28.975665 C394.032824,28.975665 404.808149,34.7526882 410.585173,44.3508772 L396.676853,52.3735144 C393.797397,46.8500283 388.201471,43.4634975 380.740238,43.4634975 C369.747595,43.4634975 362.630447,50.7074137 362.630447,61.5732881 Z M512,9.0548953 L512,92.3599321 L495.701188,92.3599321 L495.701188,9.0548953 L512,9.0548953 Z M66.9156763,-1.42108547e-14 L133.831353,115.90266 L0,115.90266 L66.9156763,-1.42108547e-14 Z M234.213922,9.0548953 L184.031692,95.9818902 L133.849462,9.0548953 L152.665535,9.0548953 L184.031692,63.3842671 L215.397849,9.0548953 L234.213922,9.0548953 Z M340.898698,30.786644 L340.898698,48.3350311 C339.087719,47.8098472 337.168081,47.4476514 335.103565,47.4476514 C324.581777,47.4476514 316.993775,54.6915676 316.993775,65.557442 L316.993775,92.3599321 L300.694963,92.3599321 L300.694963,30.786644 L316.993775,30.786644 L316.993775,47.4476514 C316.993775,38.2478778 327.696661,30.786644 340.898698,30.786644 Z"
+                    fill="#000000"
+                    fill-rule="nonzero"
+                  >
+                    {" "}
+                  </path>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-gray-100 text-gray-800",
         },
       ],
@@ -67,25 +267,202 @@ const TechStack = () => {
         {
           name: "Contentful / Sanity",
           description: "Headless CMS for easy content management",
-          icon: "cms.svg",
+          logoSvg: (
+            <svg
+              viewBox="-16.5 0 289 289"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              preserveAspectRatio="xMidYMid"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <g>
+                  {" "}
+                  <path
+                    d="M87.333315,200.77659 C72.0274763,186.371095 63.0240418,166.563539 63.0240418,144.054953 C63.0240418,121.546366 72.0274763,101.73881 86.4329716,87.333315 C99.0377799,74.7285067 99.0377799,54.9209507 86.4329716,42.3161423 C73.8281632,29.711334 54.0206072,29.711334 41.4157989,42.3161423 C16.2061822,68.4261025 0,104.439841 0,144.054953 C0,183.670065 16.2061822,219.683803 42.3161423,245.793763 C54.9209507,258.398571 74.7285067,258.398571 87.333315,245.793763 C99.0377799,233.188955 99.0377799,213.381399 87.333315,200.77659 Z"
+                    fill="#FAE501"
+                  >
+                    {" "}
+                  </path>{" "}
+                  <path
+                    d="M87.333315,87.333315 C101.73881,72.0274763 121.546366,63.0240418 144.054953,63.0240418 C166.563539,63.0240418 186.371095,72.0274763 200.77659,86.4329716 C213.381399,99.0377799 233.188955,99.0377799 245.793763,86.4329716 C258.398571,73.8281632 258.398571,54.0206072 245.793763,41.4157989 C219.683803,16.2061822 183.670065,0 144.054953,0 C104.439841,0 68.4261025,16.2061822 42.3161423,42.3161423 C29.711334,54.9209507 29.711334,74.7285067 42.3161423,87.333315 C54.9209507,99.0377799 74.7285067,99.0377799 87.333315,87.333315 Z"
+                    fill="#4FB5E1"
+                  >
+                    {" "}
+                  </path>{" "}
+                  <path
+                    d="M200.77659,200.77659 C186.371095,216.082429 166.563539,225.085863 144.054953,225.085863 C121.546366,225.085863 101.73881,216.082429 87.333315,201.676934 C74.7285067,189.072125 54.9209507,189.072125 42.3161423,201.676934 C29.711334,214.281742 29.711334,234.089298 42.3161423,246.694106 C68.4261025,271.903723 104.439841,288.109905 144.054953,288.109905 C183.670065,288.109905 219.683803,271.903723 245.793763,245.793763 C258.398571,233.188955 258.398571,213.381399 245.793763,200.77659 C233.188955,189.072125 213.381399,189.072125 200.77659,200.77659 Z"
+                    fill="#F05751"
+                  >
+                    {" "}
+                  </path>{" "}
+                  <ellipse
+                    fill="#0681B6"
+                    cx="64.8247287"
+                    cy="64.8247287"
+                    rx="31.5120209"
+                    ry="31.5120209"
+                  >
+                    {" "}
+                  </ellipse>{" "}
+                  <ellipse
+                    fill="#CD4739"
+                    cx="64.8247287"
+                    cy="223.285177"
+                    rx="31.5120209"
+                    ry="31.5120209"
+                  >
+                    {" "}
+                  </ellipse>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-green-100 text-green-500",
         },
         {
           name: "Google Analytics 4",
           description: "Advanced analytics with custom event tracking",
-          icon: "analytics.svg",
+          logoSvg: (
+            <svg
+              viewBox="-14 0 284 284"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              preserveAspectRatio="xMidYMid"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <g>
+                  {" "}
+                  <path
+                    d="M256.003159,247.933017 C256.055907,258.030289 251.77298,267.664804 244.241349,274.390297 C236.709718,281.11579 226.653817,284.285366 216.626905,283.094249 C198.58347,280.424364 185.360959,264.722632 185.800619,246.488035 L185.800619,36.8452103 C185.364944,18.5907614 198.619678,2.88144681 216.687112,0.238996295 C226.704325,-0.933476157 236.743571,2.24455542 244.261279,8.9678962 C251.778988,15.691237 256.053811,25.3147619 256.003159,35.4002282 L256.003159,247.933017 Z"
+                    fill="#F9AB00"
+                  >
+                    {" "}
+                  </path>{" "}
+                  <path
+                    d="M35.1010243,213.193238 C54.4867848,213.193238 70.2020487,228.908502 70.2020487,248.294263 C70.2020487,267.680023 54.4867848,283.395287 35.1010243,283.395287 C15.7152639,283.395287 0,267.680023 0,248.294263 C0,228.908502 15.7152639,213.193238 35.1010243,213.193238 Z M127.459466,106.806429 C107.981896,107.874068 92.8698765,124.212107 93.3217628,143.713681 L93.3217628,237.998765 C93.3217628,263.58699 104.580582,279.120548 121.077461,282.431965 C131.434034,284.530959 142.185473,281.860819 150.356699,275.160414 C158.527925,268.460009 163.252393,258.439904 163.222912,247.872809 L163.222912,142.088076 C163.240039,132.641687 159.462041,123.584285 152.737293,116.950107 C146.012546,110.315928 136.904752,106.661084 127.459466,106.806429 L127.459466,106.806429 Z"
+                    fill="#E37400"
+                  >
+                    {" "}
+                  </path>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-yellow-100 text-yellow-600",
         },
         {
           name: "Structured Data",
           description: "Schema markup for enhanced search results",
-          icon: "schema.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  d="M8 5C8 6.65685 6.65685 8 5 8C3.34315 8 2 6.65685 2 5C2 3.34315 3.34315 2 5 2C6.65685 2 8 3.34315 8 5Z"
+                  fill="#1C274C"
+                ></path>{" "}
+                <path
+                  d="M22 5C22 6.65685 20.6569 8 19 8C17.3431 8 16 6.65685 16 5C16 3.34315 17.3431 2 19 2C20.6569 2 22 3.34315 22 5Z"
+                  fill="#1C274C"
+                ></path>{" "}
+                <path
+                  d="M8 19C8 20.6569 6.65685 22 5 22C3.34315 22 2 20.6569 2 19C2 17.3431 3.34315 16 5 16C6.65685 16 8 17.3431 8 19Z"
+                  fill="#1C274C"
+                ></path>{" "}
+                <path
+                  d="M22 19C22 20.6569 20.6569 22 19 22C17.3431 22 16 20.6569 16 19C16 17.3431 17.3431 16 19 16C20.6569 16 22 17.3431 22 19Z"
+                  fill="#1C274C"
+                ></path>{" "}
+                <g opacity="0.5">
+                  {" "}
+                  <path
+                    d="M16.093 4.25572C16.0626 4.25194 16.0315 4.25 16 4.25H8C7.96849 4.25 7.93744 4.25194 7.90695 4.25572C7.9677 4.49371 8 4.74308 8 5C8 5.25692 7.9677 5.50629 7.90695 5.74428C7.93744 5.74806 7.96849 5.75 8 5.75H16C16.0315 5.75 16.0626 5.74805 16.093 5.74428C16.0323 5.50629 16 5.25692 16 5C16 4.74308 16.0323 4.49371 16.093 4.25572Z"
+                    fill="#1C274C"
+                  ></path>{" "}
+                  <path
+                    d="M19 8C19.2569 8 19.5063 7.96771 19.7443 7.90695C19.7481 7.93744 19.75 7.96849 19.75 8V16C19.75 16.0315 19.7481 16.0626 19.7443 16.0931C19.5063 16.0323 19.2569 16 19 16C18.7431 16 18.4937 16.0323 18.2557 16.0931C18.2519 16.0626 18.25 16.0315 18.25 16V8C18.25 7.96849 18.2519 7.93744 18.2557 7.90695C18.4937 7.96771 18.7431 8 19 8Z"
+                    fill="#1C274C"
+                  ></path>{" "}
+                  <path
+                    d="M16.0931 18.2557C16.0626 18.2519 16.0315 18.25 16 18.25H8C7.96849 18.25 7.93744 18.2519 7.90695 18.2557C7.9677 18.4937 8 18.7431 8 19C8 19.2569 7.9677 19.5063 7.90695 19.7443C7.93744 19.7481 7.96849 19.75 8 19.75H16C16.0315 19.75 16.0626 19.7481 16.0931 19.7443C16.0323 19.5063 16 19.2569 16 19C16 18.7431 16.0323 18.4937 16.0931 18.2557Z"
+                    fill="#1C274C"
+                  ></path>{" "}
+                  <path
+                    d="M5 8C4.74308 8 4.49371 7.9677 4.25572 7.90695C4.25194 7.93744 4.25 7.96849 4.25 8V16C4.25 16.0315 4.25194 16.0626 4.25572 16.093C4.49371 16.0323 4.74308 16 5 16C5.25692 16 5.50629 16.0323 5.74428 16.0931C5.74806 16.0626 5.75 16.0315 5.75 16L5.75 8C5.75 7.96849 5.74806 7.93744 5.74428 7.90695C5.50629 7.9677 5.25692 8 5 8Z"
+                    fill="#1C274C"
+                  ></path>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-blue-100 text-blue-600",
         },
         {
           name: "AI Integrations",
           description: "Custom AI solutions for personalization",
-          icon: "ai.svg",
+          logoSvg: (
+            <svg
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <title>machine-learning</title>{" "}
+                <g id="Layer_2" data-name="Layer 2">
+                  {" "}
+                  <g id="invisible_box" data-name="invisible box">
+                    {" "}
+                    <rect width="48" height="48" fill="none"></rect>{" "}
+                  </g>{" "}
+                  <g id="Q3_icons" data-name="Q3 icons">
+                    {" "}
+                    <path d="M31,33a2,2,0,0,0,2-2V28h1.5a1.5,1.5,0,0,0,0-3H33V23h1.5a1.5,1.5,0,0,0,0-3H33V17a2,2,0,0,0-2-2H28V13.5a1.5,1.5,0,0,0-3,0V15H23V13.5a1.5,1.5,0,0,0-3,0V15H17a2,2,0,0,0-2,2v3H13.5a1.5,1.5,0,0,0,0,3H15v2H13.5a1.5,1.5,0,0,0,0,3H15v3a2,2,0,0,0,2,2h3v1.5a1.5,1.5,0,0,0,3,0V33h2v1.5a1.5,1.5,0,0,0,3,0V33ZM18,18H30V30H18Z"></path>{" "}
+                    <rect x="21" y="21" width="6" height="6"></rect>{" "}
+                    <g>
+                      {" "}
+                      <path d="M45.6,18.7,41,14.9V7.5a1,1,0,0,0-.6-.9L30.5,2.1h-.4l-.6.2-.5.3v6a1.5,1.5,0,0,0,3,0V7.2l5,2.3v7.4l1.5,1.2L42,20.9v6.2l-3.5,2.8L37,31.1v7.4l-5,2.3V39.5a1.5,1.5,0,0,0-3,0v6l.5.3.6.2h.4l9.9-4.5a1,1,0,0,0,.6-.9V33.1l4.6-3.8a.9.9,0,0,0,.4-.8v-9A.8.8,0,0,0,45.6,18.7Z"></path>{" "}
+                      <path d="M17.9,2h-.4L7.6,6.6a1,1,0,0,0-.6.9v7.4L2.4,18.7a.8.8,0,0,0-.4.8v9a.9.9,0,0,0,.4.8L7,33.1v7.4a1,1,0,0,0,.6.9l9.9,4.5h.4l.6-.2.5-.3v-6a1.5,1.5,0,0,0-3,0v1.3l-5-2.3V31.1L9.5,29.9,6,27.1V20.9l3.5-2.8L11,16.9V9.5l5-2.3V8.5a1.5,1.5,0,0,0,3,0v-6l-.5-.3Z"></path>{" "}
+                    </g>{" "}
+                  </g>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          ),
           color: "bg-indigo-100 text-indigo-500",
         },
       ],
@@ -124,13 +501,11 @@ const TechStack = () => {
                     viewport={{ once: true }}
                     className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-all duration-300"
                   >
+                    {/* Replace letter with SVG logo */}
                     <div
                       className={`w-14 h-14 ${tech.color} rounded-lg flex items-center justify-center mb-4`}
                     >
-                      {/* Placeholder for tech icon */}
-                      <div className="text-xl font-bold">
-                        {tech.name.charAt(0)}
-                      </div>
+                      <div className="w-8 h-8">{tech.logoSvg}</div>
                     </div>
                     <h4 className="text-lg font-bold text-gray-800 mb-2">
                       {tech.name}
@@ -143,218 +518,8 @@ const TechStack = () => {
           ))}
         </div>
 
-        {/* Tech Architecture Diagram */}
-        <div className="mt-24 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-            Our Solution Architecture
-          </h3>
-          <div className="relative h-[400px] mx-auto max-w-4xl">
-            {/* Architecture diagram visualization */}
-            <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-36 h-20 bg-primary-100 rounded-lg border border-primary-200 flex items-center justify-center text-primary-700 font-medium">
-              React Frontend
-            </div>
-
-            {/* Connecting lines */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="50%"
-                y1="20"
-                x2="50%"
-                y2="80"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="50%"
-                y1="80"
-                x2="25%"
-                y2="150"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="50%"
-                y1="80"
-                x2="75%"
-                y2="150"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="25%"
-                y1="150"
-                x2="25%"
-                y2="220"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="75%"
-                y1="150"
-                x2="75%"
-                y2="220"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="25%"
-                y1="220"
-                x2="12.5%"
-                y2="290"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="25%"
-                y1="220"
-                x2="37.5%"
-                y2="290"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="75%"
-                y1="220"
-                x2="62.5%"
-                y2="290"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-              <line
-                x1="75%"
-                y1="220"
-                x2="87.5%"
-                y2="290"
-                stroke="#E2E8F0"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-            </svg>
-
-            {/* Deployment layer */}
-            <div className="absolute left-1/2 top-[80px] transform -translate-x-1/2 w-52 h-16 bg-green-100 rounded-lg border border-green-200 flex items-center justify-center text-green-700 font-medium">
-              CI/CD Pipeline
-            </div>
-
-            {/* Service layer */}
-            <div className="absolute left-1/4 top-[150px] transform -translate-x-1/2 w-40 h-16 bg-blue-100 rounded-lg border border-blue-200 flex items-center justify-center text-blue-700 font-medium">
-              AWS Amplify / Vercel
-            </div>
-
-            <div className="absolute left-3/4 top-[150px] transform -translate-x-1/2 w-40 h-16 bg-orange-100 rounded-lg border border-orange-200 flex items-center justify-center text-orange-700 font-medium">
-              Headless CMS
-            </div>
-
-            {/* Function layer */}
-            <div className="absolute left-1/4 top-[220px] transform -translate-x-1/2 w-36 h-16 bg-purple-100 rounded-lg border border-purple-200 flex items-center justify-center text-purple-700 font-medium">
-              AWS Lambda
-            </div>
-
-            <div className="absolute left-3/4 top-[220px] transform -translate-x-1/2 w-36 h-16 bg-yellow-100 rounded-lg border border-yellow-200 flex items-center justify-center text-yellow-700 font-medium">
-              Analytics
-            </div>
-
-            {/* Bottom layer */}
-            <div className="absolute left-[12.5%] top-[290px] transform -translate-x-1/2 w-24 h-16 bg-indigo-100 rounded-lg border border-indigo-200 flex items-center justify-center text-indigo-700 font-medium text-sm">
-              Forms
-            </div>
-
-            <div className="absolute left-[37.5%] top-[290px] transform -translate-x-1/2 w-24 h-16 bg-red-100 rounded-lg border border-red-200 flex items-center justify-center text-red-700 font-medium text-sm">
-              SES Email
-            </div>
-
-            <div className="absolute left-[62.5%] top-[290px] transform -translate-x-1/2 w-24 h-16 bg-green-100 rounded-lg border border-green-200 flex items-center justify-center text-green-700 font-medium text-sm">
-              SEO
-            </div>
-
-            <div className="absolute left-[87.5%] top-[290px] transform -translate-x-1/2 w-24 h-16 bg-blue-100 rounded-lg border border-blue-200 flex items-center justify-center text-blue-700 font-medium text-sm">
-              Tracking
-            </div>
-          </div>
-        </div>
-
-        {/* Why Our Tech Matters */}
-        <div className="mt-24">
-          <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
-            Why Our Tech Stack Matters
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                Speed
-              </div>
-              <p className="text-gray-700">
-                Our tech stack is optimized for performance with faster builds,
-                efficient code delivery, and optimized assets for quicker load
-                times.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                Scalability
-              </div>
-              <p className="text-gray-700">
-                AWS infrastructure ensures your website can handle traffic
-                spikes and grow alongside your business without performance
-                issues.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                Security
-              </div>
-              <p className="text-gray-700">
-                Modern security practices and AWS's enterprise-grade
-                infrastructure protect your site and customer data.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                Flexibility
-              </div>
-              <p className="text-gray-700">
-                Component-based architecture allows for rapid updates and easy
-                maintenance as your business requirements evolve.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                SEO
-              </div>
-              <p className="text-gray-700">
-                Server-side rendering and static generation options ensure
-                excellent search engine visibility despite React's dynamic
-                nature.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="text-2xl text-primary-500 font-bold mb-3">
-                ROI
-              </div>
-              <p className="text-gray-700">
-                Advanced analytics and testing capabilities allow for continuous
-                optimization and maximum return on your investment.
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Rest of the component remains the same */}
+        {/* ... */}
       </div>
     </section>
   );

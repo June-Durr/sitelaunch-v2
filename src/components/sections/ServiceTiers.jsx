@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../common/Button";
-import Modal from "../common/Modal";
 import ContactForm from "../common/ContactForm";
+import Modal from "../common/Modal";
+
 // import apiService from "../../services/apiService";
 
 const ServiceTierCard = ({ tier, isActive, onClick }) => {
@@ -19,7 +20,7 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      onClick={onClick}
+      onClick={(e) => onClick(tier.id, e)}
     >
       {isActive && (
         <div className="bg-primary-500 text-white text-center py-2 text-sm font-medium">
@@ -146,7 +147,10 @@ const ServiceTiers = () => {
     },
   ];
 
-  const handleTierClick = (tierId) => {
+  const handleTierClick = (tierId, event) => {
+    // Prevent default browser behavior which causes scrolling
+    if (event) event.preventDefault();
+
     setActiveTier(tierId);
     setSelectedTier(tiers.find((tier) => tier.id === tierId));
     setIsModalOpen(true);
@@ -179,7 +183,7 @@ const ServiceTiers = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 ">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-primary-600 font-semibold tracking-wider text-sm uppercase">

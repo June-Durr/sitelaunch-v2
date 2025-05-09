@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Modal from "../common/Modal";
 import ContactForm from "../common/ContactForm";
+import Modal from "../common/Modal";
+
 // import apiService from "../../services/apiService";
 
 const CallToAction = () => {

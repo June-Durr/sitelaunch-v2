@@ -99,7 +99,7 @@ const MobileFirstApproach = () => {
   ];
 
   return (
-    <section id="mobile-first" className="py-20 bg-white">
+    <section id="mobile-first" className="py-20 bg-purple-50">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-primary-600 font-semibold tracking-wider text-sm uppercase">
@@ -229,7 +229,7 @@ const TargetMarkets = () => {
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-primary-600 font-semibold tracking-wider text-sm uppercase">
-            Who We Serve
+            WHO WE SERVE
           </span>
           <h2 className="heading-lg text-gray-900 mt-2 mb-4">
             Tailored Solutions for Your Industry
@@ -376,34 +376,32 @@ const Home = () => {
       <EnhancedHero />
 
       {/* Curved section divider after hero with negative margin to overlap */}
-      <div className="relative -mt-32 z-10">
+      <div className="relative -mt-60 z-10">
         {/* The curved section divider */}
         <CurvedSectionDivider
           fillColor="#f9f7ff"
           position="top"
-          height="180px"
+          height="80px"
+          backgroundColor="#17093d"
         />
 
         {/* The content that follows with purple background */}
         <div className="bg-purple-50">
-          <div className="pt-8">
+          <div className="pt-2">
             <TargetMarkets />
           </div>
         </div>
       </div>
 
-      {/* Service Tiers */}
-      <ServiceTiers />
+      {/* Service Tiers with purple background */}
+      <section className="bg-purple-50">
+        <ServiceTiers />
+      </section>
 
-      {/* Mobile-First Approach */}
-      <div className="relative">
-        <CurvedSectionDivider
-          fillColor="#ffffff"
-          position="top"
-          height="120px"
-        />
+      {/* Mobile-First Approach section with proper background */}
+      <section className="bg-purple-50">
         <MobileFirstApproach />
-      </div>
+      </section>
 
       {/* Features showing competitive advantages */}
       <Features />
@@ -413,7 +411,8 @@ const Home = () => {
         <CurvedSectionDivider
           fillColor="#f9f7ff"
           position="top"
-          height="120px"
+          height="80px"
+          backgroundColor="#ffffff"
         />
         <div className="bg-purple-50">
           <TechStack />

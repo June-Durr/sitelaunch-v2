@@ -41,6 +41,7 @@ const Button = ({
   const isActionButton = variant === "action" && props.withArrow;
 
   return (
+    // In Button.jsx, update the onClick handler
     <button
       type={type}
       className={clsx(
@@ -52,7 +53,12 @@ const Button = ({
         className
       )}
       disabled={disabled}
-      onClick={onClick}
+      onClick={(e) => {
+        if (onClick) {
+          e.preventDefault();
+          onClick(e);
+        }
+      }}
       {...props}
     >
       <span className="flex items-center">
