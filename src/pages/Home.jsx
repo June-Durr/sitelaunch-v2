@@ -137,6 +137,7 @@ const MobileFirstApproach = () => {
           </div>
 
           {/* Right side - Devices mockup */}
+          {/* Right side - Devices mockup */}
           <div className="relative h-[500px] flex items-center justify-center">
             <div className="relative">
               {/* Desktop */}
@@ -147,14 +148,48 @@ const MobileFirstApproach = () => {
                     <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   </div>
+                  <div className="ml-2 text-[8px] text-gray-400">
+                    sitelaunch.com
+                  </div>
                 </div>
-                <div className="p-2 bg-gray-50 h-[calc(100%-16px)]"></div>
+                <div className="p-2 bg-gray-50 h-[calc(100%-16px)]">
+                  {/* Simple website layout for desktop */}
+                  <div className="h-5 bg-primary-400 rounded-sm w-24 mb-2 flex items-center justify-center">
+                    <div className="text-[7px] text-white font-medium">
+                      SiteLaunch
+                    </div>
+                  </div>
+                  <div className="flex h-[calc(100%-24px)]">
+                    <div className="w-2/3 pr-1 space-y-1">
+                      <div className="h-2 bg-gray-300 rounded w-full"></div>
+                      <div className="h-2 bg-gray-300 rounded w-3/4"></div>
+                      <div className="h-6 bg-secondary-400 rounded-sm w-16 mt-1"></div>
+                    </div>
+                    <div className="w-1/3 pl-1">
+                      <div className="h-11 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Tablet */}
               <div className="absolute -right-8 top-16 z-10 bg-white shadow-xl rounded-xl border border-gray-200 w-44 h-56 transform rotate-6">
                 <div className="h-2 w-8 bg-gray-300 mx-auto rounded-b-lg"></div>
-                <div className="bg-gray-50 h-[calc(100%-8px)]"></div>
+                <div className="bg-gray-50 h-[calc(100%-8px)] p-2">
+                  {/* Simple website layout for tablet */}
+                  <div className="h-4 bg-primary-400 rounded-sm mb-2 w-20 flex items-center justify-center">
+                    <div className="text-[6px] text-white font-medium">
+                      SiteLaunch
+                    </div>
+                  </div>
+                  <div className="h-16 bg-gray-200 rounded-sm mb-2"></div>
+                  <div className="space-y-1 mb-2">
+                    <div className="h-1.5 bg-gray-300 rounded w-full"></div>
+                    <div className="h-1.5 bg-gray-300 rounded w-5/6"></div>
+                    <div className="h-1.5 bg-gray-300 rounded w-3/4"></div>
+                  </div>
+                  <div className="h-5 bg-secondary-400 rounded-sm w-20"></div>
+                </div>
               </div>
 
               {/* Mobile - front and center */}
@@ -162,21 +197,171 @@ const MobileFirstApproach = () => {
                 <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-20 h-2 bg-gray-300 rounded-full"></div>
                 <div className="h-full pt-8 pb-4 px-4">
                   <div className="bg-primary-50 h-full rounded-xl flex flex-col justify-between p-3">
+                    {/* Mobile header with time and icons */}
+                    <div className="flex justify-between items-center mb-3 px-1">
+                      <div className="text-[10px] font-medium text-gray-700">
+                        9:41
+                      </div>
+                      <div className="flex space-x-1">
+                        <div className="text-[8px] text-gray-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-2.5 w-2.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                          </svg>
+                        </div>
+                        <div className="text-[8px] text-gray-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-2.5 w-2.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M17.778 8.222c-4.296-4.296-11.26-4.296-15.556 0A1 1 0 01.808 6.808c5.076-5.077 13.308-5.077 18.384 0a1 1 0 01-1.414 1.414zM14.95 11.05a7 7 0 00-9.9 0 1 1 0 01-1.414-1.414 9 9 0 0112.728 0 1 1 0 01-1.414 1.414zM12.12 13.88a3 3 0 00-4.242 0 1 1 0 01-1.415-1.415 5 5 0 017.072 0 1 1 0 01-1.415 1.415zM9 16a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="text-[8px] text-gray-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-2.5 w-2.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-.1a5 5 0 119.9 0v.1a1 1 0 001 1h1a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v1h2V8a1 1 0 00-1-1zm-7 1a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="space-y-4">
+                      <div className="h-7 bg-primary-500 rounded-lg w-32 flex items-center justify-center mx-auto">
+                        <span className="text-[10px] text-white font-medium">
+                          SiteLaunch
+                        </span>
+                      </div>
                       <div className="h-2.5 bg-primary-200 rounded-full w-3/4"></div>
                       <div className="h-2.5 bg-primary-100 rounded-full"></div>
                       <div className="h-2.5 bg-primary-100 rounded-full w-5/6"></div>
-                      <div className="h-8 bg-primary-300 rounded-lg w-full mt-6"></div>
+                      <div className="h-8 bg-primary-300 rounded-lg w-full mt-6 flex items-center justify-center">
+                        <span className="text-[10px] text-white">
+                          Learn More
+                        </span>
+                      </div>
                     </div>
+
+                    {/* Content grid with small icons */}
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="h-24 bg-primary-200 rounded-lg"></div>
-                      <div className="h-24 bg-primary-200 rounded-lg"></div>
-                      <div className="h-24 bg-primary-200 rounded-lg"></div>
-                      <div className="h-24 bg-primary-200 rounded-lg"></div>
+                      <div className="h-24 bg-primary-200 rounded-lg flex flex-col items-center justify-center">
+                        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3 text-primary-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                          </svg>
+                        </div>
+                        <span className="text-[8px] text-primary-700">
+                          Home
+                        </span>
+                      </div>
+                      <div className="h-24 bg-primary-200 rounded-lg flex flex-col items-center justify-center">
+                        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3 text-primary-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                          </svg>
+                        </div>
+                        <span className="text-[8px] text-primary-700">
+                          Services
+                        </span>
+                      </div>
+                      <div className="h-24 bg-primary-200 rounded-lg flex flex-col items-center justify-center">
+                        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3 text-primary-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-[8px] text-primary-700">
+                          About
+                        </span>
+                      </div>
+                      <div className="h-24 bg-primary-200 rounded-lg flex flex-col items-center justify-center">
+                        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3 text-primary-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-[8px] text-primary-700">
+                          Contact
+                        </span>
+                      </div>
                     </div>
-                    <div className="h-12 bg-secondary-500 rounded-lg w-full"></div>
+
+                    {/* CTA button */}
+                    <div className="h-12 bg-secondary-500 rounded-lg w-full flex items-center justify-center">
+                      <span className="text-[10px] text-white font-medium">
+                        Get Free Consultation
+                      </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3 w-3 ml-1 text-white"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
+
+                {/* Add performance indicator badge */}
+                <div className="absolute -top-2 -right-2 bg-green-500 text-white text-[8px] font-bold rounded-full h-8 w-8 flex items-center justify-center border-2 border-white shadow-md">
+                  98%
+                </div>
+              </div>
+
+              {/* Add floating labels */}
+              <div className="absolute -bottom-6 left-10 bg-white shadow-sm rounded px-2 py-1 text-[10px] text-primary-600 font-medium border border-primary-100">
+                Mobile-First Design
+              </div>
+              <div className="absolute right-16 top-10 bg-white shadow-sm rounded px-2 py-1 text-[10px] text-secondary-500 font-medium border border-secondary-100">
+                Responsive Layout
               </div>
             </div>
           </div>
