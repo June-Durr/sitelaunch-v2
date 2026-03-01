@@ -50,22 +50,13 @@
       content="https://sitelaunchstudios.com/twitter-image.jpg"
     />
 
-    <!-- Google Fonts: preconnect to establish early connections -->
+    <!-- Google Fonts: preconnect speeds up the connection, display=swap prevents render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Load fonts without blocking render (media=print trick swaps to all after load) -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
-      media="print"
-      onload="this.media='all'"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
-      />
-    </noscript>
 
     <!-- Local Business Schema -->
     <script type="application/ld+json">
