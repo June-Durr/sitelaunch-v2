@@ -10,7 +10,7 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
 
   return (
     <motion.div
-      className={`relative bg-white rounded-3xl overflow-hidden border transition-all duration-300 h-full ${
+      className={`relative bg-white rounded-3xl overflow-hidden border transition-[border-color,box-shadow,transform] duration-300 h-full ${
         isActive
           ? "border-primary-500 shadow-lg scale-105 z-10"
           : "border-gray-200 shadow-sm hover:shadow-md"
@@ -18,7 +18,8 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.05 }}
+      style={{ willChange: "opacity, transform" }}
       onClick={(e) => onClick(tier.id, e)}
     >
       {tier.id === 1 && (
