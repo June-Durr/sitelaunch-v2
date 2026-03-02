@@ -82,11 +82,11 @@ const ServiceTiers = () => {
   const tiers = [
     {
       id: 0,
-      label: "Starter",
+      label: "Intro Rate",
       title: "Landing Page",
       description:
         "A high-converting single page built to turn visitors into leads — fast.",
-      price: "$499",
+      price: "$159",
       timeframe: "Delivered in 5–7 days",
       features: [
         "Mobile-first single page (React + Tailwind)",
