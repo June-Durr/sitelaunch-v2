@@ -158,10 +158,10 @@ const ServiceTiers = () => {
             Our Services
           </span>
           <h2 className="heading-lg text-gray-900 mt-2 mb-4">
-            Comprehensive Web Development Solutions
+            Simple, Transparent Pricing. No Surprises.
           </h2>
           <p className="text-xl text-gray-600">
-            Choose the service tier that best fits your business needs and goals
+            Pick what fits your business right now. Every project gets the same care and quality regardless of tier.
           </p>
         </div>
 
