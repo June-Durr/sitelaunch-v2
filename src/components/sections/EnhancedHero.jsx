@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import HeroLeadMagnetForm from "../common/HeroLeadMagnetForm";
-import emailService from "../../services/emailService";
 
 const EnhancedHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -17,44 +16,6 @@ const EnhancedHero = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Handle form submission
-  // Handle form submission
-  const handleFormSubmit = async (formData) => {
-    try {
-      console.log(
-        "Hero lead magnet form submission started with data:",
-        formData
-      );
-
-      // Add source information and any additional context
-      const enhancedFormData = {
-        ...formData,
-        source: "Hero Section - Website Health Check Lead Magnet",
-        pageLocation: "Homepage Hero",
-        submissionTime: new Date().toISOString(),
-      };
-
-      console.log("Enhanced form data:", enhancedFormData);
-
-      // Submit the form using emailService
-      const result = await emailService.submitHeroForm(enhancedFormData);
-
-      console.log("Hero lead magnet form submitted successfully:", result);
-
-      // Optional: You can add any success tracking here
-      if (import.meta.env.DEV) {
-        console.log("Hero form submission result:", result);
-      }
-
-      return result;
-    } catch (error) {
-      console.error("Error submitting hero lead magnet form:", error);
-
-      // Re-throw the error so the form component can handle it
-      throw error;
-    }
-  };
 
   // Network background animation
   useEffect(() => {
@@ -316,24 +277,21 @@ const EnhancedHero = () => {
               className="heading-xl text-white mb-6"
               variants={titleVariants}
             >
-              Mobile-First Web Development for Miami Businesses
+              AI-Powered Websites That Turn Browsers Into Buyers
             </motion.h1>
 
             <motion.p
               className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
               variants={textVariants}
             >
-              We build high-performance, SEO-optimized websites and applications
-              that load fast, look great on any device, and drive measurable
-              business results.
+              We combine AI-powered development with mobile-first design to
+              build websites that rank higher, load faster, and convert visitors
+              into paying clients.
             </motion.p>
 
             <motion.div variants={formVariants} className="flex justify-center">
               {/* Lead Magnet Form */}
-              <HeroLeadMagnetForm
-                onSubmit={handleFormSubmit}
-                className="w-full max-w-md"
-              />
+              <HeroLeadMagnetForm className="w-full max-w-md" />
             </motion.div>
           </div>
 

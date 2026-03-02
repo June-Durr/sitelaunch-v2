@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/webp" href="/images/header.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
@@ -109,5 +109,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!--
+      Netlify Forms: static declarations so Netlify's build bot registers
+      the form schemas. The React components submit to these via fetch.
+    -->
+    <form name="hero-lead-magnet" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input name="bot-field" />
+    </form>
+
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="company" />
+      <input type="url" name="website" />
+      <textarea name="projectDetails"></textarea>
+      <input type="text" name="formType" />
+      <input type="text" name="selectedTier" />
+      <input type="text" name="source" />
+      <input name="bot-field" />
+    </form>
   </body>
 </html>

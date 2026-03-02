@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
+const encode = (data) =>
+  Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+
+const HeroLeadMagnetForm = ({ className = "" }) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -11,7 +16,6 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
     e.preventDefault();
     setFormError(null);
 
-    // Basic email validation
     if (!email || !email.includes("@")) {
       setFormError("Please enter a valid email address");
       return;
@@ -20,44 +24,26 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
     try {
       setIsSubmitting(true);
 
-      // Create form data for the lead magnet
-      const formData = {
-        email: email,
-        name: "", // We'll ask for this in the follow-up
-        phone: "",
-        company: "",
-        website: "",
-        projectDetails: "Website Health Check Download Request",
-        source: "Hero Lead Magnet - Website Health Check",
-        leadMagnet: "Website Health Check",
-        submissionTime: new Date().toISOString(),
-      };
-
-      console.log("Submitting lead magnet form:", formData);
-
-      // Call the parent's onSubmit function
-      if (onSubmit) {
-        await onSubmit(formData);
-      }
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "hero-lead-magnet", email }),
+      });
 
       setIsSubmitted(true);
       setIsSubmitting(false);
 
-      // Reset form after 8 seconds
       setTimeout(() => {
         setIsSubmitted(false);
         setEmail("");
       }, 8000);
     } catch (error) {
-      console.error("Error submitting lead magnet form:", error);
-      setFormError(
-        "There was an error. Please try again or contact us directly."
-      );
+      console.error("Error submitting form:", error);
+      setFormError("There was an error. Please try again or contact us directly.");
       setIsSubmitting(false);
     }
   };
 
-  // Success state
   if (isSubmitted) {
     return (
       <motion.div
@@ -82,24 +68,20 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
-            ✅ Sent Successfully!
-          </h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">You're on the list!</h3>
           <p className="text-gray-600 text-sm mb-4">
-            Your <strong>Free Website Health Check</strong> is on its way to{" "}
-            <strong>{email}</strong>. Check your inbox in the next few minutes.
+            We'll review your website and send your personalized health check to{" "}
+            <strong>{email}</strong> within 24 hours.
           </p>
           <div className="bg-blue-50 rounded-lg p-3 text-left">
             <p className="text-xs text-gray-600">
-              <strong>What's Next:</strong> Use the checklist to audit your
-              website, then we'll follow up with personalized insights for your
-              Miami business.
+              <strong>What's Next:</strong> We'll run a full performance audit
+              and send you actionable insights specific to your site.
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-gray-200">
             <p className="text-xs text-gray-500">
-              Don't see it? Check your spam folder or contact us at
-              sitelaunchstudio@gmail.com
+              Questions? Reach us at sitelaunchstudio@gmail.com
             </p>
           </div>
         </div>
@@ -114,15 +96,27 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
-      {/* Lead Magnet Header */}
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold text-white mb-2">
-          📱 Free Website Health Check
+          Free Website Health Check
         </h3>
+        <p className="text-sm text-gray-400">
+          We'll audit your site and send you a personalized report.
+        </p>
       </div>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        name="hero-lead-magnet"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        onSubmit={handleSubmit}
+        className="space-y-4"
+      >
+        <input type="hidden" name="form-name" value="hero-lead-magnet" />
+        <div hidden>
+          <input name="bot-field" />
+        </div>
+
         {formError && (
           <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm">
             {formError}
@@ -133,6 +127,7 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
           <div className="flex-grow">
             <input
               type="email"
+              name="email"
               placeholder="Enter your business email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -160,18 +155,18 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
                     r="10"
                     stroke="currentColor"
                     strokeWidth="4"
-                  ></circle>
+                  />
                   <path
                     className="opacity-75"
                     fill="currentColor"
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
+                  />
                 </svg>
                 Sending...
               </span>
             ) : (
               <>
-                Get Free Check
+                Get Free Audit
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
@@ -183,7 +178,7 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
               </>
@@ -191,55 +186,24 @@ const HeroLeadMagnetForm = ({ onSubmit, className = "" }) => {
           </button>
         </div>
 
-        {/* Trust indicators */}
         <div className="flex items-center justify-center space-x-4 text-xs text-gray-300">
           <div className="flex items-center">
-            <svg
-              className="w-3 h-3 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
-            Secure
-          </div>
-          <div className="flex items-center">
-            <svg
-              className="w-3 h-3 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
+            <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
             No spam
           </div>
           <div className="flex items-center">
-            <svg
-              className="w-3 h-3 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
+            <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            Instant download
+            Within 24 hours
+          </div>
+          <div className="flex items-center">
+            <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Personalized
           </div>
         </div>
       </form>

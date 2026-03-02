@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
-import emailService from "../../services/emailService";
 import analytics from "../../services/analytics";
+
+const encode = (data) =>
+  Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
 
 const ContactForm = ({
   inline = false,
   buttonText = "Get Free Consultation",
   successMessage = "Thank you! We'll be in touch shortly.",
   className = "",
-  onSubmit = null,
-  formType = "Contact Form", // Add form type prop
+  formType = "Contact Form",
+  hiddenFields = {},
 }) => {
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -77,22 +81,22 @@ const ContactForm = ({
     try {
       setIsSubmitting(true);
 
-      // 🔥 ADD THIS LINE HERE - Track form submission attempt
       analytics.trackFormSubmission(
         formType,
         inline ? "inline_form" : "full_form"
       );
 
-      // Use the centralized email service
-      if (onSubmit) {
-        // If parent component wants to handle submission
-        await onSubmit(formData);
-      } else {
-        // Default submission using email service
-        await emailService.submitForm(formData, formType);
-      }
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          ...formData,
+          formType,
+          ...hiddenFields,
+        }),
+      });
 
-      // 🔥 OPTIONALLY ADD SUCCESS TRACKING HERE TOO
       analytics.trackConversion("form_completion", 1);
 
       // Show success message
@@ -117,7 +121,6 @@ const ContactForm = ({
     } catch (error) {
       console.error("Error submitting form:", error);
 
-      // 🔥 OPTIONALLY TRACK FORM ERRORS TOO
       analytics.trackEvent("form_error", {
         category: "form_submission",
         label: formType,
@@ -176,7 +179,17 @@ const ContactForm = ({
   }
 
   return (
-    <form onSubmit={handleContinue} className={className}>
+    <form
+      name="contact"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      onSubmit={handleContinue}
+      className={className}
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <div hidden>
+        <input name="bot-field" />
+      </div>
       {formError && (
         <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded relative mb-4">
           <span className="block sm:inline">{formError}</span>

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../common/Button";
 import ContactForm from "../common/ContactForm";
 import Modal from "../common/Modal";
-import emailService from "../../services/emailService";
 
 const ServiceTierCard = ({ tier, isActive, onClick }) => {
   const features = tier.features;
@@ -22,12 +21,6 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
       style={{ willChange: "opacity, transform" }}
       onClick={(e) => onClick(tier.id, e)}
     >
-      {tier.id === 1 && (
-        <div className="bg-primary-500 text-white text-center py-2 text-sm font-medium">
-          Popular Choice
-        </div>
-      )}
-
       <div className="p-8">
         <span className="inline-block text-primary-600 font-semibold tracking-wider text-sm uppercase">
           {tier.label}
@@ -157,24 +150,6 @@ const ServiceTiers = () => {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = async (formData) => {
-    try {
-      // Add any additional data specific to this form
-      const enhancedFormData = {
-        ...formData,
-        source: "Service Tier Form",
-        selectedTier: selectedTier ? selectedTier.title : "Not specified",
-      };
-
-      // Submit the form using the service
-      await emailService.submitServiceTierForm(enhancedFormData);
-
-      console.log("Form submitted successfully");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
   return (
     <section id="services" className="py-20 ">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -249,7 +224,10 @@ const ServiceTiers = () => {
           successMessage={`Thank you for your interest in our ${
             selectedTier ? selectedTier.title : ""
           } service! We'll be in touch shortly with a detailed project proposal.`}
-          onSubmit={handleFormSubmit}
+          hiddenFields={{
+            source: "Service Tier Form",
+            selectedTier: selectedTier ? selectedTier.title : "Not specified",
+          }}
         />
       </Modal>
     </section>
