@@ -105,6 +105,7 @@ const MobileFirstApproach = () => {
       "learn_more_mobile_first",
       "mobile_first_section"
     );
+    document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

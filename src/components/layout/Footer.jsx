@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
 
@@ -13,7 +13,7 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "Facebook",
-      href: "https://www.facebook.com/profile.php?id=61566593097004",
+      href: "https://www.facebook.com/profile.php?id=61563887799053",
       icon: (
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
           <path
@@ -312,6 +312,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Copyright bar */}
+      <div className="border-t border-gray-800 py-4 text-center text-sm text-gray-500">
+        © {currentYear} SiteLaunch Studios. All rights reserved.
       </div>
 
       {/* Modal for Legal Content */}

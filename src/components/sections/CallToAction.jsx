@@ -1,29 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ContactForm from "../common/ContactForm";
 import Modal from "../common/Modal";
-import emailService from "../../services/emailService";
 
 const CallToAction = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleFormSubmit = async (formData) => {
-    try {
-      // Add source information to the form data
-      const enhancedFormData = {
-        ...formData,
-        source: "CTA Section",
-      };
-
-      // Submit the form using emailService
-      await emailService.submitContactForm(enhancedFormData);
-
-      console.log("CTA form submitted successfully");
-
-      // Success state and modal closing are handled by the ContactForm component
-    } catch (error) {
-      console.error("Error submitting CTA form:", error);
-    }
-  };
 
   return (
     <>
@@ -84,7 +64,7 @@ const CallToAction = () => {
           inline={false}
           buttonText="Submit Request"
           successMessage="Thank you for your interest! We'll be in touch shortly to discuss your project."
-          onSubmit={handleFormSubmit}
+          hiddenFields={{ source: "CTA Section" }}
         />
       </Modal>
     </>

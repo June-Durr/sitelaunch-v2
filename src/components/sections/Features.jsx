@@ -281,7 +281,7 @@ const Features = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Button variant="primary">Start Your Project</Button>
+                <Button variant="primary" onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })}>Start Your Project</Button>
               </div>
             </div>
 
@@ -721,7 +721,7 @@ const Features = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Button variant="primary">Optimize Your Site</Button>
+                <Button variant="primary" onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })}>Optimize Your Site</Button>
               </div>
             </div>
             <div className="mt-20"></div>
