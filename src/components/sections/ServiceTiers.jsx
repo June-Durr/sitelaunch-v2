@@ -176,7 +176,7 @@ const ServiceTiers = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 space-y-2">
           <p className="text-gray-600 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -191,6 +191,9 @@ const ServiceTiers = () => {
               />
             </svg>
             Custom pricing based on project scope and requirements
+          </p>
+          <p className="text-sm text-gray-400">
+            * Prices do not include domain registration (~$12/yr) or any third-party subscription costs. Hosting is included free via Netlify.
           </p>
         </div>
       </div>
