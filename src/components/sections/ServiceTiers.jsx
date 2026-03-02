@@ -28,13 +28,14 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
         <h3 className="text-2xl font-bold text-gray-900 mt-2 mb-2">
           {tier.title}
         </h3>
-        <p className="text-gray-600 mb-6">{tier.description}</p>
+        <p className="text-gray-600 mb-4">{tier.description}</p>
 
         <div className="mb-6">
+          {tier.price && (
+            <p className="text-3xl font-bold text-gray-900 mb-1">{tier.price}</p>
+          )}
           {tier.timeframe && (
-            <p className="text-sm text-gray-700 font-medium">
-              {tier.timeframe}
-            </p>
+            <p className="text-sm text-gray-500">{tier.timeframe}</p>
           )}
         </div>
 
@@ -81,63 +82,62 @@ const ServiceTiers = () => {
   const tiers = [
     {
       id: 0,
-      label: "Tier 1",
-      title: "Foundation",
+      label: "Starter",
+      title: "Landing Page",
       description:
-        "Establish your online presence with mobile-first essentials",
-      pricePrefix: "",
-      priceSuffix: "",
-      timeframe: "Simple websites completed within 3-4 days",
+        "A high-converting single page built to turn visitors into leads — fast.",
+      price: "$499",
+      timeframe: "Delivered in 5–7 days",
       features: [
-        "Mobile-first responsive website development",
-        "Basic SEO optimization",
-        "Content management system implementation",
-        "Simple contact/lead forms with AWS integration",
+        "Mobile-first single page (React + Tailwind)",
+        "Lead capture form with email notifications",
+        "On-page SEO (meta tags, OG, schema markup)",
         "Google Analytics setup",
-        "30 days of post-launch support",
+        "Fast load times — under 1 second on mobile",
+        "2 rounds of revisions",
+        "30 days post-launch support",
       ],
       ctaText: "Get Started",
     },
     {
       id: 1,
-      label: "Tier 2",
-      title: "Growth",
-      description: "Enhance your digital presence and drive measurable results",
-      pricePrefix: "",
-      priceSuffix: "",
-      timeframe: "Comprehensive sites completed within 6-8 weeks",
+      label: "Most Popular",
+      title: "Business Website",
+      description:
+        "A full multi-page website that builds trust and drives consistent leads.",
+      price: "$1,200",
+      timeframe: "Delivered in 2–3 weeks",
       features: [
-        "Everything in Foundation tier",
-        "Advanced SEO strategy implementation",
-        "User behavior analysis and UX optimizations",
-        "Custom interactive elements",
-        "Personalization based on user segments",
-        "E-commerce functionality",
-        "Marketing automation integration",
-        "60 days of post-launch support & optimization",
+        "4–5 page website (Home, About, Services, Contact + 1 more)",
+        "Everything in Landing Page",
+        "Custom animations & scroll interactions",
+        "Portfolio or blog section",
+        "Advanced SEO setup",
+        "Google Business Profile optimization",
+        "3 rounds of revisions",
+        "60 days post-launch support",
       ],
       ctaText: "Get Started",
     },
     {
       id: 2,
-      label: "Tier 3",
-      title: "Innovation",
+      label: "Custom",
+      title: "E-commerce & Custom",
       description:
-        "Leverage cutting-edge technology for maximum competitive advantage",
-      pricePrefix: "",
-      priceSuffix: "",
-      timeframe: "Custom project timeline based on complexity",
+        "A full online store or custom React application built to scale your revenue.",
+      price: "From $2,500",
+      timeframe: "Timeline based on project scope",
       features: [
-        "Everything in Growth tier",
-        "AI-powered personalization and recommendations",
-        "Custom web applications with complex functionality",
-        "Advanced analytics dashboards for clients",
-        "Conversion rate optimization programs",
-        "Progressive Web App implementation",
-        "Multilingual/international optimization",
-        "90 days of post-launch support & strategy consulting",
+        "Everything in Business Website",
+        "E-commerce store with product catalog & checkout",
+        "Payment processing integration (Stripe / PayPal)",
+        "AI-powered features & personalization",
+        "Custom React application development",
+        "Admin dashboard & inventory management",
+        "Progressive Web App (PWA) capability",
+        "90 days post-launch support & strategy",
       ],
-      ctaText: "Get Started",
+      ctaText: "Let's Talk",
     },
   ];
 
