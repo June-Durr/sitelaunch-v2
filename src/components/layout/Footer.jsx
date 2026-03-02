@@ -81,8 +81,8 @@ const Footer = () => {
       title: "Terms of Service",
       content: `
         <div class="space-y-4">
-          <p class="font-semibold">Last Updated: May 1, 2025</p>
-          
+          <p class="font-semibold">Last Updated: January 1, 2026</p>
+
           <h3 class="font-semibold text-lg">1. Acceptance of Terms</h3>
           <p>By accessing and using the services provided by SiteLaunch Studios ("we," "us," or "our"), you agree to comply with and be bound by these Terms of Service.</p>
           
@@ -112,8 +112,8 @@ const Footer = () => {
       title: "Privacy Policy",
       content: `
         <div class="space-y-4">
-          <p class="font-semibold">Last Updated: May 1, 2025</p>
-          
+          <p class="font-semibold">Last Updated: January 1, 2026</p>
+
           <h3 class="font-semibold text-lg">1. Information We Collect</h3>
           <p>We collect information you provide when you contact us through forms, email, or other means, including your name, email address, phone number, and any other information you choose to provide.</p>
           
