@@ -3,10 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import analytics from "../../services/analytics";
 
-const encode = (data) =>
-  Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
+const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 
 const ContactForm = ({
   inline = false,
@@ -86,16 +83,25 @@ const ContactForm = ({
         inline ? "inline_form" : "full_form"
       );
 
-      await fetch("/", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({
-          "form-name": "contact",
-          ...formData,
-          formType,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New ${formType} - SiteLaunch Studios`,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "Not provided",
+          company: formData.company || "Not provided",
+          website: formData.website || "Not provided",
+          message: formData.projectDetails || "No details provided",
+          form_type: formType,
           ...hiddenFields,
         }),
       });
+
+      const data = await response.json();
+      if (!data.success) throw new Error(data.message || "Submission failed");
 
       analytics.trackConversion("form_completion", 1);
 
@@ -179,17 +185,7 @@ const ContactForm = ({
   }
 
   return (
-    <form
-      name="contact"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      onSubmit={handleContinue}
-      className={className}
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      <div hidden>
-        <input name="bot-field" />
-      </div>
+    <form onSubmit={handleContinue} className={className}>
       {formError && (
         <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded relative mb-4">
           <span className="block sm:inline">{formError}</span>

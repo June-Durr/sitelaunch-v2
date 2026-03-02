@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const encode = (data) =>
-  Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
+const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 
 const HeroLeadMagnetForm = ({ className = "" }) => {
   const [email, setEmail] = useState("");
@@ -24,11 +21,19 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
     try {
       setIsSubmitting(true);
 
-      await fetch("/", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "hero-lead-magnet", email }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "New Website Audit Request - SiteLaunch Studios",
+          email,
+          message: `New free website audit request from: ${email}`,
+        }),
       });
+
+      const data = await response.json();
+      if (!data.success) throw new Error(data.message || "Submission failed");
 
       setIsSubmitted(true);
       setIsSubmitting(false);
@@ -105,18 +110,7 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
         </p>
       </div>
 
-      <form
-        name="hero-lead-magnet"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-        <input type="hidden" name="form-name" value="hero-lead-magnet" />
-        <div hidden>
-          <input name="bot-field" />
-        </div>
-
+      <form onSubmit={handleSubmit} className="space-y-4">
         {formError && (
           <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm">
             {formError}
