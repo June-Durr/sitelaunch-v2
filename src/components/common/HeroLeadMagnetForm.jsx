@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 
 const HeroLeadMagnetForm = ({ className = "" }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -13,6 +14,10 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
     e.preventDefault();
     setFormError(null);
 
+    if (!name.trim()) {
+      setFormError("Please enter your name");
+      return;
+    }
     if (!email || !email.includes("@")) {
       setFormError("Please enter a valid email address");
       return;
@@ -27,8 +32,10 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
           subject: "New Website Audit Request - SiteLaunch Studios",
+          name,
           email,
-          message: `New free website audit request from: ${email}`,
+          replyto: email,
+          message: `New free website audit request from: ${name} (${email})`,
         }),
       });
 
@@ -40,6 +47,7 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
 
       setTimeout(() => {
         setIsSubmitted(false);
+        setName("");
         setEmail("");
       }, 8000);
     } catch (error) {
@@ -73,7 +81,7 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">You're on the list!</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Got it, {name}!</h3>
           <p className="text-gray-600 text-sm mb-4">
             We'll review your website and send your personalized health check to{" "}
             <strong>{email}</strong> within 24 hours.
@@ -116,6 +124,16 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
             {formError}
           </div>
         )}
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 backdrop-blur-sm text-gray-800 placeholder-gray-500 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent"
+        />
 
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-grow">
