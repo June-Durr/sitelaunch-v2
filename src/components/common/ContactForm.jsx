@@ -91,6 +91,7 @@ const ContactForm = ({
           subject: `New ${formType} - SiteLaunch Studios`,
           name: formData.name,
           email: formData.email,
+          replyto: formData.email,
           phone: formData.phone || "Not provided",
           company: formData.company || "Not provided",
           website: formData.website || "Not provided",
