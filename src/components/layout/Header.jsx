@@ -81,10 +81,10 @@ const Header = () => {
                 {/* This div serves as a placeholder for your logo */}
                 <div className="h-8 w-8 rounded-lg flex items-center justify-center mr-2">
                   <img
-                    src="/images/header.webp"
+                    src="/images/sitelaunch-icon-transparent-background.svg"
                     alt="Logo"
                     className="h-8 w-auto"
-                    width="32"
+                    width="22"
                     height="32"
                     loading="eager"
                     fetchpriority="high"

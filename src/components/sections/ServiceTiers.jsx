@@ -14,11 +14,11 @@ const ServiceTierCard = ({ tier, isActive, onClick }) => {
           ? "border-primary-500 shadow-lg scale-105 z-10"
           : "border-gray-200 shadow-sm hover:shadow-md"
       }`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      viewport={{ once: true, amount: 0.05 }}
       style={{ willChange: "opacity, transform" }}
+      suppressHydrationWarning
       onClick={(e) => onClick(tier.id, e)}
     >
       <div className="p-8">

@@ -47,6 +47,7 @@ const OptimizedImage = ({
       ref={imgRef}
       className={`relative overflow-hidden ${className}`}
       style={{ width, height }}
+      suppressHydrationWarning
     >
       {/* Placeholder */}
       {!isLoaded && (

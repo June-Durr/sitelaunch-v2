@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/webp" href="/images/header.webp" />
+    <link rel="icon" type="image/svg+xml" href="/images/sitelaunch-icon-transparent-background.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
@@ -31,7 +31,7 @@
     />
     <meta
       property="og:image"
-      content="https://sitelaunchstudios.com/og-image.jpg"
+      content="https://sitelaunchstudios.com/images/og-image.png"
     />
     <meta property="og:url" content="https://sitelaunchstudios.com" />
 
@@ -47,7 +47,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://sitelaunchstudios.com/twitter-image.jpg"
+      content="https://sitelaunchstudios.com/images/og-image.png"
     />
 
     <!-- Google Fonts: preconnect speeds up the connection, display=swap prevents render-blocking -->
@@ -58,37 +58,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     />
 
-    <!-- Local Business Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "SiteLaunch Studios",
-        "description": "Miami web development agency specializing in mobile-first, SEO-optimized websites",
-        "url": "https://sitelaunchstudios.com",
-        "telephone": "+1-305-XXX-XXXX",
-        "email": "sitelaunchstudio@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Your Street Address",
-          "addressLocality": "Miami",
-          "addressRegion": "FL",
-          "postalCode": "33101",
-          "addressCountry": "US"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 25.7617,
-          "longitude": -80.1918
-        },
-        "openingHours": "Mo-Fr 09:00-18:00",
-        "priceRange": "$$$",
-        "areaServed": "Miami, FL",
-        "serviceType": "Web Development, SEO, Mobile App Development"
-      }
-    </script>
-    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
-
     <!-- Google Analytics: load after page is interactive to reduce LCP impact -->
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -98,6 +67,8 @@
       gtag("js", new Date());
       // Defer the config call until after the page loads
       window.addEventListener("load", function () {
+        // Skip tracking for automated/headless browsers (e.g. the build's prerender pass)
+        if (navigator.webdriver) return;
         var s = document.createElement("script");
         s.async = true;
         s.src = "https://www.googletagmanager.com/gtag/js?id=G-NH1CR7MCH2";

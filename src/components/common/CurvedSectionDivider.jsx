@@ -12,6 +12,7 @@ const CurvedSectionDivider = ({
       <div
         className={`relative ${className}`}
         style={{ height, backgroundColor }}
+        suppressHydrationWarning
       >
         <svg
           className="absolute bottom-0 left-0 w-full h-full"
@@ -33,6 +34,7 @@ const CurvedSectionDivider = ({
       <div
         className={`relative ${className}`}
         style={{ height, backgroundColor }}
+        suppressHydrationWarning
       >
         <svg
           className="absolute top-0 left-0 w-full h-full"

@@ -1,21 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import HeroLeadMagnetForm from "../common/HeroLeadMagnetForm";
 
 const EnhancedHero = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const canvasRef = useRef(null);
-
-  // Set loaded state after a small delay to trigger animations
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-
-    // EmailService is already initialized in App.jsx - no need to init here
-
-    return () => clearTimeout(timer);
-  }, []);
 
   // Network background animation
   useEffect(() => {
@@ -136,9 +124,30 @@ const EnhancedHero = () => {
 
     animate();
 
+    // Pause the particle loop while the user is actively scrolling so it
+    // doesn't compete with scroll-driven layout/paint for main-thread time.
+    let scrollResumeTimeout;
+    let isPausedForScroll = false;
+
+    const handleScroll = () => {
+      if (!isPausedForScroll) {
+        isPausedForScroll = true;
+        cancelAnimationFrame(animationFrameId);
+      }
+      clearTimeout(scrollResumeTimeout);
+      scrollResumeTimeout = setTimeout(() => {
+        isPausedForScroll = false;
+        animate();
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollResumeTimeout);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -205,62 +214,71 @@ const EnhancedHero = () => {
   return (
     <section id="hero" className="relative pt-32 pb-20 overflow-hidden">
       {/* Network background canvas */}
+      {/* Gradient is a Tailwind class, not an inline style: prerendering
+          round-trips this element's markup through a real browser, which
+          always reformats inline style attributes (adds "prop: value;"
+          spacing) when serializing outerHTML. React's hydration check
+          compares against its own unformatted string and mismatches on
+          that alone, regardless of the actual color values. A className
+          isn't affected since it's compared as a plain string. */}
+      {/* width/height are set imperatively in the effect below (canvas.width =
+          window.innerWidth, etc.), not as React props - the prerender capture
+          bakes those into the static markup as real attributes, which React
+          doesn't know about and flags as "extra attributes from the server".
+          suppressHydrationWarning is the documented escape hatch for exactly
+          this case: an element whose content/attributes are managed
+          imperatively outside React's render output. */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ background: "linear-gradient(to bottom, #0a0328, #17093d)" }}
+        className="absolute inset-0 w-full h-full bg-[linear-gradient(rgb(10,3,40),rgb(23,9,61))]"
+        suppressHydrationWarning
       />
 
       {/* Enhanced background with animated gradients */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Main background gradient overlay */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br from-transparent via-gray-900/40 to-gray-900/60 transition-opacity duration-1000 ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className="absolute inset-0 bg-gradient-to-br from-transparent via-gray-900/40 to-gray-900/60 transition-opacity duration-1000 opacity-100"
         ></div>
 
         {/* Large purple glow */}
         <motion.div
           className="absolute w-[150%] h-[150%] bg-purple-600 rounded-full opacity-15 blur-3xl"
-          initial={{ x: "-50%", y: "-90%" }}
-          animate={
-            isLoaded
-              ? {
-                  x: "-50%",
-                  y: "-50%",
-                  scale: [1, 1.1, 1],
-                  opacity: [0.1, 0.2, 0.1],
-                }
-              : {}
-          }
+          initial={false}
+          animate={{
+            x: "-50%",
+            y: "-50%",
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
           transition={{
             duration: 8,
             repeat: Infinity,
             repeatType: "reverse",
           }}
+          // This animation loops forever, so the exact phase captured by the
+          // prerender snapshot will never numerically match a fresh mount's
+          // starting keyframe - expected and harmless for a decorative glow.
+          suppressHydrationWarning
         />
 
         {/* Blue-teal glow */}
         <motion.div
           className="absolute w-[100%] h-[100%] bg-primary-600 rounded-full opacity-10 blur-3xl"
-          initial={{ right: "-20%", bottom: "-40%" }}
-          animate={
-            isLoaded
-              ? {
-                  right: "-30%",
-                  bottom: "-30%",
-                  scale: [1, 1.2, 1],
-                  opacity: [0.1, 0.15, 0.1],
-                }
-              : {}
-          }
+          initial={false}
+          animate={{
+            right: "-30%",
+            bottom: "-30%",
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.15, 0.1],
+          }}
           transition={{
             duration: 10,
             repeat: Infinity,
             repeatType: "reverse",
             delay: 1,
           }}
+          suppressHydrationWarning
         />
       </div>
 
@@ -268,14 +286,16 @@ const EnhancedHero = () => {
         <motion.div
           className="flex flex-col items-center max-w-4xl mx-auto"
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
+          suppressHydrationWarning
         >
           {/* Hero Content - Centered */}
           <div className="text-center mb-12">
             <motion.h1
               className="heading-xl text-white mb-6"
               variants={titleVariants}
+              suppressHydrationWarning
             >
               AI-Powered Websites That Turn Browsers Into Buyers
             </motion.h1>
@@ -283,13 +303,18 @@ const EnhancedHero = () => {
             <motion.p
               className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
               variants={textVariants}
+              suppressHydrationWarning
             >
               We combine AI-powered development with mobile-first design to
               build websites that rank higher, load faster, and convert visitors
               into paying clients.
             </motion.p>
 
-            <motion.div variants={formVariants} className="flex justify-center">
+            <motion.div
+              variants={formVariants}
+              className="flex justify-center"
+              suppressHydrationWarning
+            >
               {/* Lead Magnet Form */}
               <HeroLeadMagnetForm className="w-full max-w-md" />
             </motion.div>
@@ -298,24 +323,14 @@ const EnhancedHero = () => {
           {/* Hero Demo - Multi-device display showing mobile-first approach */}
           <motion.div
             className="w-full max-w-4xl"
-            initial={{
-              opacity: 0,
-              scale: 0.9,
-              rotateX: 45,
-              y: 100,
-              z: -100,
+            initial={false}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotateX: 0,
+              y: 0,
+              z: 0,
             }}
-            animate={
-              isLoaded
-                ? {
-                    opacity: 1,
-                    scale: 1,
-                    rotateX: 0,
-                    y: 0,
-                    z: 0,
-                  }
-                : {}
-            }
             transition={{
               duration: 1.2,
               ease: [0.215, 0.61, 0.355, 1],
@@ -324,6 +339,7 @@ const EnhancedHero = () => {
               perspective: "1000px",
               transformStyle: "preserve-3d",
             }}
+            suppressHydrationWarning
           >
             {/* Multi-device mockup */}
             <div className="relative flex justify-center items-center h-[420px]">
@@ -359,7 +375,10 @@ const EnhancedHero = () => {
                       <div className="h-8 bg-gradient-to-r from-primary-600 to-purple-600 rounded-lg w-full flex items-center justify-between px-2">
                         <div className="flex items-center">
                           <div className="w-4 h-4  rounded-md flex items-center justify-center mr-1">
-                            <img src="/images/logo.webp" alt="" />
+                            <img
+                            src="/images/sitelaunch-icon-transparent-background.svg"
+                            alt=""
+                          />
                           </div>
                           <span className="text-white text-xs font-medium">
                             SiteLaunch
@@ -556,7 +575,10 @@ const EnhancedHero = () => {
                     <div className="h-6 bg-gradient-to-r from-primary-600 to-purple-600 rounded-md w-full flex items-center justify-between px-2">
                       <div className="flex items-center">
                         <div className="w-3 h-3 rounded-md flex items-center justify-center mr-1">
-                          <img src="/images/logo.webp" alt="" />
+                          <img
+                            src="/images/sitelaunch-icon-transparent-background.svg"
+                            alt=""
+                          />
                         </div>
                         <span className="text-white text-[8px] font-medium">
                           SiteLaunch
@@ -903,6 +925,7 @@ const EnhancedHero = () => {
                   background:
                     "linear-gradient(to bottom, rgba(30,10,60,0.8), rgba(10,5,35,0.3))",
                 }}
+                suppressHydrationWarning
               ></div>
             </div>
           </motion.div>
@@ -910,12 +933,13 @@ const EnhancedHero = () => {
           {/* Client Logos */}
           <motion.div
             className="mt-16"
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{
               opacity: 1,
               y: 0,
               transition: { delay: 1.2, duration: 0.8 },
             }}
+            suppressHydrationWarning
           >
             <p className="text-center text-gray-400 text-sm uppercase tracking-wider mb-6">
               Trusted by businesses throughout Miami

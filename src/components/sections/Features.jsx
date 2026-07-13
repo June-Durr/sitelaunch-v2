@@ -6,16 +6,17 @@ import GradientBackground from "../common/GradientBackground";
 const FeatureCard = ({ icon, title, description, bgImage }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
+      suppressHydrationWarning
       className="bg-gray-800 bg-opacity-80 rounded-3xl shadow-lg p-6 border border-purple-800 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
     >
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-15 transition-opacity duration-300 z-0"
         style={{ backgroundImage: `url(/images/${bgImage}.webp)` }}
+        suppressHydrationWarning
       ></div>
 
       {/* Content with z-index to appear above the background */}
@@ -171,17 +172,18 @@ const Features = () => {
   const FeatureCard = ({ icon, title, description, bgImage }) => {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={false}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        viewport={{ once: true, amount: 0.05 }}
         style={{ willChange: "opacity, transform" }}
+        suppressHydrationWarning
         className="bg-gray-900 bg-opacity-80 rounded-3xl shadow-lg p-6 border border-purple-800 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
       >
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30 transition-opacity duration-300 z-0"
           style={{ backgroundImage: `url(/images/${bgImage}.webp)` }}
+          suppressHydrationWarning
         ></div>
 
         {/* Content with z-index to appear above the background */}
@@ -203,10 +205,10 @@ const Features = () => {
         <section id="advantages" className="py-20">
           <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={false}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              suppressHydrationWarning
               className="text-center max-w-3xl mx-auto mb-16"
             >
               <span className="text-primary-300 font-semibold tracking-wider text-sm uppercase">
@@ -239,10 +241,10 @@ const Features = () => {
         {/* Second section with gradient background */}
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
+            suppressHydrationWarning
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
             <div className="order-2 lg:order-1">
@@ -411,10 +413,10 @@ const Features = () => {
 
           {/* A/B Testing Feature Highlight */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            viewport={{ once: true }}
+            suppressHydrationWarning
             className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
             {/* A/B Testing Visual */}
@@ -439,12 +441,20 @@ const Features = () => {
                       </div>
 
                       {/* Test description */}
+                      {/* Each text run is an explicit single-line {" "}
+                          expression, not multi-line JSX text: Babel's
+                          whitespace-collapsing for multi-line JSX text can
+                          split/merge text nodes differently than the browser
+                          does when re-parsing the prerendered static HTML,
+                          causing a hydration text-node-count mismatch even
+                          though the visible content is identical. */}
                       <div className="mb-4 text-xs text-gray-600 px-2 text-center bg-gray-50 py-2 rounded-md border border-gray-100">
-                        <span className="font-medium">Test duration:</span> 30
-                        days | <span className="font-medium">Traffic:</span>{" "}
-                        10,500 visitors |{" "}
-                        <span className="font-medium">Goal:</span> Lead form
-                        submissions
+                        <span className="font-medium">Test duration:</span>
+                        {" 30 days | "}
+                        <span className="font-medium">Traffic:</span>
+                        {" 10,500 visitors | "}
+                        <span className="font-medium">Goal:</span>
+                        {" Lead form submissions"}
                       </div>
 
                       <div className="flex-1 flex space-x-6 pb-2">
@@ -651,9 +661,8 @@ const Features = () => {
                       {/* Results summary with improvement indicator */}
                       <div className="bg-gradient-to-r from-green-50 to-primary-50 rounded-lg p-3 flex justify-between items-center mt-1 border border-green-100">
                         <div className="text-sm text-gray-700">
-                          <span className="font-medium">Results:</span>{" "}
-                          SiteLaunch's mobile-first approach delivered
-                          measurable ROI
+                          <span className="font-medium">Results:</span>
+                          {" SiteLaunch's mobile-first approach delivered measurable ROI"}
                         </div>
                         <div className="flex items-center bg-white px-3 py-1.5 rounded-md border border-green-200 shadow-sm">
                           <svg
