@@ -3,34 +3,6 @@ import { motion } from "framer-motion";
 import Button from "../common/Button";
 import GradientBackground from "../common/GradientBackground";
 
-const FeatureCard = ({ icon, title, description, bgImage }) => {
-  return (
-    <motion.div
-      initial={false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      suppressHydrationWarning
-      className="bg-gray-800 bg-opacity-80 rounded-3xl shadow-lg p-6 border border-purple-800 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
-    >
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-15 transition-opacity duration-300 z-0"
-        style={{ backgroundImage: `url(/images/${bgImage}.webp)` }}
-        suppressHydrationWarning
-      ></div>
-
-      {/* Content with z-index to appear above the background */}
-      <div className="relative z-10">
-        <div className="w-12 h-12 bg-primary-900 text-primary-300 rounded-lg flex items-center justify-center mb-4">
-          {icon}
-        </div>
-        <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-        <p className="text-gray-300">{description}</p>
-      </div>
-    </motion.div>
-  );
-};
-
 const Features = () => {
   // Competitive advantages based on business model
   const features = [
@@ -54,7 +26,6 @@ const Features = () => {
       title: "Mobile-First Development",
       description:
         "We prioritize the mobile experience in a mobile-dominant world, ensuring your site works flawlessly across all devices with optimized performance.",
-      bgImage: "logo1",
     },
     {
       icon: (
@@ -76,7 +47,6 @@ const Features = () => {
       title: "AI-Enhanced Solutions",
       description:
         "Leverage AI for content optimization, automated personalization based on user behavior, and predictive analytics for smarter business decisions.",
-      bgImage: "logo2",
     },
     {
       icon: (
@@ -98,7 +68,6 @@ const Features = () => {
       title: "SEO Expertise",
       description:
         "We implement server-side rendering, pre-rendering solutions, and structured data to ensure your React applications achieve maximum visibility in search engines.",
-      bgImage: "logo3",
     },
     {
       icon: (
@@ -120,7 +89,6 @@ const Features = () => {
       title: "Measurable Results Focus",
       description:
         "We establish clear KPIs before project start, provide regular reporting on performance metrics, and calculate ROI for your investment.",
-      bgImage: "logo4",
     },
     {
       icon: (
@@ -142,7 +110,6 @@ const Features = () => {
       title: "Fast Loading Speed",
       description:
         "Optimized for speed with streamlined code, efficient resource loading, and performance optimization techniques for excellent Core Web Vitals scores.",
-      bgImage: "logo5",
     },
     {
       icon: (
@@ -164,12 +131,10 @@ const Features = () => {
       title: "Modern Tech Stack",
       description:
         "We leverage React, Vite, Tailwind CSS, and AWS for faster builds, better development experience, and scalable, maintainable applications.",
-      bgImage: "logo6",
     },
   ];
 
-  // Update the FeatureCard component to include background images
-  const FeatureCard = ({ icon, title, description, bgImage }) => {
+  const FeatureCard = ({ icon, title, description }) => {
     return (
       <motion.div
         initial={false}
@@ -179,13 +144,6 @@ const Features = () => {
         suppressHydrationWarning
         className="bg-gray-900 bg-opacity-80 rounded-3xl shadow-lg p-6 border border-purple-800 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
       >
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30 transition-opacity duration-300 z-0"
-          style={{ backgroundImage: `url(/images/${bgImage}.webp)` }}
-          suppressHydrationWarning
-        ></div>
-
         {/* Content with z-index to appear above the background */}
         <div className="relative z-10">
           <div className="w-12 h-12 bg-primary-900 text-primary-300 rounded-lg flex items-center justify-center mb-4">
@@ -230,7 +188,6 @@ const Features = () => {
                   icon={feature.icon}
                   title={feature.title}
                   description={feature.description}
-                  bgImage={feature.bgImage}
                 />
               ))}
             </div>
