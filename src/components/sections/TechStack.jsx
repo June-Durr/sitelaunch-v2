@@ -90,7 +90,6 @@ const TechStack = () => {
               <path
                 d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z"
                 style={{ fill: "#44a8b3" }}
-                suppressHydrationWarning
               ></path>
             </svg>
           ),
@@ -492,11 +491,11 @@ const TechStack = () => {
                 {category.items.map((tech, techIndex) => (
                   <motion.div
                     key={techIndex}
-                    initial={false}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: techIndex * 0.1 }}
+                    viewport={{ once: true, amount: 0.05 }}
                     style={{ willChange: "opacity, transform" }}
-                    suppressHydrationWarning
                     className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300"
                   >
                     {/* Replace letter with SVG logo */}

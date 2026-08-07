@@ -28,17 +28,6 @@ class AnalyticsService {
           return;
         }
 
-        // Skip tracking for automated/headless browsers (e.g. the build's prerender pass)
-        if (navigator.webdriver) {
-          if (this.debugMode) {
-            console.warn(
-              "Automated browser detected (navigator.webdriver) - skipping GA initialization"
-            );
-          }
-          resolve();
-          return;
-        }
-
         // Skip if no GA ID provided
         if (
           !GA_MEASUREMENT_ID ||
