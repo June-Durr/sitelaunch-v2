@@ -151,7 +151,6 @@ const MobileFirstApproach = () => {
             <div
               className="relative perspective-[1000px] transform-style-preserve-3d scale-75 md:scale-90 lg:scale-100 mx-auto"
               style={{ maxWidth: "95%" }}
-              suppressHydrationWarning
             >
               {/* Mobile - front and center */}
               <div className="relative z-30 bg-white shadow-xl rounded-3xl border border-gray-200 w-72 h-[560px] transform rotate-1">
@@ -717,10 +716,12 @@ const Home = () => {
       longitude: "-80.1918",
     },
     url: "https://sitelaunchstudios.com",
+    telephone: "+1-305-XXX-XXXX",
+    openingHours: "Mo,Tu,We,Th,Fr 09:00-17:00",
     priceRange: "$$",
-    image: "https://sitelaunchstudios.com/images/logo.png",
+    image: "https://sitelaunchstudios.com/images/logo.webp",
     sameAs: [
-      "https://www.facebook.com/sitelaunchstudios",
+      "https://www.facebook.com/profile.php?id=61566593097004",
       "https://www.linkedin.com/in/sitelaunch-studios/",
       "https://www.instagram.com/sitelaunchstudios/",
     ],
@@ -771,7 +772,7 @@ const Home = () => {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5.0",
-      reviewCount: "5",
+      reviewCount: "12",
     },
   };
 
@@ -783,7 +784,7 @@ const Home = () => {
         description="Miami's tech-forward web development agency specializing in mobile-first, high-performance websites and applications built with React. Get measurable business results with AI-enhanced solutions."
         keywords="web development Miami, mobile-first websites, React development, SEO optimization Miami, web design Miami, AI integration, high-performance websites, Miami web agency"
         url="https://sitelaunchstudios.com"
-        image="https://sitelaunchstudios.com/images/og-image.png"
+        image="https://sitelaunchstudios.com/images/og-home.jpg"
         structuredData={homepageStructuredData}
       />
 

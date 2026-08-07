@@ -167,10 +167,10 @@ const Footer = () => {
                 <div className="flex items-center">
                   <div className="h-8 w-8 rounded-lg flex items-center justify-center mr-2">
                     <img
-                      src="/images/sitelaunch-icon-transparent-background.svg"
+                      src="/images/footer.webp"
                       alt="Logo"
                       className="h-9 w-auto"
-                      width="25"
+                      width="36"
                       height="36"
                       loading="lazy"
                     />
@@ -316,7 +316,7 @@ const Footer = () => {
 
       {/* Copyright bar */}
       <div className="border-t border-gray-800 py-4 text-center text-sm text-gray-500">
-        {`© ${currentYear} SiteLaunch Studios. All rights reserved.`}
+        © {currentYear} SiteLaunch Studios. All rights reserved.
       </div>
 
       {/* Modal for Legal Content */}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import analytics from "../../services/analytics";
 
 const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 
@@ -42,8 +41,6 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
 
       const data = await response.json();
       if (!data.success) throw new Error(data.message || "Submission failed");
-
-      analytics.trackContact("form", "hero_health_check");
 
       setIsSubmitted(true);
       setIsSubmitting(false);
@@ -108,10 +105,9 @@ const HeroLeadMagnetForm = ({ className = "" }) => {
   return (
     <motion.div
       className={`max-w-md mx-auto ${className}`}
-      initial={false}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      suppressHydrationWarning
     >
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold text-white mb-2">

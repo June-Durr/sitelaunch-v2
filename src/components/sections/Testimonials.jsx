@@ -61,10 +61,6 @@ const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
-  // Tracks whether this is still the very first render, so the initial
-  // testimonial (already visible in the prerendered/hydrated HTML) doesn't
-  // replay its enter transition, while later carousel rotations still animate.
-  const hasMountedRef = useRef(false);
 
   const nextSlide = () =>
     setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
@@ -77,10 +73,6 @@ const Testimonials = () => {
     }
     return () => clearInterval(intervalRef.current);
   }, [isPaused]);
-
-  useEffect(() => {
-    hasMountedRef.current = true;
-  }, []);
 
   const current = testimonials[currentIndex];
 
@@ -112,10 +104,9 @@ const Testimonials = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={hasMountedRef.current ? { opacity: 0, x: 60 } : false}
+                initial={{ opacity: 0, x: 60 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -60 }}
-                suppressHydrationWarning
                 transition={{ duration: 0.4 }}
                 className="flex flex-col md:flex-row items-start gap-8 md:gap-12"
               >
@@ -133,17 +124,11 @@ const Testimonials = () => {
                   <svg className="text-primary-200 w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
-                  {/* A single template-literal expression, not adjacent
-                      text+expression+text children: React needs comment
-                      marker nodes to preserve boundaries between multiple
-                      adjacent text nodes for hydration, and that boundary
-                      tracking mismatches when this round-trips through the
-                      prerender capture. One expression avoids the issue. */}
-                  <p className="text-gray-700 text-lg italic mb-5">{`"${current.quote}"`}</p>
+                  <p className="text-gray-700 text-lg italic mb-5">"{current.quote}"</p>
                   <div>
                     <h4 className="font-bold text-gray-900">{current.author}</h4>
                     <p className="text-gray-500 text-sm">
-                      {`${current.position}, ${current.company}`}
+                      {current.position}, {current.company}
                     </p>
                   </div>
                 </div>
