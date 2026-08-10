@@ -3,10 +3,10 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 
 const SEOHead = ({
-  title = "SiteLaunch Studios - Mobile-First Web Development in Miami",
-  description = "Miami's premier web development agency specializing in mobile-first, SEO-optimized websites. React development, AI integration, and digital solutions for Miami businesses.",
-  keywords = "Miami web development, React developer Miami, mobile-first websites, SEO optimization Miami, web design Miami, AI integration",
-  image = "https://sitelaunchstudios.com/og-image.jpg",
+  title = "SiteLaunch Studios | Website Design & Development in Miami",
+  description = "SiteLaunch Studios designs and builds websites for businesses and contractors. Miami-based, working with clients anywhere.",
+  keywords = "website design Miami, web development Miami, contractor websites, small business websites, website review",
+  image = "https://sitelaunchstudios.com/images/og-image.png",
   url = "https://sitelaunchstudios.com",
   type = "website",
   structuredData = null,
