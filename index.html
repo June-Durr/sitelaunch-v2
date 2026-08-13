@@ -9,50 +9,17 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Meta Tags -->
-    <title>SiteLaunch Studios | Website Design &amp; Development in Miami</title>
-    <meta
-      name="description"
-      content="SiteLaunch Studios designs and builds websites for businesses and contractors. Miami-based, working with clients anywhere. Get a free website review."
-    />
-    <meta
-      name="keywords"
-      content="website design Miami, web development Miami, contractor websites, small business websites, website review"
-    />
+    <!-- Route-independent meta only. Title/description/keywords/canonical/
+         Open Graph/Twitter are all page-specific and rendered per-route by
+         SEOHead (react-helmet-async) - every route (Home, InsightArticle)
+         already provides its own. Helmet doesn't remove tags it didn't add
+         itself, so leaving page-specific values here as static duplicates
+         would silently coexist with the route's real ones instead of being
+         replaced by them. Prerendering bakes each route's actual Helmet
+         output into its own shipped HTML, so nothing here is needed as a
+         pre-hydration fallback. -->
     <meta name="author" content="SiteLaunch Studios" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://sitelaunchstudios.com" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="SiteLaunch Studios | Website Design & Development in Miami"
-    />
-    <meta
-      property="og:description"
-      content="Websites built to earn trust and make the next step obvious. SiteLaunch designs and builds websites for businesses and contractors, Miami-based, working with clients anywhere."
-    />
-    <meta
-      property="og:image"
-      content="https://sitelaunchstudios.com/images/og-image.png"
-    />
-    <meta property="og:url" content="https://sitelaunchstudios.com" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="SiteLaunch Studios | Website Design & Development in Miami"
-    />
-    <meta
-      name="twitter:description"
-      content="Websites built to earn trust and make the next step obvious. Miami-based, working with clients anywhere."
-    />
-    <meta
-      name="twitter:image"
-      content="https://sitelaunchstudios.com/images/og-image.png"
-    />
 
     <!-- Google Fonts: preconnect speeds up the connection, display=swap prevents render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

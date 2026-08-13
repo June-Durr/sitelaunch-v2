@@ -12,8 +12,8 @@ const Star = () => (
 
 const GoogleTrustStrip = () => (
   <div className="bg-ink">
-    <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-4 py-5 text-center sm:justify-between sm:px-6 sm:text-left lg:px-8">
-      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:justify-start">
+    <div className="mx-auto flex max-w-6xl flex-col items-center gap-1 px-4 py-2.5 text-center sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-3 sm:px-6 sm:py-5 sm:text-left lg:px-8">
+      <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 sm:justify-start sm:gap-x-3 sm:gap-y-2">
         <span className="flex items-center gap-0.5 text-violet-400" aria-hidden="true">
           <Star />
           <Star />
@@ -25,19 +25,21 @@ const GoogleTrustStrip = () => (
           {`${GOOGLE_RATING} `}
           <span className="text-sm font-medium text-white/60">on Google</span>
         </span>
-        <span className="text-sm text-white/50">
-          {`${GOOGLE_REVIEW_COUNT} verified Google reviews`}
-        </span>
       </div>
 
-      <a
-        href={GOOGLE_REVIEW_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
-      >
-        Read reviews
-      </a>
+      <div className="flex items-center gap-4">
+        <span className="text-sm text-white/50">
+          {`${GOOGLE_REVIEW_COUNT} verified reviews`}
+        </span>
+        <a
+          href={GOOGLE_REVIEW_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
+        >
+          Read reviews ↗
+        </a>
+      </div>
     </div>
   </div>
 );

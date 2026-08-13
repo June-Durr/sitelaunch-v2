@@ -118,7 +118,10 @@ const FreeWebsiteReviewForm = () => {
   };
 
   return (
-    <section id="review" className="bg-ink py-16 sm:py-24">
+    <section
+      id="review"
+      className="scroll-mt-[calc(var(--header-height,68px)+8px)] bg-ink py-16 sm:py-24"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -159,15 +162,18 @@ const FreeWebsiteReviewForm = () => {
             ) : (
               <form onSubmit={handleSubmit} noValidate>
                 <fieldset>
-                  <legend className={labelClasses}>
+                  <legend className="block text-xs font-semibold uppercase tracking-[0.14em] text-white">
                     Where are you starting from?
                   </legend>
-                  <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {/* A single bordered, divided control (not two separate
+                      boxes) so it reads as one decision with two mutually
+                      exclusive positions, not a pair of inputs. */}
+                  <div className="mt-3 grid grid-cols-2 overflow-hidden rounded-md border border-white/15">
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center rounded-md border px-4 text-center text-sm font-semibold transition-colors ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-violet-400 ${
                         mode === "have"
-                          ? "border-violet-600 bg-violet-600 text-white"
-                          : "border-white/15 bg-white/5 text-white/70 hover:border-white/30"
+                          ? "bg-violet-600 text-white"
+                          : "bg-transparent text-white/50 hover:text-white/75"
                       }`}
                     >
                       <input
@@ -178,13 +184,31 @@ const FreeWebsiteReviewForm = () => {
                         onChange={() => handleModeChange("have")}
                         className="sr-only"
                       />
+                      {mode === "have" && (
+                        <svg
+                          aria-hidden="true"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          className="flex-none"
+                        >
+                          <path
+                            d="M3 8.5 6.5 12 13 4.5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
                       I already have a website
                     </label>
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center rounded-md border px-4 text-center text-sm font-semibold transition-colors ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 border-l border-white/15 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-violet-400 ${
                         mode === "need"
-                          ? "border-violet-600 bg-violet-600 text-white"
-                          : "border-white/15 bg-white/5 text-white/70 hover:border-white/30"
+                          ? "bg-violet-600 text-white"
+                          : "bg-transparent text-white/50 hover:text-white/75"
                       }`}
                     >
                       <input
@@ -195,12 +219,30 @@ const FreeWebsiteReviewForm = () => {
                         onChange={() => handleModeChange("need")}
                         className="sr-only"
                       />
+                      {mode === "need" && (
+                        <svg
+                          aria-hidden="true"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          className="flex-none"
+                        >
+                          <path
+                            d="M3 8.5 6.5 12 13 4.5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
                       I need a website
                     </label>
                   </div>
                 </fieldset>
 
-                <div className="mt-6 space-y-4">
+                <div className="mt-7 space-y-4">
                   {mode === "have" ? (
                     <div>
                       <label htmlFor="websiteUrl" className={labelClasses}>

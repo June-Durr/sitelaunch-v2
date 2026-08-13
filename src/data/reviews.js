@@ -15,6 +15,11 @@ export const carlosReview = {
 export const tysonReview = {
   quote:
     "Absolutely amazing experience. The attention to detail on the site and nuances that were added really makes our site stand apart. Site Launch is a pleasure to work with. All timelines were met and they were able to accommodate all of our requests. 100% recommend.",
+  // Verbatim substring of `quote` above, used as the mobile pull-quote so
+  // the homepage doesn't force the full review into that spot. The full
+  // text stays in `quote` and is what desktop always shows.
+  excerpt:
+    "The attention to detail on the site and nuances that were added really makes our site stand apart.",
   author: "Tyson Harvey",
   attribution: null,
 };

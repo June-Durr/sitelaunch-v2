@@ -76,20 +76,45 @@ const Footer = () => {
     });
   };
 
-  const handleReviewClick = () => {
+  const handleReviewClick = (location) => {
     analytics.trackEvent("review_cta_click", {
       category: "engagement",
-      label: "footer",
-      location: "footer",
+      label: location,
+      location,
     });
     scrollToSection("review");
   };
 
   return (
-    <footer className="border-t border-ink/10 bg-ivory text-ink">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {/* Brand */}
+    <footer className="relative overflow-hidden border-t border-ink/10 bg-ink text-white">
+      {/* Brand motif: the SiteLaunch mark, oversized and cropped, as a
+          quiet background texture rather than a generated pattern. */}
+      <img
+        src="/images/sitelaunch-icon-transparent-background.svg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-16 -right-20 h-[420px] w-auto opacity-[0.08] sm:-right-16 sm:h-[520px]"
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4 py-9 sm:px-6 sm:py-20 lg:px-8">
+        {/* Closing CTA */}
+        <div className="max-w-xl border-b border-white/10 pb-7 sm:pb-14">
+          <p className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
+            Have a site that needs work?
+            <br />
+            Or one that needs to exist?
+          </p>
+          <button
+            type="button"
+            onClick={() => handleReviewClick("footer_cta")}
+            className="mt-5 inline-flex min-h-[52px] items-center justify-center rounded-md bg-violet-600 px-6 text-base font-semibold text-white transition-colors hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 sm:mt-6"
+          >
+            Get a Free Website Review
+          </button>
+        </div>
+
+        {/* Utility grid */}
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-14 md:grid-cols-3 md:gap-10">
           <div>
             <Link to="/" className="flex items-center gap-2">
               <img
@@ -100,30 +125,36 @@ const Footer = () => {
                 height="32"
                 loading="lazy"
               />
-              <span className="font-display text-base font-semibold uppercase tracking-wide text-ink">
+              <span className="font-display text-base font-semibold uppercase tracking-wide text-white">
                 SiteLaunch Studios
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm text-ink/70">
-              Miami-based, working with clients anywhere.
+            <p className="mt-3 max-w-xs text-sm text-white/60 sm:mt-4">
+              Miami, clients anywhere.
             </p>
-            <p className="mt-2 max-w-xs text-sm text-ink/70">
-              Consultations available in English and Spanish.
+            <a
+              href={PHONE_HREF}
+              onClick={() => handlePhoneClick("footer")}
+              className="mt-1.5 block text-sm text-white/80 hover:text-white sm:mt-2"
+            >
+              {PHONE_DISPLAY}
+            </a>
+            <p className="mt-1.5 max-w-xs text-sm text-white/60 sm:mt-2">
+              Consultations in English and Spanish.
             </p>
           </div>
 
-          {/* Site nav */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/50">
-              Site
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+              Navigation
             </h3>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
                   {link.to ? (
                     <Link
                       to={link.to}
-                      className="text-sm text-ink/80 hover:text-ink"
+                      className="text-sm text-white/80 hover:text-white"
                     >
                       {link.label}
                     </Link>
@@ -131,7 +162,7 @@ const Footer = () => {
                     <button
                       type="button"
                       onClick={() => scrollToSection(link.id)}
-                      className="text-sm text-ink/80 hover:text-ink"
+                      className="text-sm text-white/80 hover:text-white"
                     >
                       {link.label}
                     </button>
@@ -141,36 +172,17 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/50">
-              Contact
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+              Elsewhere
             </h3>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <a
-                  href={PHONE_HREF}
-                  onClick={() => handlePhoneClick("footer")}
-                  className="text-sm text-ink/80 hover:text-ink"
-                >
-                  {PHONE_DISPLAY}
-                </a>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={handleReviewClick}
-                  className="text-sm text-ink/80 hover:text-ink"
-                >
-                  Free website review
-                </button>
-              </li>
+            <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
               <li>
                 <a
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-ink/80 hover:text-ink"
+                  className="text-sm text-white/80 hover:text-white"
                 >
                   Instagram
                 </a>
@@ -179,22 +191,22 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 h-px w-full bg-violet-600/60" />
+        <div className="mt-7 h-px w-full bg-violet-600/60 sm:mt-12" />
 
-        <div className="mt-6 flex flex-col gap-3 text-sm text-ink/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-4 flex flex-col gap-2 text-sm text-white/50 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
           <p>SiteLaunch Studios</p>
           <div className="flex items-center gap-6">
             <button
               type="button"
               onClick={() => setOpenLegal("privacy")}
-              className="underline decoration-ink/30 underline-offset-2 hover:text-ink hover:decoration-violet-600"
+              className="underline decoration-white/30 underline-offset-2 hover:text-white hover:decoration-violet-400"
             >
               Privacy
             </button>
             <button
               type="button"
               onClick={() => setOpenLegal("terms")}
-              className="underline decoration-ink/30 underline-offset-2 hover:text-ink hover:decoration-violet-600"
+              className="underline decoration-white/30 underline-offset-2 hover:text-white hover:decoration-violet-400"
             >
               Terms
             </button>

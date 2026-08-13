@@ -1,6 +1,17 @@
+import { motion } from "framer-motion";
 import Kicker from "../common/Kicker";
 import { scrollToSection } from "../../utils/scroll";
+import { heroCopy, heroCta, heroKicker, heroLine } from "../../utils/motion";
 import analytics from "../../services/analytics";
+
+// Mobile-only headline split for the per-line reveal below. Chosen short
+// enough to read as one line each at 320-430px; desktop keeps the original
+// single flowing string with natural browser wrapping, untouched.
+const HEADLINE_LINES = [
+  "Websites built to earn trust",
+  "and make the next step",
+  "obvious.",
+];
 
 const Hero = () => {
   const handlePrimaryCta = () => {
@@ -12,28 +23,56 @@ const Hero = () => {
     scrollToSection("review");
   };
 
-  const handleSecondaryCta = () => {
-    scrollToSection("case-studies");
-  };
-
   return (
-    <section className="bg-ivory pb-6 pt-8 sm:pb-10 sm:pt-14 lg:pt-20">
+    <section className="bg-ivory pb-8 pt-6 sm:pb-10 sm:pt-14 lg:pt-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <Kicker>Miami / Clients Anywhere</Kicker>
+          <motion.div initial="hidden" animate="visible" variants={heroKicker}>
+            <Kicker>Miami / Clients Anywhere</Kicker>
+          </motion.div>
 
+          {/* Single H1 for a11y/SEO; mobile and desktop render different
+              children of it (per-line animated vs. plain flowing text),
+              never both at once. */}
           <h1 className="mt-3 font-display text-[clamp(2rem,6vw+0.5rem,4.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
-            Websites built to earn trust and make the next step obvious.
+            <span className="sm:hidden">
+              {HEADLINE_LINES.map((line, i) => (
+                <span key={line} className="block overflow-hidden">
+                  <motion.span
+                    className="block"
+                    custom={i}
+                    initial="hidden"
+                    animate="visible"
+                    variants={heroLine}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
+            <span className="hidden sm:inline">
+              Websites built to earn trust and make the next step obvious.
+            </span>
           </h1>
 
-          <p className="mt-4 max-w-xl text-base text-ink/70 sm:text-lg">
+          <motion.p
+            className="mt-4 max-w-xl text-base text-ink/70 sm:text-lg"
+            initial="hidden"
+            animate="visible"
+            variants={heroCopy}
+          >
             We design and build websites for businesses and contractors.
             <span className="hidden sm:inline">
               {" One person on your project, from the first review to the day it launches."}
             </span>
-          </p>
+          </motion.p>
 
-          <div className="mt-6 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4">
+          <motion.div
+            className="mt-5 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={heroCta}
+          >
             <button
               type="button"
               onClick={handlePrimaryCta}
@@ -42,14 +81,19 @@ const Hero = () => {
               Get a Free Website Review
             </button>
 
+            {/* "See Our Work" removed on mobile: the reel sits immediately
+                below and is already substantially visible in the first
+                viewport, so the scroll it triggered was redundant there.
+                Desktop keeps it - the reel isn't nearly as dominant in a
+                wider, shorter-aspect first viewport. */}
             <button
               type="button"
-              onClick={handleSecondaryCta}
-              className="inline-flex min-h-[44px] w-full items-center justify-center border-b border-ink/40 text-base font-medium text-ink underline decoration-ink/40 underline-offset-4 transition-colors hover:border-ink hover:decoration-ink sm:w-auto sm:min-h-[44px] sm:rounded-md sm:border sm:border-ink/30 sm:px-6 sm:no-underline sm:hover:border-ink sm:hover:bg-ink/5"
+              onClick={() => scrollToSection("reel")}
+              className="hidden min-h-[44px] items-center justify-center rounded-md border border-ink/30 px-6 text-base font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5 sm:inline-flex"
             >
               See Our Work
             </button>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

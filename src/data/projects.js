@@ -23,6 +23,11 @@ export const projects = [
       },
     ],
     video: { desktop: null, mobile: null },
+    // Short homepage teaser copy. The fields below (ask/whatWeDid/keyDecision)
+    // stay in the data layer for a future dedicated case-study route - the
+    // homepage only shows `summary` on mobile.
+    summary:
+      "A band and booking site built around the photography, with upcoming shows and booking as the two first-screen actions.",
     ask: "A site that presents the band and makes booking straightforward for venues and event organisers.",
     whatWeDid:
       "Designed and built the site around the band photography, with upcoming shows and booking as the two actions in the first screen.",
@@ -51,6 +56,8 @@ export const projects = [
       },
     ],
     video: { desktop: null, mobile: null },
+    summary:
+      "SiteLaunch refined an existing Webflow site, correcting layout and usability issues while preserving the brand and the parts that already worked.",
     ask: "Improve an existing website that had design, formatting, and usability issues left from the original build.",
     whatWeDid:
       "Worked directly inside the existing Webflow project to identify issues, correct layout and formatting consistency, and refine the experience without forcing the client into a complete rebuild.",

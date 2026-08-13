@@ -6,6 +6,7 @@ import GoogleTrustStrip from "../components/sections/GoogleTrustStrip";
 import CaseStudies from "../components/sections/CaseStudies";
 import AudiencePathways from "../components/sections/AudiencePathways";
 import ServicesPricing from "../components/sections/ServicesPricing";
+import StructureInterlude from "../components/sections/StructureInterlude";
 import WhySiteLaunch from "../components/sections/WhySiteLaunch";
 import Process from "../components/sections/Process";
 import FeaturedReview from "../components/sections/FeaturedReview";
@@ -128,11 +129,19 @@ const Home = () => {
       <CaseStudies />
       <AudiencePathways />
 
-      <section id="services" className="border-t border-ink/10 bg-ivory py-16 sm:py-24">
+      <section
+        id="services"
+        className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-24"
+      >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="lg:border-r lg:border-ink/10 lg:pr-16">
               <ServicesPricing />
+            </div>
+            {/* Mobile-only visual beat between Services and Why SiteLaunch;
+                vanishes at lg+ so the two-column desktop grid is untouched. */}
+            <div className="lg:hidden">
+              <StructureInterlude />
             </div>
             <div>
               <WhySiteLaunch />

@@ -6,7 +6,7 @@ import puppeteer from "puppeteer";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-const ROUTES = ["/"];
+const ROUTES = ["/", "/insights/seven-second-contractor-website-test"];
 // A realistic desktop size instead of Puppeteer's 800x600 default, so layout,
 // canvas dimensions, and viewport-based animation thresholds match reality.
 const VIEWPORT = { width: 1366, height: 768 };
