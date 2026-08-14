@@ -4,6 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        ivory: "#F5F1E9",
+        ink: "#171717",
         primary: {
           50: "#f0f9ff",
           100: "#e0f2fe",
@@ -43,7 +45,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Poppins", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",

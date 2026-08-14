@@ -23,11 +23,22 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // This config has no eslint-plugin-react, so no-unused-vars can only
+      // see plain JSX tags (<Kicker>) as real references to their import -
+      // it doesn't trace member-expression tags (<motion.div>) back to
+      // `motion`. Exempt that one known-safe import name explicitly rather
+      // than pull in a plugin just for this.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion$)' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ]

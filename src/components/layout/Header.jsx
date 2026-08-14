@@ -1,277 +1,302 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../common/Button";
-import Modal from "../common/Modal";
-import ContactForm from "../common/ContactForm";
-import emailService from "../../services/emailService";
+import { motion, AnimatePresence } from "framer-motion";
+import { scrollToSection } from "../../utils/scroll";
+import analytics from "../../services/analytics";
+import { NAV_LINKS } from "../../data/nav";
+
+const EASE = [0.16, 1, 0.3, 1];
+const HIDE_AFTER_Y = 120; // don't hide near the very top of the page
+const SCROLL_DELTA = 6; // ignore sub-pixel/jitter scroll movements
+const MOBILE_BREAKPOINT = 768; // header hide/show is a mobile-only behavior
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE } },
+};
+
+const barClass = "absolute left-0 h-0.5 w-6 rounded-full bg-ink";
+
+// Three-bar icon that morphs into an X rather than swapping SVG paths.
+const MenuGlyph = ({ open }) => (
+  <span className="relative block h-4 w-6" aria-hidden="true">
+    <motion.span
+      className={barClass}
+      animate={{ top: open ? 7 : 0, rotate: open ? 45 : 0 }}
+      transition={{ duration: 0.25, ease: EASE }}
+    />
+    <motion.span
+      className={barClass}
+      style={{ top: 7 }}
+      animate={{ opacity: open ? 0 : 1 }}
+      transition={{ duration: 0.15, ease: EASE }}
+    />
+    <motion.span
+      className={barClass}
+      animate={{ top: open ? 7 : 14, rotate: open ? -45 : 0 }}
+      transition={{ duration: 0.25, ease: EASE }}
+    />
+  </span>
+);
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const headerRef = useRef(null);
+  const menuButtonRef = useRef(null);
+  const lastScrollY = useRef(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+  // Measure the header's real height and publish it as a CSS variable so
+  // <main> can offset for the switch from sticky to fixed positioning
+  // (fixed is what lets the hide/show transform be a cheap, GPU-only
+  // animation instead of an expensive height/layout animation).
+  useLayoutEffect(() => {
+    const node = headerRef.current;
+    if (!node) return undefined;
+
+    const setHeightVar = () => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${node.offsetHeight}px`
+      );
     };
 
-    window.addEventListener("scroll", handleScroll);
+    setHeightVar();
+    window.addEventListener("resize", setHeightVar);
+    return () => window.removeEventListener("resize", setHeightVar);
+  }, []);
+
+  // Direction-aware show/hide, mobile only. Desktop keeps the header
+  // permanently visible - this pass does not touch desktop composition.
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    let ticking = false;
+
+    const evaluate = () => {
+      ticking = false;
+
+      if (window.innerWidth >= MOBILE_BREAKPOINT) {
+        setIsHidden(false);
+        lastScrollY.current = window.scrollY;
+        return;
+      }
+
+      const currentY = window.scrollY;
+      const diff = currentY - lastScrollY.current;
+
+      if (currentY < HIDE_AFTER_Y) {
+        setIsHidden(false);
+      } else if (diff > SCROLL_DELTA) {
+        setIsHidden(true);
+      } else if (diff < -SCROLL_DELTA) {
+        setIsHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(evaluate);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+
+  // Scroll lock + Escape-to-close while the mobile menu is open.
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
+
+  const handleNavClick = (id) => {
+    setIsMenuOpen(false);
+    scrollToSection(id);
   };
 
-  // Scroll to section function
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      setIsMobileMenuOpen(false);
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleReviewCta = (location) => {
+    setIsMenuOpen(false);
+    analytics.trackEvent("review_cta_click", {
+      category: "engagement",
+      label: location,
+      location,
+    });
+    scrollToSection("review");
   };
 
-  // Open contact form modal
-  const openContactFormModal = () => {
-    setIsModalOpen(true);
-    setIsMobileMenuOpen(false); // Close mobile menu if open
-  };
-
-  // Handle form submission
-  const handleFormSubmit = async (formData) => {
-    try {
-      // Add source information to the form data
-      const enhancedFormData = {
-        ...formData,
-        source: "Header Consultation Form",
-      };
-
-      // Submit the form using emailService
-      await emailService.submitConsultationForm(enhancedFormData);
-
-      console.log("Consultation form submitted successfully");
-
-      // Success state and modal closing are handled by the ContactForm component
-    } catch (error) {
-      console.error("Error submitting consultation form:", error);
-    }
-  };
+  const headerHidden = isHidden && !isMenuOpen;
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 p-3">
-        <header
-          className={`transition-all duration-300 w-full mx-auto max-w-6xl ${
-            isScrolled
-              ? "bg-navy-900 shadow-md border border-gray-700 rounded-lg"
-              : "bg-transparent"
-          }`}
-        >
-          <div className="flex justify-between items-center px-3 sm:px-4 py-2">
-            {/* Logo Area */}
-            <Link to="/" className="flex items-center">
-              {/* Reserved space for logo image */}
-              <div className="h-10 w-auto flex items-center">
-                {/* This div serves as a placeholder for your logo */}
-                <div className="h-8 w-8 rounded-lg flex items-center justify-center mr-2">
-                  <img
-                    src="/images/header.webp"
-                    alt="Logo"
-                    className="h-8 w-auto"
-                    width="32"
-                    height="32"
-                    loading="eager"
-                    fetchpriority="high"
-                  />
-                </div>
-                <span
-                  className={`font-semibold text-lg ${
-                    isScrolled ? "text-white" : "text-white"
-                  }`}
+      <header
+        ref={headerRef}
+        aria-hidden={headerHidden}
+        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-ivory/95 backdrop-blur transition-transform duration-[260ms] ease-out motion-reduce:transition-none ${
+          headerHidden ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 md:py-4 lg:px-8">
+          <Link
+            to="/"
+            className="flex items-center gap-2"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <img
+              src="/images/sitelaunch-icon-transparent-background.svg"
+              alt=""
+              className="h-7 w-auto"
+              width="22"
+              height="32"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <span className="font-display text-base font-semibold uppercase tracking-wide text-ink">
+              SiteLaunch
+            </span>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav
+            className="hidden items-center gap-8 md:flex"
+            aria-label="Primary"
+          >
+            {NAV_LINKS.map((link) =>
+              link.to ? (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
                 >
-                  SiteLaunch
-                </span>
-              </div>
-            </Link>
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.label}
+                  type="button"
+                  onClick={() => handleNavClick(link.id)}
+                  className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+                >
+                  {link.label}
+                </button>
+              )
+            )}
+          </nav>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <button
-                onClick={() => scrollToSection("services")}
-                className={`${
-                  isScrolled ? "text-white" : "text-white"
-                } hover:text-primary-500 text-sm font-medium cursor-pointer transition-colors`}
-              >
-                Services
-              </button>
-              <button
-                onClick={() => scrollToSection("mobile-first")}
-                className={`${
-                  isScrolled ? "text-white" : "text-white"
-                } hover:text-primary-500 text-sm font-medium cursor-pointer transition-colors`}
-              >
-                Mobile-First
-              </button>
-              <button
-                onClick={() => scrollToSection("advantages")}
-                className={`${
-                  isScrolled ? "text-white" : "text-white"
-                } hover:text-primary-500 text-sm font-medium cursor-pointer transition-colors`}
-              >
-                Advantages
-              </button>
-              <button
-                onClick={() => scrollToSection("tech")}
-                className={`${
-                  isScrolled ? "text-white" : "text-white"
-                } hover:text-primary-500 text-sm font-medium cursor-pointer transition-colors`}
-              >
-                Tech Stack
-              </button>
-            </nav>
-
-            {/* Desktop CTA Buttons */}
-            <div className="hidden md:flex items-center space-x-3">
-              <a
-                href="mailto:sitelaunchstudio@gmail.com"
-                className={`text-sm font-medium px-4 py-2 transition-colors rounded-md border ${
-                  isScrolled
-                    ? "text-white hover:text-primary-600 border-gray-700 hover:border-primary-500"
-                    : "text-white hover:text-primary-200 border-white/30 hover:border-white/50"
-                }`}
-              >
-                Contact Us
-              </a>
-              <Button
-                variant="primary"
-                size="sm"
-                className="py-2 px-4 bg-secondary-500 hover:bg-secondary-600 shadow-sm"
-                onClick={openContactFormModal}
-              >
-                Free Consultation
-              </Button>
-            </div>
-
-            {/* Mobile Menu Button */}
+          <div className="hidden md:block">
             <button
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              className={`md:hidden focus:outline-none ${
-                isScrolled ? "text-gray-700" : "text-white"
-              }`}
-              onClick={toggleMobileMenu}
+              type="button"
+              onClick={() => handleReviewCta("header")}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-ink px-5 text-sm font-semibold text-ivory transition-colors hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              Get a Website Review
             </button>
           </div>
-        </header>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white mt-2 rounded-lg shadow-lg p-4 border border-gray-200 mx-auto max-w-6xl">
-            <nav className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection("services")}
-                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
-              >
-                Services
-              </button>
-              <button
-                onClick={() => scrollToSection("mobile-first")}
-                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
-              >
-                Mobile-First
-              </button>
-              <button
-                onClick={() => scrollToSection("advantages")}
-                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
-              >
-                Advantages
-              </button>
-              <button
-                onClick={() => scrollToSection("tech")}
-                className="text-gray-700 hover:text-primary-500 font-medium cursor-pointer"
-              >
-                Tech Stack
-              </button>
-              <div className="flex flex-col space-y-2 pt-2 border-t border-gray-200">
-                <a href="mailto:sitelaunchstudio@gmail.com">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    fullWidth
-                    className="border-gray-300 text-gray-700 hover:bg-gray-100"
-                  >
-                    Contact Us
-                  </Button>
-                </a>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  fullWidth
-                  className="bg-secondary-500 hover:bg-secondary-600"
-                  onClick={openContactFormModal}
-                >
-                  Free Consultation
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
-      </div>
-
-      {/* Contact Form Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Request a Free Consultation"
-      >
-        <div className="mb-6">
-          <p className="text-gray-600">
-            As Miami's tech-forward web development agency, we specialize in
-            creating mobile-first, high-performance websites that drive
-            measurable business results.
-          </p>
-          <p className="text-gray-600 mt-2">
-            Fill out the form below to request your free consultation and
-            website audit. We'll analyze your current online presence and
-            suggest improvements to help your business grow.
-          </p>
+          {/* Mobile menu button */}
+          <button
+            ref={menuButtonRef}
+            type="button"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="flex h-11 w-11 items-center justify-center text-ink md:hidden"
+          >
+            <MenuGlyph open={isMenuOpen} />
+          </button>
         </div>
-        <ContactForm
-          inline={false}
-          buttonText="Submit Request"
-          successMessage="Thank you for your interest! We'll be in touch shortly to discuss your project and how our mobile-first approach can help your business succeed online."
-          onSubmit={handleFormSubmit}
-        />
-      </Modal>
+      </header>
+
+      {/* Reserve the header's height so fixed positioning doesn't cover
+          the top of the page content. */}
+      <div
+        aria-hidden="true"
+        style={{ height: "var(--header-height, 68px)" }}
+      />
+
+      {/* Mobile nav overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            id="mobile-nav"
+            aria-label="Primary"
+            className="fixed inset-x-0 bottom-0 z-40 overflow-y-auto bg-ivory md:hidden"
+            style={{ top: "var(--header-height, 68px)" }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: EASE }}
+          >
+            <motion.ul
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="mx-auto max-w-6xl divide-y divide-ink/10 px-4 pt-2 sm:px-6"
+            >
+              {NAV_LINKS.map((link) => (
+                <motion.li key={link.label} variants={staggerItem}>
+                  {link.to ? (
+                    <Link
+                      to={link.to}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex min-h-[44px] items-center text-base font-medium text-ink"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleNavClick(link.id)}
+                      className="flex min-h-[44px] w-full items-center text-left text-base font-medium text-ink"
+                    >
+                      {link.label}
+                    </button>
+                  )}
+                </motion.li>
+              ))}
+            </motion.ul>
+            <motion.div
+              variants={staggerItem}
+              initial="hidden"
+              animate="visible"
+              className="mx-auto max-w-6xl px-4 pb-6 pt-4 sm:px-6"
+            >
+              <button
+                type="button"
+                onClick={() => handleReviewCta("header_mobile")}
+                className="flex min-h-[44px] w-full items-center justify-center rounded-md bg-ink px-5 text-sm font-semibold text-ivory transition-colors hover:bg-ink/85"
+              >
+                Get a Website Review
+              </button>
+            </motion.div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </>
   );
 };

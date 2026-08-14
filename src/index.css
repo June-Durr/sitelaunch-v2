@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Fallback before Header measures its real height on mount; keeps the
+       fixed header from overlapping content on first paint/prerender. */
+    --header-height: 68px;
+  }
+
   html {
     overflow-x: hidden;
   }
@@ -23,7 +29,7 @@
   h4,
   h5,
   h6 {
-    font-family: "Poppins", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
   }
 }
 
