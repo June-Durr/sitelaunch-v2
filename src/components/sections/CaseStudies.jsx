@@ -12,8 +12,34 @@ const DETAILS = [
   { label: "Key Decision", key: "keyDecision" },
 ];
 
-const CarlosReviewBlock = () => {
+// `wide` is the desktop-only full-span testimonial moment (see CaseStudies
+// below) - the image+story row pairs image with text at matched height, so
+// the review moved to its own row instead of stretching that row taller
+// than the imagery, which used to leave a large empty column beside it.
+// Mobile/narrow keeps the original compact stacked treatment untouched.
+const CarlosReviewBlock = ({ wide = false }) => {
   const [expanded, setExpanded] = useState(false);
+
+  if (wide) {
+    return (
+      <div className="hidden bg-ink p-10 lg:order-last lg:col-span-12 lg:block lg:p-12">
+        <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+          <div>
+            <Kicker tone="inverted">Verified Google Review</Kicker>
+            <p className="mt-2 text-sm text-white/50">The Client</p>
+          </div>
+          <div>
+            <blockquote className="text-xl leading-relaxed text-white/90 lg:text-2xl lg:leading-[1.5]">
+              {`"${carlosReview.quote}"`}
+            </blockquote>
+            <p className="mt-5 text-sm text-white/50">
+              {`${carlosReview.author}, ${carlosReview.attribution}`}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8 bg-ink p-6 sm:p-8">
@@ -21,7 +47,7 @@ const CarlosReviewBlock = () => {
       <blockquote
         className={`mt-3 text-base leading-relaxed text-white/90 ${
           expanded ? "" : "line-clamp-3"
-        } lg:line-clamp-none`}
+        }`}
       >
         {`"${carlosReview.quote}"`}
       </blockquote>
@@ -29,7 +55,7 @@ const CarlosReviewBlock = () => {
         type="button"
         onClick={() => setExpanded((value) => !value)}
         aria-expanded={expanded}
-        className="mt-3 text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300 lg:hidden"
+        className="mt-3 text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
       >
         {expanded ? "Show less" : "Read full review"}
       </button>
@@ -130,9 +156,11 @@ const CaseStudyBlock = ({ project }) => {
         >
           See the project
         </a>
-
-        {project.id === "sweet-stax" && <CarlosReviewBlock />}
       </div>
+
+      {/* Testimonial moment: full-width row beneath the image+story
+          composition, not squeezed into the narrower text column. */}
+      {project.id === "sweet-stax" && <CarlosReviewBlock wide />}
     </motion.article>
   );
 };

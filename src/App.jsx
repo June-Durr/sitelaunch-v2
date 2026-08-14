@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig } from "framer-motion";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import ScrollManager from "./components/common/ScrollManager";
 import Home from "./pages/Home";
 import InsightArticle from "./pages/InsightArticle";
 import NotFound from "./pages/NotFound";
@@ -20,6 +21,7 @@ function App() {
           visitor's OS-level prefers-reduced-motion setting automatically. */}
       <MotionConfig reducedMotion="user">
         <Router>
+          <ScrollManager />
           <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Header />
             <main className="flex-grow">

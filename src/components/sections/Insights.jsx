@@ -58,26 +58,43 @@ const Insights = () => {
         </Reveal>
       </div>
 
-      {/* Desktop: unchanged layout/treatment from the previous pass - only
-          the copy and link targets are corrected to match the approved
-          card content. No image added here; that would be a desktop visual
-          change beyond this task's scope. */}
+      {/* Desktop: image-led two-column editorial treatment using the real
+          cover artwork, so this is a visual beat in the lower half of the
+          page rather than another block of text. */}
       <div className="hidden bg-ivory py-24 sm:block">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <Kicker as="h2">Insight 001 / Contractors</Kicker>
-
-          <div className="mt-8 max-w-2xl border-t border-ink/10 pt-8">
-            <h3 className="font-display text-3xl font-bold text-ink">
-              <Link to={ARTICLE_PATH} className="hover:text-violet-600">
-                {featured.title}
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <Kicker as="h2">Insight 001 / Contractors</Kicker>
+              <h3 className="mt-4 font-display text-3xl font-bold text-ink lg:text-4xl">
+                <Link to={ARTICLE_PATH} className="hover:text-violet-600">
+                  {featured.title}
+                </Link>
+              </h3>
+              <p className="mt-4 max-w-md text-base text-ink/70 lg:text-lg">
+                {featured.homepageExcerpt}
+              </p>
+              <Link
+                to={ARTICLE_PATH}
+                className="mt-6 inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
+              >
+                Read Insight 001
               </Link>
-            </h3>
-            <p className="mt-3 text-base text-ink/70">{featured.homepageExcerpt}</p>
+            </div>
+
             <Link
               to={ARTICLE_PATH}
-              className="mt-5 inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
+              aria-label={`Read Insight 001: ${featured.title}`}
+              className="flex h-[320px] items-center justify-center bg-[#FCF6EE] lg:h-[420px]"
             >
-              Read Insight 001
+              <img
+                src={featured.coverImage}
+                alt={featured.coverAlt}
+                className="h-full w-auto object-contain"
+                width={1344}
+                height={1800}
+                loading="lazy"
+              />
             </Link>
           </div>
         </div>

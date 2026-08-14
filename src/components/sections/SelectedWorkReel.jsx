@@ -95,19 +95,6 @@ const SelectedWorkReel = () => {
           viewport={viewportOnce}
           variants={mediaReveal}
         >
-          <div
-            aria-hidden="true"
-            className="absolute left-4 top-4 z-10 hidden text-white/70 sm:block"
-          >
-            <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-              <path
-                d="M0 1h20M0 7h20M0 13h20"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-
           {/* The whole frame is a tappable link to the project on mobile
               (no visible text chrome over it); desktop keeps the separate
               name/category/controls row below in addition to this. */}

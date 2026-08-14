@@ -24,7 +24,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-ivory pb-8 pt-6 sm:pb-10 sm:pt-14 lg:pt-20">
+    <section className="bg-ivory pb-8 pt-6 sm:pb-10 sm:pt-14 lg:pb-8 lg:pt-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <motion.div initial="hidden" animate="visible" variants={heroKicker}>
@@ -68,7 +68,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.div
-            className="mt-5 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4"
+            className="mt-5 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4 lg:mt-6"
             initial="hidden"
             animate="visible"
             variants={heroCta}
@@ -79,19 +79,6 @@ const Hero = () => {
               className="inline-flex min-h-[52px] w-full items-center justify-center rounded-md bg-violet-600 px-6 text-base font-semibold text-white transition-colors hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:w-auto"
             >
               Get a Free Website Review
-            </button>
-
-            {/* "See Our Work" removed on mobile: the reel sits immediately
-                below and is already substantially visible in the first
-                viewport, so the scroll it triggered was redundant there.
-                Desktop keeps it - the reel isn't nearly as dominant in a
-                wider, shorter-aspect first viewport. */}
-            <button
-              type="button"
-              onClick={() => scrollToSection("reel")}
-              className="hidden min-h-[44px] items-center justify-center rounded-md border border-ink/30 px-6 text-base font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5 sm:inline-flex"
-            >
-              See Our Work
             </button>
           </motion.div>
         </div>

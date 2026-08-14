@@ -3,7 +3,7 @@ import Kicker from "../common/Kicker";
 import { scrollToSection } from "../../utils/scroll";
 
 const AudiencePathways = () => (
-  <section className="border-t border-ink/10 bg-ivory py-12 sm:py-24">
+  <section className="border-t border-ink/10 bg-ivory py-12 sm:py-24 lg:py-[4.5rem]">
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <Kicker as="h2">Who We Build For</Kicker>
 

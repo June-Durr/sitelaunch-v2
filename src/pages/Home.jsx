@@ -82,13 +82,8 @@ const homepageStructuredData = {
 const Home = () => {
   useEffect(() => {
     analytics.trackPageView("/", "Home - SiteLaunch Studios");
-
-    if (window.location.hash) {
-      const id = window.location.hash.slice(1);
-      requestAnimationFrame(() => {
-        document.getElementById(id)?.scrollIntoView({ block: "start" });
-      });
-    }
+    // Hash-on-load scrolling (e.g. arriving at /#review) is handled
+    // globally by <ScrollManager> in App.jsx, not per-page.
 
     let scrollTimeout;
     const handleScroll = () => {
@@ -131,7 +126,7 @@ const Home = () => {
 
       <section
         id="services"
-        className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-24"
+        className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-24 lg:py-[4.5rem]"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
