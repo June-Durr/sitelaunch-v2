@@ -4,7 +4,7 @@ import Kicker from "../common/Kicker";
 import { mediaReveal, viewportOnce } from "../../utils/motion";
 
 const DESKTOP_REEL = "/videos/sitelaunch-showreel-2026.mp4";
-const MOBILE_REEL = "/videos/sitelaunch-showreel-2026-mobile.mp4";
+const MOBILE_REEL = "/videos/sitelaunch-showreel-2026-mobile-v2.mp4";
 const REEL_POSTER = "/images/sitelaunch-showreel-poster.webp";
 
 const SelectedWorkReel = () => {

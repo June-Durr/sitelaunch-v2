@@ -1,16 +1,14 @@
 import { motion } from "framer-motion";
-import Kicker from "../common/Kicker";
 import { scrollToSection } from "../../utils/scroll";
-import { heroCopy, heroCta, heroKicker, heroLine } from "../../utils/motion";
+import { heroCta, heroLine } from "../../utils/motion";
 import analytics from "../../services/analytics";
 
 // Mobile-only headline split for the per-line reveal below. Chosen short
 // enough to read as one line each at 320-430px; desktop keeps the original
 // single flowing string with natural browser wrapping, untouched.
 const HEADLINE_LINES = [
-  "Websites built to earn trust",
-  "and make the next step",
-  "obvious.",
+  "Websites that turn",
+  "visitors into clients.",
 ];
 
 const Hero = () => {
@@ -24,17 +22,13 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-ivory pb-8 pt-6 sm:pb-10 sm:pt-14 lg:pb-8 lg:pt-14">
+    <section className="bg-ivory pb-6 pt-6 sm:pb-8 sm:pt-12 lg:pb-7 lg:pt-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          <motion.div initial="hidden" animate="visible" variants={heroKicker}>
-            <Kicker>Miami / Clients Anywhere</Kicker>
-          </motion.div>
-
+        <div className="max-w-5xl">
           {/* Single H1 for a11y/SEO; mobile and desktop render different
               children of it (per-line animated vs. plain flowing text),
               never both at once. */}
-          <h1 className="mt-3 font-display text-[clamp(2rem,6vw+0.5rem,4.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h1 className="font-display text-[clamp(2.55rem,7vw,5.5rem)] font-bold leading-[0.98] tracking-tight text-ink">
             <span className="sm:hidden">
               {HEADLINE_LINES.map((line, i) => (
                 <span key={line} className="block overflow-hidden">
@@ -51,24 +45,12 @@ const Hero = () => {
               ))}
             </span>
             <span className="hidden sm:inline">
-              Websites built to earn trust and make the next step obvious.
+              Websites that turn visitors into clients.
             </span>
           </h1>
 
-          <motion.p
-            className="mt-4 max-w-xl text-base text-ink/70 sm:text-lg"
-            initial="hidden"
-            animate="visible"
-            variants={heroCopy}
-          >
-            We design and build websites for businesses and contractors.
-            <span className="hidden sm:inline">
-              {" One person on your project, from the first review to the day it launches."}
-            </span>
-          </motion.p>
-
           <motion.div
-            className="mt-5 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4 lg:mt-6"
+            className="mt-5 flex flex-col items-start gap-3 sm:mt-7 sm:flex-row sm:items-center sm:gap-4 lg:mt-6"
             initial="hidden"
             animate="visible"
             variants={heroCta}
