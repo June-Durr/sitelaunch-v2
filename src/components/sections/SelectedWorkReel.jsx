@@ -7,10 +7,16 @@ const DESKTOP_REEL = "/videos/sitelaunch-showreel-2026.mp4";
 const MOBILE_REEL = "/videos/sitelaunch-showreel-mobile-final.mp4";
 const REEL_POSTER = "/images/sitelaunch-showreel-poster.webp";
 
+const MOBILE_BREAKPOINT_QUERY = "(max-width: 639px)";
+
 const SelectedWorkReel = () => {
   const videoRef = useRef(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window === "undefined" ? false : window.matchMedia(MOBILE_BREAKPOINT_QUERY).matches
+  );
   const [shouldPlay, setShouldPlay] = useState(true);
+  const reelSrc = isMobile ? MOBILE_REEL : DESKTOP_REEL;
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -20,6 +26,36 @@ const SelectedWorkReel = () => {
     query.addEventListener("change", handleChange);
     return () => query.removeEventListener("change", handleChange);
   }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia(MOBILE_BREAKPOINT_QUERY);
+    setIsMobile(query.matches);
+
+    const handleChange = (event) => setIsMobile(event.matches);
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+
+  // Deciding the source in JS (rather than <source media="…">) sidesteps
+  // browsers that don't reliably honor conditional <source> selection and
+  // silently fall back to the wrong clip. The prerendered markup ships a
+  // desktop-viewport <video src> baked in by the puppeteer prerender pass,
+  // and production hydration adopts that DOM node without patching mismatched
+  // attributes — so the src prop alone never reaches the element. Set it on
+  // the node directly before load() instead of trusting React's JSX prop.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const absoluteReelSrc = new URL(reelSrc, window.location.href).href;
+    if (video.currentSrc === absoluteReelSrc) return;
+
+    video.src = reelSrc;
+    video.load();
+    if (shouldPlay && !prefersReducedMotion) {
+      video.play().catch(() => setShouldPlay(false));
+    }
+  }, [reelSrc, shouldPlay, prefersReducedMotion]);
 
   useEffect(() => {
     if (prefersReducedMotion || !videoRef.current) return undefined;
@@ -81,6 +117,7 @@ const SelectedWorkReel = () => {
             ) : (
               <video
                 ref={videoRef}
+                src={reelSrc}
                 className="h-full w-full object-cover object-center"
                 poster={REEL_POSTER}
                 muted
@@ -89,14 +126,7 @@ const SelectedWorkReel = () => {
                 autoPlay
                 preload="metadata"
                 aria-hidden="true"
-              >
-                <source
-                  src={MOBILE_REEL}
-                  media="(max-width: 639px)"
-                  type="video/mp4"
-                />
-                <source src={DESKTOP_REEL} type="video/mp4" />
-              </video>
+              />
             )}
           </div>
 
