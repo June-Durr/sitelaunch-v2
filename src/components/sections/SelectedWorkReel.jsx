@@ -145,17 +145,21 @@ const SelectedWorkReel = () => {
               type="button"
               onClick={togglePlayback}
               aria-label={shouldPlay ? "Pause showreel" : "Play showreel"}
-              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-ink/75 text-white backdrop-blur-sm transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-4 sm:top-4"
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-200 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:hover:opacity-100 ${
+                shouldPlay ? "opacity-0" : "opacity-100"
+              }`}
             >
-              {shouldPlay ? (
-                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-                  <path d="M1 1v12M11 1v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              ) : (
-                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-                  <path d="m1 1 10 6-10 6V1Z" fill="currentColor" />
-                </svg>
-              )}
+              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-ink/75 text-white backdrop-blur-sm">
+                {shouldPlay ? (
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                    <path d="M1 1v12M11 1v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                    <path d="m1 1 10 6-10 6V1Z" fill="currentColor" />
+                  </svg>
+                )}
+              </span>
             </button>
           )}
 
