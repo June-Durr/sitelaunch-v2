@@ -6,9 +6,8 @@ import GoogleTrustStrip from "../components/sections/GoogleTrustStrip";
 import CaseStudies from "../components/sections/CaseStudies";
 import AudiencePathways from "../components/sections/AudiencePathways";
 import ServicesPricing from "../components/sections/ServicesPricing";
-import StructureInterlude from "../components/sections/StructureInterlude";
 import WhySiteLaunch from "../components/sections/WhySiteLaunch";
-import Process from "../components/sections/Process";
+import HowWeWork from "../components/sections/HowWeWork";
 import FeaturedReview from "../components/sections/FeaturedReview";
 import Insights from "../components/sections/Insights";
 import FreeWebsiteReviewForm from "../components/sections/FreeWebsiteReviewForm";
@@ -133,11 +132,6 @@ const Home = () => {
             <div className="lg:border-r lg:border-ink/10 lg:pr-16">
               <ServicesPricing />
             </div>
-            {/* Mobile-only visual beat between Services and Why SiteLaunch;
-                vanishes at lg+ so the two-column desktop grid is untouched. */}
-            <div className="lg:hidden">
-              <StructureInterlude />
-            </div>
             <div>
               <WhySiteLaunch />
             </div>
@@ -145,7 +139,7 @@ const Home = () => {
         </div>
       </section>
 
-      <Process />
+      <HowWeWork />
       <FeaturedReview />
       <Insights />
       <FreeWebsiteReviewForm />
