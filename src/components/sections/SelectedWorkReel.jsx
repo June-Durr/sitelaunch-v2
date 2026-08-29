@@ -75,12 +75,15 @@ const SelectedWorkReel = () => {
     if (!video) return;
 
     if (video.paused) {
+      if (video.ended) video.currentTime = 0;
       video.play().then(() => setShouldPlay(true)).catch(() => setShouldPlay(false));
     } else {
       video.pause();
       setShouldPlay(false);
     }
   };
+
+  const handleEnded = () => setShouldPlay(false);
 
   return (
     <section
@@ -121,11 +124,11 @@ const SelectedWorkReel = () => {
                 className="h-full w-full object-cover object-center"
                 poster={REEL_POSTER}
                 muted
-                loop
                 playsInline
                 autoPlay
                 preload="metadata"
                 aria-hidden="true"
+                onEnded={handleEnded}
               />
             )}
           </div>
