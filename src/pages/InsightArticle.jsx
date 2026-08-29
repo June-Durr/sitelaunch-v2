@@ -6,6 +6,7 @@ import InsightProse from "../components/insights/InsightProse";
 import InsightDiagnostic from "../components/insights/InsightDiagnostic";
 import InsightPullStatement from "../components/insights/InsightPullStatement";
 import InsightFixOrder from "../components/insights/InsightFixOrder";
+import InsightGallery from "../components/insights/InsightGallery";
 import InsightCTA from "../components/insights/InsightCTA";
 import NotFound from "./NotFound";
 import { getInsightBySlug } from "../data/insights";
@@ -18,6 +19,7 @@ const SECTION_COMPONENTS = {
   diagnostic: InsightDiagnostic,
   pullStatement: InsightPullStatement,
   fixOrder: InsightFixOrder,
+  gallery: InsightGallery,
 };
 
 const InsightArticle = () => {
@@ -57,9 +59,9 @@ const InsightArticle = () => {
   return (
     <article>
       <SEOHead
-        title={`Can a Homeowner Understand Your Contractor Website in Seven Seconds? | SiteLaunch Studios`}
+        title={`${insight.title} | SiteLaunch Studios`}
         description={insight.deck}
-        keywords="contractor website review, mobile website usability, contractor website design, service area website"
+        keywords={insight.keywords}
         url={canonicalUrl}
         canonicalUrl={canonicalUrl}
         image={coverUrl}

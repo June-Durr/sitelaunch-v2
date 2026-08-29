@@ -25,12 +25,12 @@ const Insights = () => {
       <div className="bg-ink py-10 sm:hidden">
         <Reveal className="mx-auto max-w-6xl px-4">
           <Kicker as="h2" tone="inverted">
-            Insight 001 / Contractors
+            {`Insight ${featured.number} / ${featured.category}`}
           </Kicker>
 
           <Link
             to={ARTICLE_PATH}
-            aria-label={`Read Insight 001: ${featured.title}`}
+            aria-label={`Read Insight ${featured.number}: ${featured.title}`}
             className="mt-4 block h-[230px] w-full overflow-hidden bg-[#FCF6EE]"
           >
             <img
@@ -49,12 +49,20 @@ const Insights = () => {
             </Link>
           </h3>
           <p className="mt-2 text-sm text-white/70">{featured.homepageExcerpt}</p>
-          <Link
-            to={ARTICLE_PATH}
-            className="mt-3 inline-block text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
-          >
-            Read Insight 001
-          </Link>
+          <div className="mt-3 flex items-center gap-4">
+            <Link
+              to={ARTICLE_PATH}
+              className="inline-block text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
+            >
+              {`Read Insight ${featured.number}`}
+            </Link>
+            <Link
+              to="/insights/"
+              className="inline-block text-sm font-semibold text-white/50 underline underline-offset-4 hover:text-white/80"
+            >
+              View all insights
+            </Link>
+          </div>
         </Reveal>
       </div>
 
@@ -65,7 +73,7 @@ const Insights = () => {
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div>
-              <Kicker as="h2">Insight 001 / Contractors</Kicker>
+              <Kicker as="h2">{`Insight ${featured.number} / ${featured.category}`}</Kicker>
               <h3 className="mt-4 font-display text-3xl font-bold text-ink lg:text-4xl">
                 <Link to={ARTICLE_PATH} className="hover:text-violet-600">
                   {featured.title}
@@ -74,17 +82,25 @@ const Insights = () => {
               <p className="mt-4 max-w-md text-base text-ink/70 lg:text-lg">
                 {featured.homepageExcerpt}
               </p>
-              <Link
-                to={ARTICLE_PATH}
-                className="mt-6 inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
-              >
-                Read Insight 001
-              </Link>
+              <div className="mt-6 flex items-center gap-6">
+                <Link
+                  to={ARTICLE_PATH}
+                  className="inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
+                >
+                  {`Read Insight ${featured.number}`}
+                </Link>
+                <Link
+                  to="/insights/"
+                  className="inline-block text-base font-semibold text-ink/50 underline underline-offset-4 hover:text-ink/80"
+                >
+                  View all insights
+                </Link>
+              </div>
             </div>
 
             <Link
               to={ARTICLE_PATH}
-              aria-label={`Read Insight 001: ${featured.title}`}
+              aria-label={`Read Insight ${featured.number}: ${featured.title}`}
               className="flex h-[320px] items-center justify-center bg-[#FCF6EE] lg:h-[420px]"
             >
               <img

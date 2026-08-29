@@ -3,8 +3,9 @@
 // looks articles up by slug through this file, so nothing else needs to
 // change to publish a new one.
 import { insight001 } from "./insight-001";
+import { insight002 } from "./insight-002";
 
-export const INSIGHTS = [insight001];
+export const INSIGHTS = [insight001, insight002];
 
 export const getInsightBySlug = (slug) =>
   INSIGHTS.find((insight) => insight.slug === slug) || null;

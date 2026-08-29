@@ -9,6 +9,8 @@ export const insight001 = {
   category: "Contractors",
   title: "Can a homeowner understand your website in seven seconds?",
   deck: "It is the first thing I do in a website review, and it takes less time than reading this sentence. Open the site on a phone and answer three questions.",
+  keywords:
+    "contractor website review, mobile website usability, contractor website design, service area website",
   readTime: "4 min read",
   published: "August 2026",
   featured: true,
