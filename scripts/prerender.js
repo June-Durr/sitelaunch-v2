@@ -68,9 +68,17 @@ async function run() {
       await scrollThroughPage(page);
       await waitForAnimationsToSettle(page);
 
-      const html = await page.evaluate(
-        () => "<!DOCTYPE html>\n" + document.documentElement.outerHTML
-      );
+      const html = await page.evaluate(() => {
+        // React reflects a muted <video> as a live DOM property, never as an
+        // HTML attribute, so outerHTML always omits it - the captured markup
+        // would otherwise ship every visitor an unmuted, autoplay-attributed
+        // video for the brief window before hydration re-asserts it, which
+        // real autoplay policies (Safari in particular) reject outright.
+        document.querySelectorAll("video[autoplay]").forEach((video) => {
+          video.setAttribute("muted", "");
+        });
+        return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      });
 
       const outPath =
         route === "/"

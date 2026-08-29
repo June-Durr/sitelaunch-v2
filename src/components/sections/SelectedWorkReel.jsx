@@ -47,6 +47,13 @@ const SelectedWorkReel = () => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Same hydration gap as src: React reflects `muted` as a live property,
+    // never as an HTML attribute, so the prerendered markup ships with no
+    // muted attribute at all. A hydrated visitor's video briefly exists as
+    // unmuted+autoplay before this runs, which real autoplay policies
+    // (Safari in particular) reject outright and never retry on their own.
+    video.muted = true;
+
     const absoluteReelSrc = new URL(reelSrc, window.location.href).href;
     if (video.currentSrc === absoluteReelSrc) return;
 
