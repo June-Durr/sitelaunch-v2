@@ -32,3 +32,10 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?" > .gitignore
+# QA + local working output (never published)
+.qa/
+_shots/
+_debug_grid/
+source-assets/
+CLAUDE.local.md
+*.log

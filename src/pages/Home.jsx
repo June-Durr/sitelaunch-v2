@@ -7,6 +7,7 @@ import CaseStudies from "../components/sections/CaseStudies";
 import AudiencePathways from "../components/sections/AudiencePathways";
 import ServicesPricing from "../components/sections/ServicesPricing";
 import WhySiteLaunch from "../components/sections/WhySiteLaunch";
+import AfterLaunch from "../components/sections/AfterLaunch";
 import HowWeWork from "../components/sections/HowWeWork";
 import FeaturedReview from "../components/sections/FeaturedReview";
 import Insights from "../components/sections/Insights";
@@ -31,7 +32,6 @@ const homepageStructuredData = {
     longitude: "-80.1918",
   },
   url: "https://sitelaunchstudios.com",
-  priceRange: "$$",
   image: "https://sitelaunchstudios.com/images/logo.png",
   telephone: "+1-786-505-5791",
   sameAs: ["https://instagram.com/sitelaunchstudios"],
@@ -68,6 +68,26 @@ const homepageStructuredData = {
         "@type": "Service",
         name: "Website Review",
         description: "Three specific things to fix on the site you already have.",
+      },
+    },
+    {
+      "@type": "Offer",
+      url: "https://sitelaunchstudios.com/services/sitelaunch-care/",
+      itemOffered: {
+        "@type": "Service",
+        name: "SiteLaunch Care",
+        description:
+          "Monthly website checks, small updates, visibility reporting, and a quarterly health review.",
+      },
+    },
+    {
+      "@type": "Offer",
+      url: "https://sitelaunchstudios.com/services/digital-brand-polish/",
+      itemOffered: {
+        "@type": "Service",
+        name: "Digital Brand Polish",
+        description:
+          "Color, typography, logo-use, and imagery rules organized into one system for web and social.",
       },
     },
   ],
@@ -128,16 +148,31 @@ const Home = () => {
         className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-24 lg:py-[4.5rem]"
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-16">
             <div className="lg:border-r lg:border-ink/10 lg:pr-16">
               <ServicesPricing />
             </div>
+
+            {/* Stacked-layout only. Once the two columns sit on one narrow
+                scroll there is nothing marking where Services ends and "Why
+                work with SiteLaunch" begins, so this draws the site's usual
+                hairline with a short violet lead-in. display:none at lg
+                takes it out of the grid entirely, so the desktop two-column
+                layout is untouched; the mobile gap above was tightened from
+                10 to 5 to absorb its height (net +2px). */}
+            <div aria-hidden="true" className="lg:hidden">
+              <div className="h-px w-full bg-ink/10" />
+              <div className="-mt-px h-0.5 w-10 bg-violet-600" />
+            </div>
+
             <div>
               <WhySiteLaunch />
             </div>
           </div>
         </div>
       </section>
+
+      <AfterLaunch />
 
       <HowWeWork />
       <FeaturedReview />

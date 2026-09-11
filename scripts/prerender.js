@@ -11,6 +11,8 @@ const ROUTES = [
   "/insights",
   "/insights/seven-second-contractor-website-test",
   "/insights/claims-dont-convert-proof-does",
+  "/services/sitelaunch-care",
+  "/services/digital-brand-polish",
 ];
 // A realistic desktop size instead of Puppeteer's 800x600 default, so layout,
 // canvas dimensions, and viewport-based animation thresholds match reality.

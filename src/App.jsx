@@ -8,6 +8,7 @@ import ScrollManager from "./components/common/ScrollManager";
 import Home from "./pages/Home";
 import InsightsIndex from "./pages/InsightsIndex";
 import InsightArticle from "./pages/InsightArticle";
+import ServiceDetail from "./pages/ServiceDetail";
 import NotFound from "./pages/NotFound";
 import analytics from "./services/analytics";
 
@@ -30,6 +31,14 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/insights" element={<InsightsIndex />} />
                 <Route path="/insights/:slug" element={<InsightArticle />} />
+                <Route
+                  path="/services/sitelaunch-care"
+                  element={<ServiceDetail slug="sitelaunch-care" />}
+                />
+                <Route
+                  path="/services/digital-brand-polish"
+                  element={<ServiceDetail slug="digital-brand-polish" />}
+                />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
