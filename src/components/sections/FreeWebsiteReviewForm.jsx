@@ -25,6 +25,12 @@ const FreeWebsiteReviewForm = () => {
   const [status, setStatus] = useState("idle"); // idle | submitting | success
   const [errorMessage, setErrorMessage] = useState("");
   const hasStarted = useRef(false);
+  // The disabled submit button only guards duplicates once React has
+  // re-rendered with status="submitting". Two submits landing in the same
+  // JS tick (a double tap while the main thread is busy) both get through
+  // and each fires its own generate_lead. This ref flips synchronously, so
+  // the second one is dropped regardless of render timing.
+  const inFlight = useRef(false);
 
   const trackStart = () => {
     if (hasStarted.current) return;
@@ -47,6 +53,7 @@ const FreeWebsiteReviewForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (inFlight.current) return;
     setErrorMessage("");
 
     if (!values.email || !values.email.includes("@")) {
@@ -62,6 +69,7 @@ const FreeWebsiteReviewForm = () => {
       return;
     }
 
+    inFlight.current = true;
     setStatus("submitting");
 
     try {
@@ -107,6 +115,9 @@ const FreeWebsiteReviewForm = () => {
         "There was an error sending your request. Please try again or call us directly."
       );
       setStatus("idle");
+    } finally {
+      // Released either way, so a genuine retry after a failure still works.
+      inFlight.current = false;
     }
   };
 
