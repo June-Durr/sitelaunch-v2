@@ -8,7 +8,26 @@ import ScrollManager from "./components/common/ScrollManager";
 import Home from "./pages/Home";
 import InsightArticle from "./pages/InsightArticle";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
 import analytics from "./services/analytics";
+
+/**
+ * Every route the site answers.
+ *
+ * Exported so the route table itself can be tested: mounting it in a
+ * MemoryRouter checks the real definitions, where a test that re-declared the
+ * same routes would only check a copy of them.
+ */
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/insights/:slug" element={<InsightArticle />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -25,11 +44,7 @@ function App() {
           <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Header />
             <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/insights/:slug" element={<InsightArticle />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <AppRoutes />
             </main>
             <Footer />
           </div>

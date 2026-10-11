@@ -9,6 +9,9 @@ const PHONE_DISPLAY = "(786) 505-5791";
 const PHONE_HREF = "tel:+17865055791";
 const INSTAGRAM_URL = "https://instagram.com/sitelaunchstudios";
 
+// Terms only. The privacy policy moved to its own route at /privacy, because
+// Google OAuth verification needs an address it can fetch and a crawler can
+// follow, and a modal has neither. See src/pages/Privacy.jsx.
 const legalContent = {
   terms: {
     title: "Terms of Service",
@@ -36,31 +39,6 @@ const legalContent = {
 
         <h3 class="font-semibold text-lg">7. Governing Law</h3>
         <p>These terms shall be governed by and construed in accordance with the laws of the State of Florida, without giving effect to any principles of conflicts of law.</p>
-      </div>
-    `,
-  },
-  privacy: {
-    title: "Privacy Policy",
-    content: `
-      <div class="space-y-4">
-        <p class="font-semibold">Last Updated: January 1, 2026</p>
-
-        <h3 class="font-semibold text-lg">1. Information We Collect</h3>
-        <p>We collect information you provide when you contact us through forms, email, or phone, including your name, email address, phone number, and any other information you choose to provide.</p>
-
-        <h3 class="font-semibold text-lg">2. How We Use Your Information</h3>
-        <p>We use the information we collect to respond to your inquiries, provide our services, and comply with legal obligations. Your details are not shared with third parties or added to a marketing list.</p>
-
-        <h3 class="font-semibold text-lg">3. Cookies and Tracking</h3>
-        <p>Our website uses analytics tools to understand how visitors use our site. Form field values, including names, emails, phone numbers, and message text, are never sent to analytics.</p>
-
-        <h3 class="font-semibold text-lg">4. Data Security</h3>
-        <p>We implement appropriate security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p>
-
-        <h3 class="font-semibold text-lg">5. Your Rights</h3>
-        <p>Depending on your location, you may have rights regarding your personal information, including the right to access, correct, or delete your data.</p>
-
-        <p>For questions about this Privacy Policy, please contact us by phone at <a href="${PHONE_HREF}" class="text-violet-600 hover:underline">${PHONE_DISPLAY}</a>.</p>
       </div>
     `,
   },
@@ -196,13 +174,12 @@ const Footer = () => {
         <div className="mt-4 flex flex-col gap-2 text-sm text-white/50 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
           <p>SiteLaunch Studios</p>
           <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => setOpenLegal("privacy")}
+            <Link
+              to="/privacy"
               className="underline decoration-white/30 underline-offset-2 hover:text-white hover:decoration-violet-400"
             >
               Privacy
-            </button>
+            </Link>
             <button
               type="button"
               onClick={() => setOpenLegal("terms")}

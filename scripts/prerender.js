@@ -5,8 +5,29 @@ import { preview } from "vite";
 import puppeteer from "puppeteer";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-const ROUTES = ["/", "/insights/seven-second-contractor-website-test"];
+export const ROUTES = [
+  "/",
+  "/insights/seven-second-contractor-website-test",
+  "/privacy",
+];
+
+// Routes written as <route>.html rather than <route>/index.html.
+//
+// Netlify serves /privacy straight from privacy.html with a 200. The
+// directory form would answer /privacy with a 301 to /privacy/ first, and
+// the address given to Google for OAuth verification should not depend on a
+// redirect being followed.
+export const FLAT_ROUTES = new Set(["/privacy"]);
+
+/** Where one route's HTML is written. Exported so a test can check it
+ *  without launching a browser. */
+export function outPathFor(route) {
+  if (route === "/") return resolve("dist/index.html");
+  if (FLAT_ROUTES.has(route)) return resolve(`dist${route}.html`);
+  return resolve(`dist${route}/index.html`);
+}
 // A realistic desktop size instead of Puppeteer's 800x600 default, so layout,
 // canvas dimensions, and viewport-based animation thresholds match reality.
 const VIEWPORT = { width: 1366, height: 768 };
@@ -72,10 +93,7 @@ async function run() {
         () => "<!DOCTYPE html>\n" + document.documentElement.outerHTML
       );
 
-      const outPath =
-        route === "/"
-          ? resolve("dist/index.html")
-          : resolve(`dist${route}/index.html`);
+      const outPath = outPathFor(route);
 
       mkdirSync(dirname(outPath), { recursive: true });
       writeFileSync(outPath, html);
@@ -89,7 +107,11 @@ async function run() {
   }
 }
 
-run().catch((err) => {
-  console.error("Prerender failed:", err);
-  process.exit(1);
-});
+// Only when run as a command. Importing this file (the tests do, to read the
+// route table) must not launch a browser.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  run().catch((err) => {
+    console.error("Prerender failed:", err);
+    process.exit(1);
+  });
+}
