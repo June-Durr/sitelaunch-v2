@@ -1,5 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /.env
+Disallow: /src/
+
+# Allow search engines to crawl public assets.
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
 
 # OpenAI search uses this crawler for ChatGPT search results.
 User-agent: OAI-SearchBot
@@ -10,13 +18,3 @@ Disallow: /src/
 
 # Sitemap location
 Sitemap: https://sitelaunchstudios.com/sitemap.xml
-
-# Block access to admin/private areas (if any)
-Disallow: /admin/
-Disallow: /.env
-Disallow: /src/
-
-# Allow search engines to crawl images
-Allow: /images/
-Allow: /*.css$
-Allow: /*.js$
