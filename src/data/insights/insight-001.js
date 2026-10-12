@@ -11,6 +11,8 @@ export const insight001 = {
   deck: "It is the first thing I do in a website review, and it takes less time than reading this sentence. Open the site on a phone and answer three questions.",
   readTime: "4 min read",
   published: "August 2026",
+  publishedDate: "2026-08-12",
+  modifiedDate: "2026-08-12",
   featured: true,
   coverImage: "/images/insights/insight-001/cover.jpeg",
   coverAlt:

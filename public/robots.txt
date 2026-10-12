@@ -1,6 +1,13 @@
 User-agent: *
 Allow: /
 
+# OpenAI search uses this crawler for ChatGPT search results.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /.env
+Disallow: /src/
+
 # Sitemap location
 Sitemap: https://sitelaunchstudios.com/sitemap.xml
 

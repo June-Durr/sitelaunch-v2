@@ -9,6 +9,7 @@ import { pathToFileURL } from "node:url";
 
 export const ROUTES = [
   "/",
+  "/insights",
   "/insights/seven-second-contractor-website-test",
   "/privacy",
 ];

@@ -41,17 +41,52 @@ const InsightArticle = () => {
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: insight.title,
-    description: insight.deck,
-    image: coverUrl,
-    url: canonicalUrl,
-    mainEntityOfPage: canonicalUrl,
-    datePublished: "2026-08",
-    publisher: {
-      "@type": "Organization",
-      name: "SiteLaunch Studios",
-    },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${canonicalUrl}#article`,
+        headline: insight.title,
+        description: insight.deck,
+        image: [coverUrl],
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+        datePublished: insight.publishedDate,
+        dateModified: insight.modifiedDate,
+        author: {
+          "@type": "Organization",
+          name: "SiteLaunch Studios",
+          url: SITE_URL,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "SiteLaunch Studios",
+          url: SITE_URL,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Insights",
+            item: `${SITE_URL}/insights`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: insight.title,
+            item: canonicalUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (

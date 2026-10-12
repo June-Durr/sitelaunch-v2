@@ -6,6 +6,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import ScrollManager from "./components/common/ScrollManager";
 import Home from "./pages/Home";
+import InsightsIndex from "./pages/InsightsIndex";
 import InsightArticle from "./pages/InsightArticle";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
@@ -22,6 +23,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/insights" element={<InsightsIndex />} />
       <Route path="/insights/:slug" element={<InsightArticle />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="*" element={<NotFound />} />

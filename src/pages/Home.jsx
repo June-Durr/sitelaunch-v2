@@ -11,73 +11,10 @@ import WhySiteLaunch from "../components/sections/WhySiteLaunch";
 import Process from "../components/sections/Process";
 import FeaturedReview from "../components/sections/FeaturedReview";
 import Insights from "../components/sections/Insights";
+import Faq from "../components/sections/Faq";
 import FreeWebsiteReviewForm from "../components/sections/FreeWebsiteReviewForm";
 import analytics from "../services/analytics";
-
-const homepageStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "SiteLaunch Studios",
-  description:
-    "SiteLaunch Studios designs and builds websites for businesses and contractors. Miami-based, working with clients anywhere.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Miami",
-    addressRegion: "FL",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "25.7617",
-    longitude: "-80.1918",
-  },
-  url: "https://sitelaunchstudios.com",
-  priceRange: "$$",
-  image: "https://sitelaunchstudios.com/images/logo.png",
-  telephone: "+1-786-505-5791",
-  sameAs: ["https://instagram.com/sitelaunchstudios"],
-  areaServed: "Miami, Florida",
-  availableLanguage: ["English", "Spanish"],
-  makesOffer: [
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Starter Launch Page",
-        description: "One scrolling page, up to five sections, one conversion action.",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Conversion Landing Page",
-        description: "Built around one offer, with the copy and the form designed together.",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Business Website",
-        description: "Multiple pages covering services, portfolio and contact.",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Website Review",
-        description: "Three specific things to fix on the site you already have.",
-      },
-    },
-  ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "5",
-  },
-};
+import { homepageStructuredData } from "../data/homepageStructuredData";
 
 const Home = () => {
   useEffect(() => {
@@ -148,6 +85,7 @@ const Home = () => {
       <Process />
       <FeaturedReview />
       <Insights />
+      <Faq />
       <FreeWebsiteReviewForm />
     </div>
   );

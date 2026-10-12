@@ -22,6 +22,20 @@ if (typeof window !== "undefined") {
     });
   }
 
+  if (!window.IntersectionObserver) {
+    class IntersectionObserverMock {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+      takeRecords() {
+        return [];
+      }
+    }
+
+    window.IntersectionObserver = IntersectionObserverMock;
+    globalThis.IntersectionObserver = IntersectionObserverMock;
+  }
+
   // jsdom defines scrollTo but makes it throw "not implemented".
   window.scrollTo = () => {};
 }

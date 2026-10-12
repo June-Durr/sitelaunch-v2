@@ -8,6 +8,6 @@ export const NAV_LINKS = [
   { label: "Work", id: "case-studies" },
   { label: "Services", id: "services" },
   { label: "Contractors", id: "contractors" },
-  { label: "Insights", id: "insights" },
+  { label: "Insights", to: "/insights" },
   { label: "About", id: "why-sitelaunch" },
 ];

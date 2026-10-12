@@ -26,6 +26,7 @@ describe("every route the app answers is prerendered", () => {
   it("still includes the routes that were already there", () => {
     // The point of adding one route is not to lose the others.
     expect(ROUTES).toContain("/");
+    expect(ROUTES).toContain("/insights");
     expect(ROUTES).toContain("/insights/seven-second-contractor-website-test");
   });
 
@@ -77,5 +78,16 @@ describe("nothing reintroduces a fallback this site does not have", () => {
   it("lists the privacy page in the sitemap", () => {
     const sitemap = readFileSync(resolve("public/sitemap.xml"), "utf8");
     expect(sitemap).toContain("https://sitelaunchstudios.com/privacy");
+  });
+
+  it("lists the Insights index in the sitemap", () => {
+    const sitemap = readFileSync(resolve("public/sitemap.xml"), "utf8");
+    expect(sitemap).toContain("https://sitelaunchstudios.com/insights</loc>");
+  });
+
+  it("explicitly allows the OpenAI search crawler without exposing private paths", () => {
+    const robots = readFileSync(resolve("public/robots.txt"), "utf8");
+    expect(robots).toContain("User-agent: OAI-SearchBot");
+    expect(robots).toContain("Disallow: /.env");
   });
 });
