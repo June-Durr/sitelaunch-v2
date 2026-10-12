@@ -1,10 +1,19 @@
-// Registry of published Insights. Add future entries (insight-002, ...) as
+// Registry of published Insights. Add future entries (insight-004, ...) as
 // their own file in this folder, then list them here — InsightArticle.jsx
 // looks articles up by slug through this file, so nothing else needs to
 // change to publish a new one.
-import { insight001 } from "./insight-001";
+//
+// Order is by Insight number, which is also the order the homepage browser
+// rotates through and the order the Insights index lists.
+//
+// Imports carry explicit .js extensions because scripts/prerender.js imports
+// this file directly in Node, which does not do extensionless resolution.
+// Vite is happy either way.
+import { insight001 } from "./insight-001.js";
+import { insight002 } from "./insight-002.js";
+import { insight003 } from "./insight-003.js";
 
-export const INSIGHTS = [insight001];
+export const INSIGHTS = [insight001, insight002, insight003];
 
 export const getInsightBySlug = (slug) =>
   INSIGHTS.find((insight) => insight.slug === slug) || null;
@@ -14,3 +23,19 @@ export const getInsightBySlug = (slug) =>
 // one-line change here rather than an edit to the homepage component.
 export const getFeaturedInsight = () =>
   INSIGHTS.find((insight) => insight.featured) || INSIGHTS[0] || null;
+
+// Previous / next by Insight number, plus whatever is left over, so each
+// article links to every other published one rather than only its
+// neighbours. Returns nulls rather than throwing for an unknown slug.
+export const getAdjacentInsights = (slug) => {
+  const index = INSIGHTS.findIndex((insight) => insight.slug === slug);
+  if (index === -1) return { previous: null, next: null, others: [] };
+
+  const previous = INSIGHTS[index - 1] || null;
+  const next = INSIGHTS[index + 1] || null;
+  const others = INSIGHTS.filter(
+    (insight, i) => i !== index && insight !== previous && insight !== next
+  );
+
+  return { previous, next, others };
+};

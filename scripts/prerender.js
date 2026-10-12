@@ -6,11 +6,17 @@ import puppeteer from "puppeteer";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { INSIGHTS } from "../src/data/insights/index.js";
 
+// Article routes are derived from the Insights registry rather than listed by
+// hand. Publishing an article without prerendering a file for it means the URL
+// answers 404 in production, and that is too easy to miss when the two lists
+// are maintained separately. The insight data files are plain ESM data with no
+// JSX, so Node can import them directly.
 export const ROUTES = [
   "/",
   "/insights",
-  "/insights/seven-second-contractor-website-test",
+  ...INSIGHTS.map((insight) => `/insights/${insight.slug}`),
   "/privacy",
 ];
 
@@ -90,9 +96,17 @@ async function run() {
       await scrollThroughPage(page);
       await waitForAnimationsToSettle(page);
 
-      const html = await page.evaluate(
-        () => "<!DOCTYPE html>\n" + document.documentElement.outerHTML
-      );
+      const html = await page.evaluate(() => {
+        // React reflects `muted` as a live DOM property, never as an HTML
+        // attribute, so outerHTML would ship a video that parses as unmuted.
+        // Browsers refuse to autoplay an unmuted video, and React does not
+        // re-apply the property when it hydrates this markup, so the
+        // attribute has to be written in here.
+        document.querySelectorAll("video").forEach((video) => {
+          video.setAttribute("muted", "");
+        });
+        return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      });
 
       const outPath = outPathFor(route);
 

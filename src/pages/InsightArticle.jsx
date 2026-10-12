@@ -6,18 +6,31 @@ import InsightProse from "../components/insights/InsightProse";
 import InsightDiagnostic from "../components/insights/InsightDiagnostic";
 import InsightPullStatement from "../components/insights/InsightPullStatement";
 import InsightFixOrder from "../components/insights/InsightFixOrder";
+import InsightComparison from "../components/insights/InsightComparison";
+import InsightChecklist from "../components/insights/InsightChecklist";
+import InsightFigure from "../components/insights/InsightFigure";
+import InsightFaq from "../components/insights/InsightFaq";
+import InsightNav from "../components/insights/InsightNav";
 import InsightCTA from "../components/insights/InsightCTA";
 import NotFound from "./NotFound";
-import { getInsightBySlug } from "../data/insights";
+import { getInsightBySlug, getAdjacentInsights } from "../data/insights";
+import {
+  SITE_URL,
+  canonicalFor,
+  findRenderedFaq,
+  buildInsightSchema,
+} from "./insightSchema";
 import analytics from "../services/analytics";
-
-const SITE_URL = "https://sitelaunchstudios.com";
 
 const SECTION_COMPONENTS = {
   prose: InsightProse,
   diagnostic: InsightDiagnostic,
   pullStatement: InsightPullStatement,
   fixOrder: InsightFixOrder,
+  comparison: InsightComparison,
+  checklist: InsightChecklist,
+  figure: InsightFigure,
+  faq: InsightFaq,
 };
 
 const InsightArticle = () => {
@@ -36,65 +49,24 @@ const InsightArticle = () => {
     return <NotFound />;
   }
 
-  const canonicalUrl = `${SITE_URL}/insights/${insight.slug}/`;
+  const canonicalUrl = canonicalFor(insight);
   const coverUrl = `${SITE_URL}${insight.coverImage}`;
+  const { previous, next, others } = getAdjacentInsights(insight.slug);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BlogPosting",
-        "@id": `${canonicalUrl}#article`,
-        headline: insight.title,
-        description: insight.deck,
-        image: [coverUrl],
-        url: canonicalUrl,
-        mainEntityOfPage: canonicalUrl,
-        datePublished: insight.publishedDate,
-        dateModified: insight.modifiedDate,
-        author: {
-          "@type": "Organization",
-          name: "SiteLaunch Studios",
-          url: SITE_URL,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "SiteLaunch Studios",
-          url: SITE_URL,
-        },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE_URL,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Insights",
-            item: `${SITE_URL}/insights`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: insight.title,
-            item: canonicalUrl,
-          },
-        ],
-      },
-    ],
-  };
+  // FAQPage schema is emitted only for an FAQ this page actually renders, so
+  // the structured answers are always answers a visitor can read.
+  const faqSection = findRenderedFaq(
+    insight,
+    new Set(Object.keys(SECTION_COMPONENTS))
+  );
+  const structuredData = buildInsightSchema(insight, faqSection);
 
   return (
     <article>
       <SEOHead
-        title={`Can a Homeowner Understand Your Contractor Website in Seven Seconds? | SiteLaunch Studios`}
-        description={insight.deck}
-        keywords="contractor website review, mobile website usability, contractor website design, service area website"
+        title={insight.seoTitle || insight.title}
+        description={insight.seoDescription || insight.deck}
+        keywords={insight.keywords}
         url={canonicalUrl}
         canonicalUrl={canonicalUrl}
         image={coverUrl}
@@ -113,6 +85,8 @@ const InsightArticle = () => {
         }
         return <Component key={key} section={section} />;
       })}
+
+      <InsightNav previous={previous} next={next} others={others} />
 
       <InsightCTA cta={insight.cta} />
     </article>

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Faq from "./Faq";
 import Insights from "./Insights";
@@ -7,6 +7,10 @@ import ServicesPricing from "./ServicesPricing";
 import { HOMEPAGE_FAQS } from "../../data/faqs";
 import { INSIGHTS } from "../../data/insights";
 import { homepageStructuredData } from "../../data/homepageStructuredData";
+
+// vitest runs without `globals`, so Testing Library's automatic cleanup never
+// registers itself; several tests below render more than once.
+afterEach(cleanup);
 
 describe("the compact services and FAQ update", () => {
   it("removes public package prices while preserving clear services", () => {
@@ -42,11 +46,59 @@ describe("the registry-driven Insights browser", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/Insights \/ 01 story/i)).toBeInTheDocument();
+    expect(screen.getByText(/Insights \/ 03 stories/i)).toBeInTheDocument();
     expect(screen.getByRole("tablist")).toBeInTheDocument();
     expect(screen.getAllByRole("tab")).toHaveLength(INSIGHTS.length);
     expect(
       screen.getByRole("link", { name: /View all published insights/i })
     ).toHaveAttribute("href", "/insights");
+  });
+
+  it("reports the published count rather than a hard-coded one", () => {
+    render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    const label = String(INSIGHTS.length).padStart(2, "0");
+    const noun = INSIGHTS.length === 1 ? "story" : "stories";
+    expect(
+      screen.getByText(new RegExp(`Insights / ${label} ${noun}`, "i"))
+    ).toBeInTheDocument();
+  });
+
+  it("opens the correct article from every cover", () => {
+    render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    const tabs = screen.getAllByRole("tab");
+    expect(tabs).toHaveLength(INSIGHTS.length);
+
+    INSIGHTS.forEach((insight, index) => {
+      // Selecting a field note swaps the preview; the cover and the read link
+      // must both point at that article, not whichever one loaded first.
+      fireEvent.click(tabs[index]);
+
+      const cover = screen.getByRole("link", {
+        name: new RegExp(`Read Insight ${insight.number}:`, "i"),
+      });
+      expect(cover).toHaveAttribute("href", `/insights/${insight.slug}/`);
+
+      // Both the cover plate and the "Read insight" link lead to the article,
+      // so every one of them has to move with the selection.
+      const readLinks = screen.getAllByRole("link", { name: /read insight/i });
+      expect(readLinks.length).toBeGreaterThanOrEqual(2);
+      for (const link of readLinks) {
+        expect(link).toHaveAttribute("href", `/insights/${insight.slug}/`);
+      }
+
+      const image = cover.querySelector("img");
+      expect(image).toHaveAttribute("src", insight.coverImage);
+      expect(image.getAttribute("alt")).toBe(insight.coverAlt);
+    });
   });
 });

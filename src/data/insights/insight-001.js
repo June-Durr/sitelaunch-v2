@@ -18,6 +18,13 @@ export const insight001 = {
   coverAlt:
     "Outlined phone with a purple button, hand entering from the lower right",
   homepageExcerpt: "Three questions to answer on your own first mobile screen.",
+  // Previously hard-coded in InsightArticle.jsx, which meant every article
+  // inherited this article's title and keywords. Moved here unchanged so 001
+  // keeps exactly the metadata it already had.
+  seoTitle:
+    "Can a Homeowner Understand Your Contractor Website in Seven Seconds?",
+  keywords:
+    "contractor website review, mobile website usability, contractor website design, service area website",
   sections: [
     {
       type: "prose",

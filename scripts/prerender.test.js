@@ -17,6 +17,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
 
 import { ROUTES, FLAT_ROUTES, outPathFor } from "./prerender.js";
+import { INSIGHTS } from "../src/data/insights/index.js";
 
 describe("every route the app answers is prerendered", () => {
   it("includes /privacy, or the live URL would 404", () => {
@@ -89,5 +90,61 @@ describe("nothing reintroduces a fallback this site does not have", () => {
     const robots = readFileSync(resolve("public/robots.txt"), "utf8");
     expect(robots).toContain("User-agent: OAI-SearchBot");
     expect(robots).toContain("Disallow: /.env");
+  });
+});
+
+describe("every published article is prerendered and discoverable", () => {
+  const articleRoutes = INSIGHTS.map((insight) => `/insights/${insight.slug}`);
+
+  it("prerenders all three published Insights", () => {
+    expect(INSIGHTS).toHaveLength(3);
+    for (const route of articleRoutes) {
+      expect(ROUTES, `${route} is published but not prerendered`).toContain(route);
+    }
+  });
+
+  it("prerenders the two new articles by name", () => {
+    expect(ROUTES).toContain("/insights/claims-dont-convert-proof-does");
+    expect(ROUTES).toContain("/insights/website-brand-recognition-system");
+  });
+
+  it("stays in sync with the registry, so a new article cannot be missed", () => {
+    // ROUTES is derived from INSIGHTS; this guards the derivation itself.
+    const prerenderedArticles = ROUTES.filter(
+      (route) => route.startsWith("/insights/") && route !== "/insights"
+    );
+    expect(prerenderedArticles.sort()).toEqual(articleRoutes.sort());
+  });
+
+  it("writes each article to its own directory index, not a flat file", () => {
+    for (const route of articleRoutes) {
+      expect(FLAT_ROUTES.has(route)).toBe(false);
+      expect(outPathFor(route).endsWith(`${sep}index.html`)).toBe(true);
+    }
+  });
+
+  it("lists all three articles in sitemap.xml", () => {
+    const sitemap = readFileSync(resolve("public/sitemap.xml"), "utf8");
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+
+    for (const insight of INSIGHTS) {
+      const url = `https://sitelaunchstudios.com/insights/${insight.slug}/`;
+      expect(locs, `${insight.slug} is missing from the sitemap`).toContain(url);
+    }
+
+    expect(new Set(locs).size, "the sitemap repeats a URL").toBe(locs.length);
+  });
+
+  it("dates each new sitemap entry from the article it describes", () => {
+    const sitemap = readFileSync(resolve("public/sitemap.xml"), "utf8");
+    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+
+    for (const insight of INSIGHTS) {
+      const url = `https://sitelaunchstudios.com/insights/${insight.slug}/`;
+      const block = blocks.find((b) => b.includes(url));
+      expect(block, `no sitemap entry for ${insight.slug}`).toBeTruthy();
+      const lastmod = block.match(/<lastmod>([^<]+)<\/lastmod>/)[1];
+      expect(lastmod).toBe(insight.modifiedDate);
+    }
   });
 });

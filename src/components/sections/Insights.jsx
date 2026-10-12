@@ -204,8 +204,16 @@ const Insights = () => {
 
               {INSIGHTS.length > 1 && (
                 <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-3 md:hidden">
+                  {/* One interpolation, not three. Written as separate
+                      expressions React emits three text nodes ("01", " / ",
+                      "03") while the prerendered HTML serialises them as the
+                      single node "01 / 03", and hydration then fails on the
+                      mismatch. This block only renders with more than one
+                      Insight published, which is why it surfaced at three. */}
                   <span className="text-xs font-semibold tracking-[0.12em] text-violet-600">
-                    {String(activeIndex + 1).padStart(2, "0")} / {String(INSIGHTS.length).padStart(2, "0")}
+                    {`${String(activeIndex + 1).padStart(2, "0")} / ${String(
+                      INSIGHTS.length
+                    ).padStart(2, "0")}`}
                   </span>
                   <div className="flex gap-2" aria-hidden="true">
                     {INSIGHTS.map((insight, index) => (
