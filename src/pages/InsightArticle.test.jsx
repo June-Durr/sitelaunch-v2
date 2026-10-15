@@ -92,15 +92,30 @@ describe("article FAQ schema matches the answers a visitor can read", () => {
     });
   }
 
-  it("emits no FAQPage for an article with no visible FAQ", () => {
-    const withoutFaq = INSIGHTS.find((insight) => !faqSectionOf(insight));
-    expect(withoutFaq, "expected at least one article without an FAQ").toBeTruthy();
+  it("now ships an answer section on every published article", () => {
+    // Insight 001 went live without one. That is the omission this asserts
+    // against, so it is stated positively rather than left implied.
+    for (const insight of INSIGHTS) {
+      expect(faqSectionOf(insight), `Insight ${insight.number} has no FAQ`).toBeTruthy();
+      const { container } = renderArticle(insight.slug);
+      expect(renderedFaq(container), `Insight ${insight.number} renders no FAQ`).toBeTruthy();
+      cleanup();
+    }
+  });
 
-    const { container } = renderArticle(withoutFaq.slug);
-    expect(renderedFaq(container)).toBeNull();
+  it("emits no FAQPage when an article has no visible FAQ", () => {
+    // Built from a real article with its FAQ removed, rather than depending on
+    // one of the published articles happening to lack a section.
+    const base = INSIGHTS[0];
+    const withoutFaq = {
+      ...base,
+      sections: base.sections.filter((section) => section.type !== "faq"),
+    };
 
     const schema = buildInsightSchema(withoutFaq, null);
     expect(schema["@graph"].some((e) => e["@type"] === "FAQPage")).toBe(false);
+    // The rest of the markup is unaffected.
+    expect(schema["@graph"].some((e) => e["@type"] === "BlogPosting")).toBe(true);
   });
 
   it("always emits BlogPosting with article-specific values", () => {

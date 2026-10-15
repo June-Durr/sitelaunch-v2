@@ -7,6 +7,7 @@
     "dev": "vite",
     "prebuild": "puppeteer browsers install chrome",
     "build": "vite build && node scripts/prerender.js",
+    "check:built": "node scripts/check-built-articles.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",

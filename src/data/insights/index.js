@@ -3,6 +3,14 @@
 // looks articles up by slug through this file, so nothing else needs to
 // change to publish a new one.
 //
+// BEFORE ADDING ONE, READ docs/insights/INSIGHT-FORMAT.md.
+//
+// Every published Insight is a reader-facing article followed by a
+// "Common questions" section of four to six topic-specific questions and
+// answers. Insight 001 shipped without that section while 002 and 003 had it,
+// and nothing caught the difference. The format doc is the contract and lists
+// the checks that now enforce it.
+//
 // Order is by Insight number, which is also the order the homepage browser
 // rotates through and the order the Insights index lists.
 //

@@ -96,9 +96,76 @@ describe("the registry-driven Insights browser", () => {
         expect(link).toHaveAttribute("href", `/insights/${insight.slug}/`);
       }
 
-      const image = cover.querySelector("img");
-      expect(image).toHaveAttribute("src", insight.coverImage);
-      expect(image.getAttribute("alt")).toBe(insight.coverAlt);
+      // Every cover stays mounted so switching cannot blank the plate, so the
+      // active one is identified by carrying the real alt text rather than by
+      // being the only image present.
+      const images = [...cover.querySelectorAll("img")];
+      expect(images).toHaveLength(INSIGHTS.length);
+      const active = images.find((img) => img.getAttribute("alt") === insight.coverAlt);
+      expect(active, `no visible cover for Insight ${insight.number}`).toBeTruthy();
+      expect(active).toHaveAttribute("src", insight.coverImage);
+      // The other two are present but hidden from assistive technology.
+      for (const img of images) {
+        if (img === active) continue;
+        expect(img).toHaveAttribute("aria-hidden", "true");
+        expect(img.getAttribute("alt")).toBe("");
+      }
+    });
+  });
+
+  it("keeps every cover mounted, so a switch cannot blank the plate", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    const plate = container.querySelector('#insight-preview a[aria-label^="Read Insight"]');
+    const srcs = [...plate.querySelectorAll("img")].map((i) => i.getAttribute("src"));
+    expect(srcs).toEqual(INSIGHTS.map((i) => i.coverImage));
+
+    // Switching must not change which elements exist, only which is opaque.
+    const tabs = screen.getAllByRole("tab");
+    fireEvent.click(tabs[INSIGHTS.length - 1]);
+    const after = [...plate.querySelectorAll("img")].map((i) => i.getAttribute("src"));
+    expect(after).toEqual(srcs);
+  });
+
+  it("reserves a fixed cover plate and tab row, so the card cannot change height", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    // The plate is a fixed box at each breakpoint rather than being sized by
+    // whichever cover happens to be showing. 001 is 1344x1800 and the others
+    // are 1080x1350, which previously moved the card by up to 60px.
+    const plate = container.querySelector('#insight-preview a[aria-label^="Read Insight"]');
+    expect(plate.className).toMatch(/h-\[280px\]/);
+    expect(plate.className).toMatch(/sm:h-\[360px\]/);
+    expect(plate.className).toMatch(/md:h-\[390px\]/);
+
+    // Below md only the selected tab renders, so that row is the card height.
+    for (const tab of screen.getAllByRole("tab")) {
+      expect(tab.className).toMatch(/min-h-\[185px\]/);
+    }
+
+    // The excerpt reserves its tallest case on small screens.
+    const excerpt = container.querySelector("#insight-preview p");
+    expect(excerpt.className).toMatch(/min-h-\[4\.5rem\]/);
+  });
+
+  it("states each cover's own dimensions rather than one hard-coded size", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+    const imgs = [...container.querySelectorAll("#insight-preview img")];
+    imgs.forEach((img, i) => {
+      expect(img).toHaveAttribute("width", String(INSIGHTS[i].coverWidth));
+      expect(img).toHaveAttribute("height", String(INSIGHTS[i].coverHeight));
     });
   });
 });

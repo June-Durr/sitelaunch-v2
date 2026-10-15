@@ -3,21 +3,19 @@
 // not the article: the three generic-site examples, the recognize / remember
 // / trust / choose model, the five signals and the generic/distinct pairing
 // all come from them, expanded into prose that works without the carousel.
-//
-// `readTime` is calculated from the rendered word count of this file's own
-// copy at 225 words per minute. If the copy changes, recalculate it.
 export const insight003 = {
   slug: "website-brand-recognition-system",
   number: "003",
   category: "Brand & Conversion",
   title: "If your website could belong to anyone, it will be chosen by no one.",
   deck: "Brand is not the decoration on top of a website. It is the system that lets a visitor recognize you, remember you, and tell you apart from the four other tabs they have open.",
-  readTime: "5 min read",
   published: "October 2026",
   publishedDate: "2026-10-12",
   modifiedDate: "2026-10-12",
   featured: false,
   coverImage: "/images/insights/insight-003/01-belong-to-anyone.webp",
+  coverWidth: 1080,
+  coverHeight: 1350,
   coverAlt:
     "Insight 003 cover: a hand holding a plain violet basketball against an ivory background",
   homepageExcerpt:
@@ -209,6 +207,11 @@ export const insight003 = {
           question: "How consistent should website calls to action be?",
           answer:
             "Consistent enough that the next step is never a new decision. Use the same primary action, in the same words, in the same visual treatment, on every page. Secondary actions can vary by context, but when the main invitation changes wording from page to page it reads as uncertainty about what you want someone to do.",
+        },
+        {
+          question: "How can I check whether my website feels interchangeable?",
+          answer:
+            "Cover the logo on your homepage and ask whether anything left identifies the business. Then open two competitors beside it and ask which one a stranger could name a day later. A faster version: count how many images could appear unchanged on a competitor’s site. Those are the parts doing no work for recognition, and they are usually the stock photography.",
         },
         {
           question: "Is branding more than a logo and colors?",

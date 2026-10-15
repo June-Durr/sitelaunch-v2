@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SEOHead from "../components/common/SEOHead";
 import Kicker from "../components/common/Kicker";
 import { INSIGHTS } from "../data/insights";
+import { readingTimeFor } from "../lib/readingTime";
 
 const SITE_URL = "https://sitelaunchstudios.com";
 
@@ -64,8 +65,8 @@ const InsightsIndex = () => {
                   src={insight.coverImage}
                   alt={insight.coverAlt}
                   className="h-full w-auto object-contain shadow-[0_12px_22px_rgba(23,23,23,0.14)]"
-                  width={1344}
-                  height={1800}
+                  width={insight.coverWidth}
+                  height={insight.coverHeight}
                   loading="lazy"
                 />
               </Link>
@@ -85,7 +86,7 @@ const InsightsIndex = () => {
                   {insight.homepageExcerpt}
                 </p>
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-ink/45">
-                  {`${insight.readTime} · ${insight.published}`}
+                  {`${readingTimeFor(insight)} · ${insight.published}`}
                 </p>
               </div>
             </article>

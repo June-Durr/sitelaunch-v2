@@ -9,12 +9,16 @@ export const insight001 = {
   category: "Contractors",
   title: "Can a homeowner understand your website in seven seconds?",
   deck: "It is the first thing I do in a website review, and it takes less time than reading this sentence. Open the site on a phone and answer three questions.",
-  readTime: "4 min read",
   published: "August 2026",
   publishedDate: "2026-08-12",
   modifiedDate: "2026-08-12",
   featured: true,
   coverImage: "/images/insights/insight-001/cover.jpeg",
+  // The cover's real pixel size. The homepage browser and the article hero
+  // both used to hard-code 1344x1800 for every article, which made the two
+  // squarer covers lay out at the wrong aspect and moved the card height.
+  coverWidth: 1344,
+  coverHeight: 1800,
   coverAlt:
     "Outlined phone with a purple button, hand entering from the lower right",
   homepageExcerpt: "Three questions to answer on your own first mobile screen.",
@@ -128,6 +132,38 @@ export const insight001 = {
           number: "03",
           label: "Clear action",
           support: "The single loudest thing on the screen.",
+        },
+      ],
+    },
+    {
+      type: "faq",
+      id: "faq",
+      heading: "Common questions",
+      items: [
+        {
+          question: "What should a contractor website show on the first mobile screen?",
+          answer:
+            "A contractor website should answer three things on the first mobile screen, with no scrolling: the service, written in the words a homeowner would use rather than implied by a photograph; the area the business covers; and one obvious next step, which is usually calling or requesting an estimate. If a visitor cannot recall all three after looking away, the first screen has not done its job.",
+        },
+        {
+          question: "How can I test whether my service and service area are clear?",
+          answer:
+            "Open the site on a phone, look at the first screen without scrolling, then look away and answer from memory: what does this business do, and where does it work? Whatever you cannot recall is what a stranger never received. Answering from memory matters because you already know how your own website works, which makes you the worst person to judge it by reading it.",
+        },
+        {
+          question: "Should calling or requesting an estimate be the main action?",
+          answer:
+            "Yes. One action should be clearly primary on a contractor website, and calling or requesting an estimate is the one that leads to work. The usual problem is not that the action is missing, it is that it competes with a menu, a social row and several secondary links, so nothing reads as the main thing to do. The next step should be the loudest element on the screen.",
+        },
+        {
+          question: "Can more advertising compensate for a confusing website?",
+          answer:
+            "No. More clicks do not change what the first screen says. Every extra step between arriving and calling is another chance for a visitor to leave, and a larger advertising budget buys more of those chances rather than fewer. Making the service, the area and the next step clear comes before raising the spend.",
+        },
+        {
+          question: "What should I fix first when the first screen fails the test?",
+          answer:
+            "Fix the service first, in the words a homeowner would use. Then the location, so a visitor can confirm the business covers their street. Then the action, made the single loudest thing on the screen. Each one answers a question a visitor asks before the next one matters, so fixing them out of order leaves the earlier question unanswered.",
         },
       ],
     },

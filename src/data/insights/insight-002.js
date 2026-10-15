@@ -3,21 +3,19 @@
 // are the source material, not the article: every claim, the seven proof
 // signals and the claim/proof pairs come from them, expanded into prose that
 // stands on its own without the carousel.
-//
-// `readTime` is calculated from the rendered word count of this file's own
-// copy at 225 words per minute. If the copy changes, recalculate it.
 export const insight002 = {
   slug: "claims-dont-convert-proof-does",
   number: "002",
   category: "Website Trust",
   title: "Claims don't convert. Proof does.",
   deck: "Trusted, experienced and high quality are claims anyone in your trade can type. Proof is the part a visitor can check for themselves, and it is usually already sitting on your phone.",
-  readTime: "6 min read",
   published: "October 2026",
   publishedDate: "2026-10-12",
   modifiedDate: "2026-10-12",
   featured: false,
   coverImage: "/images/insights/insight-002/01-claims-dont-convert.webp",
+  coverWidth: 1080,
+  coverHeight: 1350,
   coverAlt:
     "Insight 002 cover: a pixel dinosaur facing a photorealistic one through a violet doorway",
   homepageExcerpt:
@@ -235,6 +233,11 @@ export const insight002 = {
           question: "Where should proof appear on a service website?",
           answer:
             "Start on the first screen, alongside the service, the area and the next step. Then repeat it next to each individual service, on the page where someone decides to enquire, and beside the form itself. Proof kept only on a separate testimonials page is proof that most visitors never reach.",
+        },
+        {
+          question: "How do I replace a generic claim with verifiable information?",
+          answer:
+            "Take the claim, ask what a stranger would have to see to believe it, and publish that instead. “We do quality work” becomes project photography with a plain description of what was actually done. “Customers trust us” becomes one review shown in full with the customer’s name and the job. “We make it easy” becomes the steps that follow an enquiry, written out. The replacement is almost always more specific rather than louder.",
         },
         {
           question: "How many project examples does a small business need?",

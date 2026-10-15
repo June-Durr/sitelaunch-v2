@@ -10,3 +10,18 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Publishing an Insight
+
+Every published Insight follows one format: the article, then a compact
+`Common questions` section whose answers are real text in the delivered HTML.
+The contract, the reasons behind it, and the checks that enforce it are in
+[docs/insights/INSIGHT-FORMAT.md](docs/insights/INSIGHT-FORMAT.md). Read it
+before adding an article.
+
+Verification:
+
+```bash
+npm test                      # format, schema, reading time, routing
+npm run build && npm run check:built   # the delivered HTML, per article
+```

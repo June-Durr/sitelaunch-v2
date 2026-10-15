@@ -1,3 +1,5 @@
+import { readingTimeFor } from "../../lib/readingTime";
+
 // Approved Version B (Test-First) hero. Desktop: two-column editorial grid,
 // image plate on the right. Mobile: single column, cover plate sits right
 // below the metadata row so its top edge lands inside the first 390x844
@@ -23,7 +25,7 @@ const InsightHero = ({ insight }) => (
           <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-ink/[0.18] pt-3 text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-ink/50 sm:mt-6 sm:pt-4">
             <span>SiteLaunch Studios</span>
             <span aria-hidden="true" className="h-1 w-1 flex-none bg-violet-600" />
-            <span>{insight.readTime}</span>
+            <span>{readingTimeFor(insight)}</span>
             <span aria-hidden="true" className="h-1 w-1 flex-none bg-violet-600" />
             <span>{insight.published}</span>
           </div>
@@ -37,8 +39,8 @@ const InsightHero = ({ insight }) => (
             src={insight.coverImage}
             alt={insight.coverAlt}
             className="h-full w-auto object-contain"
-            width={1344}
-            height={1800}
+            width={insight.coverWidth}
+            height={insight.coverHeight}
             loading="eager"
             fetchpriority="high"
           />
