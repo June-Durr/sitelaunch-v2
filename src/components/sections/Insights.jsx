@@ -159,36 +159,61 @@ const Insights = () => {
               * between selections, so the row reserves the tallest case rather
               * than letting the title size the card.
               */}
-            <div role="tablist" aria-label="Published insights">
+            <ul aria-label="Published insights" className="list-none">
               {INSIGHTS.map((insight, index) => {
                 const selected = index === activeIndex;
+                const path = `/insights/${insight.slug}/`;
                 return (
-                  <button
+                  <li
                     key={insight.slug}
-                    type="button"
-                    role="tab"
-                    aria-selected={selected}
-                    aria-controls="insight-preview"
-                    onClick={() => selectInsight(index)}
                     className={`${
-                      selected ? "flex" : "hidden md:flex"
-                    } w-full items-start gap-4 border-b border-white/15 px-5 py-5 text-left transition-colors hover:bg-white/[0.06] min-h-[185px] md:min-h-[134px] md:px-7 md:py-6`}
+                      selected ? "block" : "hidden md:block"
+                    } relative border-b border-white/15`}
                   >
-                    <span className="mt-1 shrink-0 text-xs font-semibold tracking-[0.14em] text-violet-400">
-                      {insight.number}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
-                        {readingTimeFor(insight)}
+                    {/*
+                      * Two separate controls, never nested. The row selects
+                      * the preview, exactly as it did before. The link beside
+                      * it opens the article, which is what makes all three
+                      * URLs real links on the homepage rather than only
+                      * whichever one happened to be showing.
+                      *
+                      * The link is positioned out of the button's flow rather
+                      * than placed inside it, because an anchor inside a
+                      * button is not valid and a screen reader cannot
+                      * reliably reach it.
+                      */}
+                    <button
+                      type="button"
+                      aria-pressed={selected}
+                      aria-controls="insight-preview"
+                      onClick={() => selectInsight(index)}
+                      className="flex min-h-[228px] w-full items-start gap-4 px-5 pb-16 pt-5 text-left transition-colors hover:bg-white/[0.06] md:min-h-[134px] md:px-7 md:pb-14 md:pt-6"
+                    >
+                      <span className="mt-1 shrink-0 text-xs font-semibold tracking-[0.14em] text-violet-400">
+                        {insight.number}
                       </span>
-                      <span className="mt-2 block font-display text-2xl font-bold leading-tight text-white md:text-xl lg:text-2xl">
-                        {insight.title}
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
+                          {readingTimeFor(insight)}
+                        </span>
+                        <span className="mt-2 block font-display text-2xl font-bold leading-tight text-white md:text-xl lg:text-2xl">
+                          {insight.title}
+                        </span>
                       </span>
-                    </span>
-                  </button>
+                    </button>
+
+                    <Link
+                      to={path}
+                      onClick={() => trackOpen(insight, "homepage_list")}
+                      aria-label={`Read Insight ${insight.number}: ${insight.title}`}
+                      className="absolute bottom-3 left-5 inline-flex min-h-[44px] items-center text-xs font-semibold uppercase tracking-[0.1em] text-violet-400 underline decoration-violet-400/50 underline-offset-4 hover:text-violet-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 md:bottom-2 md:left-7"
+                    >
+                      Read insight <span aria-hidden="true" className="ml-1">↗</span>
+                    </Link>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
 
             {/*
               * Visible on every width. This used to be md:block, which left a

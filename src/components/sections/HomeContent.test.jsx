@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Faq from "./Faq";
 import Insights from "./Insights";
@@ -11,6 +11,17 @@ import { homepageStructuredData } from "../../data/homepageStructuredData";
 // vitest runs without `globals`, so Testing Library's automatic cleanup never
 // registers itself; several tests below render more than once.
 afterEach(cleanup);
+
+/**
+ * The row controls that choose which article is previewed.
+ *
+ * They were role="tab" until each row gained its own article link. A link
+ * inside a tablist is not valid ARIA and a tab cannot contain one, so the
+ * rows are now plain toggle buttons with aria-pressed, sitting beside a
+ * sibling anchor.
+ */
+const selectButtons = () =>
+  screen.getAllByRole("button").filter((b) => b.hasAttribute("aria-pressed"));
 
 describe("the compact services and FAQ update", () => {
   it("removes public package prices while preserving clear services", () => {
@@ -47,8 +58,8 @@ describe("the registry-driven Insights browser", () => {
     );
 
     expect(screen.getByText(/Insights \/ 03 stories/i)).toBeInTheDocument();
-    expect(screen.getByRole("tablist")).toBeInTheDocument();
-    expect(screen.getAllByRole("tab")).toHaveLength(INSIGHTS.length);
+    expect(screen.getByRole("list", { name: /published insights/i })).toBeInTheDocument();
+    expect(selectButtons()).toHaveLength(INSIGHTS.length);
     expect(
       screen.getByRole("link", { name: /View all published insights/i })
     ).toHaveAttribute("href", "/insights");
@@ -69,13 +80,13 @@ describe("the registry-driven Insights browser", () => {
   });
 
   it("opens the correct article from every cover", () => {
-    render(
+    const { container } = render(
       <MemoryRouter>
         <Insights />
       </MemoryRouter>
     );
 
-    const tabs = screen.getAllByRole("tab");
+    const tabs = selectButtons();
     expect(tabs).toHaveLength(INSIGHTS.length);
 
     INSIGHTS.forEach((insight, index) => {
@@ -83,14 +94,26 @@ describe("the registry-driven Insights browser", () => {
       // must both point at that article, not whichever one loaded first.
       fireEvent.click(tabs[index]);
 
-      const cover = screen.getByRole("link", {
+      // Scoped to the preview, because each row in the list now carries its
+      // own link to the same article and shares its accessible name.
+      const cover = within(container.querySelector("#insight-preview")).getByRole("link", {
         name: new RegExp(`Read Insight ${insight.number}:`, "i"),
       });
       expect(cover).toHaveAttribute("href", `/insights/${insight.slug}/`);
 
-      // Both the cover plate and the "Read insight" link lead to the article,
-      // so every one of them has to move with the selection.
-      const readLinks = screen.getAllByRole("link", { name: /read insight/i });
+      // Whichever element carries that name, it points at that article.
+      for (const link of screen.getAllByRole("link", {
+        name: new RegExp(`Read Insight ${insight.number}:`, "i"),
+      })) {
+        expect(link).toHaveAttribute("href", `/insights/${insight.slug}/`);
+      }
+
+      // Inside the preview, the cover plate and the "Read insight" link both
+      // follow the selection. The row links in the list deliberately do not:
+      // each one points at its own article, which is what makes all three
+      // URLs reachable from the homepage.
+      const preview = within(container.querySelector("#insight-preview"));
+      const readLinks = preview.getAllByRole("link", { name: /read insight/i });
       expect(readLinks.length).toBeGreaterThanOrEqual(2);
       for (const link of readLinks) {
         expect(link).toHaveAttribute("href", `/insights/${insight.slug}/`);
@@ -125,7 +148,7 @@ describe("the registry-driven Insights browser", () => {
     expect(srcs).toEqual(INSIGHTS.map((i) => i.coverImage));
 
     // Switching must not change which elements exist, only which is opaque.
-    const tabs = screen.getAllByRole("tab");
+    const tabs = selectButtons();
     fireEvent.click(tabs[INSIGHTS.length - 1]);
     const after = [...plate.querySelectorAll("img")].map((i) => i.getAttribute("src"));
     expect(after).toEqual(srcs);
@@ -147,13 +170,53 @@ describe("the registry-driven Insights browser", () => {
     expect(plate.className).toMatch(/md:h-\[390px\]/);
 
     // Below md only the selected tab renders, so that row is the card height.
-    for (const tab of screen.getAllByRole("tab")) {
-      expect(tab.className).toMatch(/min-h-\[185px\]/);
+    for (const tab of selectButtons()) {
+      expect(tab.className).toMatch(/min-h-\[228px\]/);
     }
 
     // The excerpt reserves its tallest case on small screens.
     const excerpt = container.querySelector("#insight-preview p");
     expect(excerpt.className).toMatch(/min-h-\[4\.5rem\]/);
+  });
+
+  it("links all three article URLs from the homepage, not just the selected one", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    const hrefs = [...container.querySelectorAll('a[href^="/insights/"]')].map((a) =>
+      a.getAttribute("href")
+    );
+    for (const insight of INSIGHTS) {
+      expect(hrefs, `Insight ${insight.number} is not linked`).toContain(
+        `/insights/${insight.slug}/`
+      );
+    }
+  });
+
+  it("keeps selecting a preview separate from opening an article", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <Insights />
+      </MemoryRouter>
+    );
+
+    const rows = [...container.querySelectorAll('ul[aria-label="Published insights"] > li')];
+    expect(rows).toHaveLength(INSIGHTS.length);
+
+    for (const [i, row] of rows.entries()) {
+      const button = row.querySelector("button[aria-pressed]");
+      const link = row.querySelector("a");
+      expect(button, `row ${i} has no select control`).toBeTruthy();
+      expect(link, `row ${i} has no article link`).toBeTruthy();
+      // Neither contains the other: an anchor inside a button is invalid and
+      // unreachable for assistive technology.
+      expect(button.contains(link)).toBe(false);
+      expect(link.contains(button)).toBe(false);
+      expect(link).toHaveAttribute("href", `/insights/${INSIGHTS[i].slug}/`);
+    }
   });
 
   it("states each cover's own dimensions rather than one hard-coded size", () => {
