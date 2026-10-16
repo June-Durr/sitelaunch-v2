@@ -86,7 +86,7 @@ const CaseStudyBlock = ({ project }) => {
     >
       {/* Mobile-only compact header: name, summary, CTA - text before image. */}
       <div className="order-1 lg:hidden">
-        <p className="text-sm text-ink/50">{project.serviceLabel}</p>
+        <p className="text-sm text-ink/65">{project.serviceLabel}</p>
         <h3 className="mt-1 font-display text-2xl font-bold text-ink">
           {project.name}
         </h3>
@@ -129,7 +129,7 @@ const CaseStudyBlock = ({ project }) => {
 
       {/* Desktop-only full detail column - unchanged from the approved design. */}
       <div className="order-3 hidden lg:col-span-5 lg:block">
-        <p className="text-sm text-ink/50">{project.serviceLabel}</p>
+        <p className="text-sm text-ink/65">{project.serviceLabel}</p>
         <h3 className="mt-1 font-display text-2xl font-bold text-ink sm:text-3xl">
           {project.name}
         </h3>
@@ -137,7 +137,7 @@ const CaseStudyBlock = ({ project }) => {
         <dl className="mt-6 divide-y divide-ink/10 border-y border-ink/10">
           {DETAILS.map((detail) => (
             <div key={detail.key} className="py-4">
-              <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/40">
+              <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/65">
                 {detail.label}
               </dt>
               <dd className="mt-1.5 text-base text-ink/80">

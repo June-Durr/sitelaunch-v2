@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Kicker from "../common/Kicker";
 import analytics from "../../services/analytics";
 
@@ -8,10 +8,44 @@ const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 const PHONE_DISPLAY = "(786) 505-5791";
 const PHONE_HREF = "tel:+17865055791";
 
+// Border colour is left out here and added per state below, so the invalid
+// border is not fighting the default one in the cascade.
 const fieldClasses =
-  "w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-base text-white placeholder-white/35 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500";
+  "w-full rounded-md border bg-white/5 px-4 py-3 text-base text-white placeholder-white/35 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500";
+const validFieldClasses = "border-white/15";
 const labelClasses =
   "block text-xs font-semibold uppercase tracking-[0.12em] text-white/50";
+// Field errors use ivory, not red: DESIGN.md has no error colour, so the
+// message text and aria-invalid carry the state rather than a hue.
+const invalidFieldClasses = "border-ivory";
+const fieldErrorClasses = "mt-1.5 text-sm font-medium text-ivory";
+
+// name@domain.tld, no spaces. Catches "bob@" and "bob@site" without trying
+// to be a full RFC 5322 parser.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// yourbusiness.com, www.yourbusiness.co.uk, https://yourbusiness.com/page.
+// The protocol is optional because the field tells people not to type it.
+const URL_PATTERN = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?(\/\S*)?$/i;
+
+const validate = (mode, values) => {
+  const errors = {};
+  if (mode === "have") {
+    const url = values.websiteUrl.trim();
+    if (!url) errors.websiteUrl = "Enter your website address.";
+    else if (!URL_PATTERN.test(url))
+      errors.websiteUrl = "Enter a website address like yourbusiness.com.";
+  } else if (!values.businessName.trim()) {
+    errors.businessName = "Enter your business name.";
+  }
+  const email = values.email.trim();
+  if (!email) errors.email = "Enter your email address.";
+  else if (!EMAIL_PATTERN.test(email))
+    errors.email = "Enter an email address like you@business.com.";
+  return errors;
+};
+
+// Order the fields appear in, so focus goes to the first one that failed.
+const FIELD_ORDER = ["websiteUrl", "businessName", "email"];
 
 const FreeWebsiteReviewForm = () => {
   const [mode, setMode] = useState("have");
@@ -24,7 +58,15 @@ const FreeWebsiteReviewForm = () => {
   });
   const [status, setStatus] = useState("idle"); // idle | submitting | success
   const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const hasStarted = useRef(false);
+  const successHeadingRef = useRef(null);
+
+  // The submit button disappears with the form, so move focus to the
+  // confirmation instead of letting it fall back to the top of the page.
+  useEffect(() => {
+    if (status === "success") successHeadingRef.current?.focus();
+  }, [status]);
 
   const trackStart = () => {
     if (hasStarted.current) return;
@@ -38,27 +80,50 @@ const FreeWebsiteReviewForm = () => {
   const handleModeChange = (nextMode) => {
     trackStart();
     setMode(nextMode);
+    setFieldErrors({});
   };
 
   const handleChange = (field) => (event) => {
     trackStart();
     setValues((prev) => ({ ...prev, [field]: event.target.value }));
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
   };
+
+  // Props that tie a field to its hint and its error message for screen
+  // readers. The error is listed first so it is read before the hint.
+  const describeProps = (field, hintId) => {
+    const ids = [fieldErrors[field] && `${field}-error`, hintId].filter(
+      Boolean
+    );
+    return {
+      ...(fieldErrors[field] && { "aria-invalid": true }),
+      ...(ids.length && { "aria-describedby": ids.join(" ") }),
+    };
+  };
+  const errorProps = (field) => describeProps(field);
+
+  const renderFieldError = (field) =>
+    fieldErrors[field] && (
+      <p id={`${field}-error`} className={fieldErrorClasses}>
+        {fieldErrors[field]}
+      </p>
+    );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
 
-    if (!values.email || !values.email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
-    if (mode === "have" && !values.websiteUrl.trim()) {
-      setErrorMessage("Please enter your website URL.");
-      return;
-    }
-    if (mode === "need" && !values.businessName.trim()) {
-      setErrorMessage("Please enter your business name.");
+    const errors = validate(mode, values);
+    setFieldErrors(errors);
+    const firstInvalid = FIELD_ORDER.find((field) => errors[field]);
+    if (firstInvalid) {
+      document.getElementById(firstInvalid)?.focus();
       return;
     }
 
@@ -148,10 +213,16 @@ const FreeWebsiteReviewForm = () => {
             </p>
           </div>
 
-          <div className="lg:col-span-7">
+          {/* Polite live region that exists before the swap, so the
+              confirmation is announced when it replaces the form. */}
+          <div className="lg:col-span-7" aria-live="polite">
             {status === "success" ? (
               <div className="border border-white/15 bg-white/5 p-6 sm:p-8">
-                <h3 className="font-display text-xl font-semibold text-white">
+                <h3
+                  ref={successHeadingRef}
+                  tabIndex={-1}
+                  className="font-display text-xl font-semibold text-white focus:outline-none"
+                >
                   Got it, thank you.
                 </h3>
                 <p className="mt-2 text-base text-white/60">
@@ -255,9 +326,16 @@ const FreeWebsiteReviewForm = () => {
                         placeholder="yourbusiness.com"
                         value={values.websiteUrl}
                         onChange={handleChange("websiteUrl")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        {...describeProps("websiteUrl", "websiteUrl-hint")}
+                        className={`mt-1.5 ${fieldClasses} ${
+                          fieldErrors.websiteUrl ? invalidFieldClasses : validFieldClasses
+                        }`}
                       />
-                      <p className="mt-1 text-xs text-white/40">
+                      {renderFieldError("websiteUrl")}
+                      <p
+                        id="websiteUrl-hint"
+                        className="mt-1 text-xs text-ivory/60"
+                      >
                         No http needed.
                       </p>
                     </div>
@@ -272,8 +350,12 @@ const FreeWebsiteReviewForm = () => {
                         placeholder="Your business name"
                         value={values.businessName}
                         onChange={handleChange("businessName")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        {...errorProps("businessName")}
+                        className={`mt-1.5 ${fieldClasses} ${
+                          fieldErrors.businessName ? invalidFieldClasses : validFieldClasses
+                        }`}
                       />
+                      {renderFieldError("businessName")}
                     </div>
                   )}
 
@@ -287,8 +369,12 @@ const FreeWebsiteReviewForm = () => {
                       placeholder="you@business.com"
                       value={values.email}
                       onChange={handleChange("email")}
-                      className={`mt-1.5 ${fieldClasses}`}
+                      {...errorProps("email")}
+                      className={`mt-1.5 ${fieldClasses} ${
+                        fieldErrors.email ? invalidFieldClasses : validFieldClasses
+                      }`}
                     />
+                    {renderFieldError("email")}
                   </div>
 
                   <div>
@@ -301,7 +387,7 @@ const FreeWebsiteReviewForm = () => {
                       placeholder="Contractor or trade"
                       value={values.businessType}
                       onChange={handleChange("businessType")}
-                      className={`mt-1.5 ${fieldClasses}`}
+                      className={`mt-1.5 ${fieldClasses} ${validFieldClasses}`}
                     />
                   </div>
 
@@ -316,7 +402,7 @@ const FreeWebsiteReviewForm = () => {
                         placeholder="Call, request an estimate, book, buy..."
                         value={values.goal}
                         onChange={handleChange("goal")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        className={`mt-1.5 ${fieldClasses} ${validFieldClasses}`}
                       />
                     </div>
                   )}
@@ -325,7 +411,7 @@ const FreeWebsiteReviewForm = () => {
                 {errorMessage && (
                   <p
                     role="alert"
-                    className="mt-4 text-sm font-medium text-red-400"
+                    className="mt-4 text-sm font-medium text-ivory"
                   >
                     {errorMessage}
                   </p>
@@ -341,7 +427,7 @@ const FreeWebsiteReviewForm = () => {
                     : "Get My Free 3-Point Review"}
                 </button>
 
-                <p className="mt-3 text-xs text-white/40">
+                <p className="mt-3 text-xs text-ivory/60">
                   No call required. We reply by email. Your details are not
                   shared or added to a list.
                 </p>

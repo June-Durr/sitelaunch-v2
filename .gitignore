@@ -1,5 +1,4 @@
-# Create a .gitignore file
-echo "# dependencies
+# dependencies
 /node_modules
 /.pnp
 .pnp.js
@@ -31,4 +30,10 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?" > .gitignore
+*.sw?
+
+# Local tooling output
+.playwright-mcp/
+qa/
+.netlify/
+source-assets/

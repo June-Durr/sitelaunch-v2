@@ -123,7 +123,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ivory/60">
               Navigation
             </h3>
             <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
@@ -151,7 +151,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ivory/60">
               Elsewhere
             </h3>
             <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">

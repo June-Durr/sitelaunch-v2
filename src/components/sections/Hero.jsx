@@ -6,10 +6,10 @@ import analytics from "../../services/analytics";
 // Mobile-only headline split for the per-line reveal below. Chosen short
 // enough to read as one line each at 320-430px; desktop keeps the original
 // single flowing string with natural browser wrapping, untouched.
-const HEADLINE_LINES = [
-  "Websites that turn",
-  "visitors into clients.",
-];
+// Three short lines, not two long ones: at the 40.8px display size
+// "Websites that turn" is wider than a 375px phone, so it wrapped and left
+// "turn" alone on a line. Each of these fits down to 320px.
+const HEADLINE_LINES = ["Websites that", "turn visitors", "into clients."];
 
 const Hero = () => {
   const handlePrimaryCta = () => {

@@ -9,7 +9,7 @@ const AudiencePathways = () => (
 
       <Reveal className="mt-6 grid grid-cols-1 divide-y divide-ink/10 sm:mt-8 md:grid-cols-2 md:divide-x md:divide-y-0">
         <div className="pb-8 md:pb-0 md:pr-10">
-          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/40">
+          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/65">
             For Businesses
           </span>
           <h3 className="mt-3 font-display text-2xl font-bold text-ink sm:text-3xl">
@@ -32,7 +32,7 @@ const AudiencePathways = () => (
           id="contractors"
           className="scroll-mt-[calc(var(--header-height,68px)+8px)] pt-6 md:pl-10 md:pt-0"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/40">
+          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/65">
             For Contractors
           </span>
           <h3 className="mt-3 font-display text-2xl font-bold text-ink sm:text-3xl">

@@ -144,7 +144,7 @@ const SelectedWorkReel = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 hidden items-center justify-between sm:flex">
           <Kicker>Selected Work / 2026 Reel</Kicker>
-          <span className="font-display text-sm font-semibold text-ink/50">
+          <span className="font-display text-sm font-semibold text-ink/65">
             00:22
           </span>
         </div>
