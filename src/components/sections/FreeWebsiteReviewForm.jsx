@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Kicker from "../common/Kicker";
 import analytics from "../../services/analytics";
 
@@ -8,10 +8,43 @@ const WEB3FORMS_KEY = "8bdbd83f-f6b1-47b8-b5ed-f9a3ecacabfc";
 const PHONE_DISPLAY = "(786) 505-5791";
 const PHONE_HREF = "tel:+17865055791";
 
+// Border colour is left out here and added per state below, so the invalid
+// border is not fighting the default one in the cascade.
 const fieldClasses =
-  "w-full rounded-md border border-white/40 bg-white/5 px-4 py-3 text-base text-white placeholder-white/50 transition-colors duration-150 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400 aria-[invalid=true]:border-error";
-const labelClasses =
-  "block type-label text-white/60";
+  "w-full rounded-md border bg-white/5 px-4 py-3 text-base text-white placeholder-white/50 transition-colors duration-150 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400";
+const validFieldClasses = "border-white/40";
+const labelClasses = "block type-label text-white/60";
+// DESIGN.md defines an error colour, so the invalid border and the message
+// both use it; aria-invalid still carries the state for screen readers.
+const invalidFieldClasses = "border-error";
+const fieldErrorClasses = "type-small mt-1.5 font-medium text-error";
+
+// name@domain.tld, no spaces. Catches "bob@" and "bob@site" without trying
+// to be a full RFC 5322 parser.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// yourbusiness.com, www.yourbusiness.co.uk, https://yourbusiness.com/page.
+// The protocol is optional because the field tells people not to type it.
+const URL_PATTERN = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?(\/\S*)?$/i;
+
+const validate = (mode, values) => {
+  const errors = {};
+  if (mode === "have") {
+    const url = values.websiteUrl.trim();
+    if (!url) errors.websiteUrl = "Enter your website address.";
+    else if (!URL_PATTERN.test(url))
+      errors.websiteUrl = "Enter a website address like yourbusiness.com.";
+  } else if (!values.businessName.trim()) {
+    errors.businessName = "Enter your business name.";
+  }
+  const email = values.email.trim();
+  if (!email) errors.email = "Enter your email address.";
+  else if (!EMAIL_PATTERN.test(email))
+    errors.email = "Enter an email address like you@business.com.";
+  return errors;
+};
+
+// Order the fields appear in, so focus goes to the first one that failed.
+const FIELD_ORDER = ["websiteUrl", "businessName", "email"];
 
 const FreeWebsiteReviewForm = () => {
   const [mode, setMode] = useState("have");
@@ -24,10 +57,15 @@ const FreeWebsiteReviewForm = () => {
   });
   const [status, setStatus] = useState("idle"); // idle | submitting | success
   const [errorMessage, setErrorMessage] = useState("");
-  // Which field the current error belongs to, so it can be marked invalid,
-  // described by the message, and focused.
-  const [errorField, setErrorField] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const hasStarted = useRef(false);
+  const successHeadingRef = useRef(null);
+
+  // The submit button disappears with the form, so move focus to the
+  // confirmation instead of letting it fall back to the top of the page.
+  useEffect(() => {
+    if (status === "success") successHeadingRef.current?.focus();
+  }, [status]);
 
   const trackStart = () => {
     if (hasStarted.current) return;
@@ -41,40 +79,50 @@ const FreeWebsiteReviewForm = () => {
   const handleModeChange = (nextMode) => {
     trackStart();
     setMode(nextMode);
-    setErrorField(null);
-    setErrorMessage("");
+    setFieldErrors({});
   };
 
   const handleChange = (field) => (event) => {
     trackStart();
     setValues((prev) => ({ ...prev, [field]: event.target.value }));
-    if (field === errorField) {
-      setErrorField(null);
-      setErrorMessage("");
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
     }
   };
+
+  // Props that tie a field to its hint and its error message for screen
+  // readers. The error is listed first so it is read before the hint.
+  const describeProps = (field, hintId) => {
+    const ids = [fieldErrors[field] && `${field}-error`, hintId].filter(
+      Boolean
+    );
+    return {
+      ...(fieldErrors[field] && { "aria-invalid": true }),
+      ...(ids.length && { "aria-describedby": ids.join(" ") }),
+    };
+  };
+  const errorProps = (field) => describeProps(field);
+
+  const renderFieldError = (field) =>
+    fieldErrors[field] && (
+      <p id={`${field}-error`} className={fieldErrorClasses}>
+        {fieldErrors[field]}
+      </p>
+    );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
-    setErrorField(null);
 
-    const fail = (field, message) => {
-      setErrorField(field);
-      setErrorMessage(message);
-      document.getElementById(field)?.focus();
-    };
-
-    if (mode === "have" && !values.websiteUrl.trim()) {
-      fail("websiteUrl", "Please enter your website URL.");
-      return;
-    }
-    if (mode === "need" && !values.businessName.trim()) {
-      fail("businessName", "Please enter your business name.");
-      return;
-    }
-    if (!values.email || !values.email.includes("@")) {
-      fail("email", "Please enter a valid email address.");
+    const errors = validate(mode, values);
+    setFieldErrors(errors);
+    const firstInvalid = FIELD_ORDER.find((field) => errors[field]);
+    if (firstInvalid) {
+      document.getElementById(firstInvalid)?.focus();
       return;
     }
 
@@ -164,10 +212,16 @@ const FreeWebsiteReviewForm = () => {
             </p>
           </div>
 
-          <div className="lg:col-span-7">
+          {/* Polite live region that exists before the swap, so the
+              confirmation is announced when it replaces the form. */}
+          <div className="lg:col-span-7" aria-live="polite">
             {status === "success" ? (
               <div className="border border-white/15 bg-white/5 p-6 sm:p-8">
-                <h3 className="type-card text-white">
+                <h3
+                  ref={successHeadingRef}
+                  tabIndex={-1}
+                  className="type-card text-white focus:outline-none"
+                >
                   Got it, thank you.
                 </h3>
                 <p className="type-body mt-2 text-white/80">
@@ -186,7 +240,7 @@ const FreeWebsiteReviewForm = () => {
                       exclusive positions, not a pair of inputs. */}
                   <div className="mt-3 grid grid-cols-2 overflow-hidden rounded-md border border-white/15">
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
                         mode === "have"
                           ? "bg-accent-600 text-white"
                           : "bg-transparent text-white/60 hover:text-white/80"
@@ -221,7 +275,7 @@ const FreeWebsiteReviewForm = () => {
                       I already have a website
                     </label>
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 border-l border-white/15 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 border-l border-white/15 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
                         mode === "need"
                           ? "bg-accent-600 text-white"
                           : "bg-transparent text-white/60 hover:text-white/80"
@@ -266,16 +320,21 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <input
                         id="websiteUrl"
-                        aria-invalid={errorField === "websiteUrl" || undefined}
-                        aria-describedby={errorField === "websiteUrl" ? "review-form-error websiteUrl-hint" : "websiteUrl-hint"}
                         type="text"
                         inputMode="url"
                         placeholder="yourbusiness.com"
                         value={values.websiteUrl}
                         onChange={handleChange("websiteUrl")}
-                        className={`mt-2 ${fieldClasses}`}
+                        {...describeProps("websiteUrl", "websiteUrl-hint")}
+                        className={`mt-2 ${fieldClasses} ${
+                          fieldErrors.websiteUrl ? invalidFieldClasses : validFieldClasses
+                        }`}
                       />
-                      <p id="websiteUrl-hint" className="type-small mt-1 text-white/60">
+                      {renderFieldError("websiteUrl")}
+                      <p
+                        id="websiteUrl-hint"
+                        className="type-small mt-1 text-white/60"
+                      >
                         No http needed.
                       </p>
                     </div>
@@ -286,14 +345,16 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <input
                         id="businessName"
-                        aria-invalid={errorField === "businessName" || undefined}
-                        aria-describedby={errorField === "businessName" ? "review-form-error" : undefined}
                         type="text"
                         placeholder="Your business name"
                         value={values.businessName}
                         onChange={handleChange("businessName")}
-                        className={`mt-2 ${fieldClasses}`}
+                        {...errorProps("businessName")}
+                        className={`mt-2 ${fieldClasses} ${
+                          fieldErrors.businessName ? invalidFieldClasses : validFieldClasses
+                        }`}
                       />
+                      {renderFieldError("businessName")}
                     </div>
                   )}
 
@@ -303,14 +364,16 @@ const FreeWebsiteReviewForm = () => {
                     </label>
                     <input
                       id="email"
-                      aria-invalid={errorField === "email" || undefined}
-                      aria-describedby={errorField === "email" ? "review-form-error" : undefined}
                       type="email"
                       placeholder="you@business.com"
                       value={values.email}
                       onChange={handleChange("email")}
-                      className={`mt-2 ${fieldClasses}`}
+                      {...errorProps("email")}
+                      className={`mt-2 ${fieldClasses} ${
+                        fieldErrors.email ? invalidFieldClasses : validFieldClasses
+                      }`}
                     />
+                    {renderFieldError("email")}
                   </div>
 
                   <div>
@@ -319,13 +382,11 @@ const FreeWebsiteReviewForm = () => {
                     </label>
                     <input
                       id="businessType"
-                      aria-invalid={errorField === "businessType" || undefined}
-                      aria-describedby={errorField === "businessType" ? "review-form-error" : undefined}
                       type="text"
                       placeholder="Contractor or trade"
                       value={values.businessType}
                       onChange={handleChange("businessType")}
-                      className={`mt-2 ${fieldClasses}`}
+                      className={`mt-2 ${fieldClasses} ${validFieldClasses}`}
                     />
                   </div>
 
@@ -336,13 +397,11 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <textarea
                         id="goal"
-                        aria-invalid={errorField === "goal" || undefined}
-                        aria-describedby={errorField === "goal" ? "review-form-error" : undefined}
                         rows={3}
                         placeholder="Call, request an estimate, book, buy..."
                         value={values.goal}
                         onChange={handleChange("goal")}
-                        className={`mt-2 ${fieldClasses}`}
+                        className={`mt-2 ${fieldClasses} ${validFieldClasses}`}
                       />
                     </div>
                   )}
