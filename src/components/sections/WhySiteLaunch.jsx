@@ -42,7 +42,7 @@ const WhySiteLaunch = () => (
   >
     <Reveal
       as="h2"
-      className="font-display text-3xl font-bold text-ink sm:text-4xl"
+      className="type-heading text-ink"
     >
       Why work with SiteLaunch
     </Reveal>
@@ -57,13 +57,13 @@ const WhySiteLaunch = () => (
       {REASONS.map((reason) => (
         <motion.div
           key={reason.title}
-          className={`py-3.5 sm:py-5 ${reason.hiddenOnMobile ? "hidden sm:block" : ""}`}
+          className={`py-4 sm:py-5 ${reason.hiddenOnMobile ? "hidden sm:block" : ""}`}
           variants={staggerItem}
         >
-          <dt className="font-display text-lg font-semibold text-ink">
+          <dt className="type-card text-ink">
             {reason.title}
           </dt>
-          <dd className="mt-1.5 max-w-md text-sm text-ink/70 sm:mt-2">
+          <dd className="type-body mt-2 max-w-md text-ink/80">
             {reason.description}
           </dd>
         </motion.div>

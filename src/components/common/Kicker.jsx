@@ -8,14 +8,14 @@ const Kicker = ({ children, tone = "default", as = "span", className = "" }) => 
   const Tag = as;
   const toneClasses =
     tone === "inverted"
-      ? "text-violet-400"
+      ? "text-accent-400"
       : tone === "muted"
-        ? "text-neutral-500"
-        : "text-violet-600";
+        ? "text-ink/65"
+        : "text-accent-600";
 
   return (
     <Tag
-      className={`block text-xs font-semibold uppercase tracking-[0.14em] ${toneClasses} ${className}`}
+      className={`block type-label ${toneClasses} ${className}`}
     >
       {children}
     </Tag>

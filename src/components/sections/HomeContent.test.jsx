@@ -174,9 +174,10 @@ describe("the registry-driven Insights browser", () => {
       expect(tab.className).toMatch(/min-h-\[228px\]/);
     }
 
-    // The excerpt reserves its tallest case on small screens.
+    // The excerpt reserves its tallest case on small screens: four lines of
+    // 16px body copy (DESIGN.md sets 16px as the paragraph minimum).
     const excerpt = container.querySelector("#insight-preview p");
-    expect(excerpt.className).toMatch(/min-h-\[4\.5rem\]/);
+    expect(excerpt.className).toMatch(/min-h-\[6\.5rem\]/);
   });
 
   it("links all three article URLs from the homepage, not just the selected one", () => {

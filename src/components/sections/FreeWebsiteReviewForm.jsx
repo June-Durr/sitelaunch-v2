@@ -9,9 +9,9 @@ const PHONE_DISPLAY = "(786) 505-5791";
 const PHONE_HREF = "tel:+17865055791";
 
 const fieldClasses =
-  "w-full rounded-md border border-white/15 bg-white/5 px-4 py-3 text-base text-white placeholder-white/35 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500";
+  "w-full rounded-md border border-white/40 bg-white/5 px-4 py-3 text-base text-white placeholder-white/50 transition-colors duration-150 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400 aria-[invalid=true]:border-error";
 const labelClasses =
-  "block text-xs font-semibold uppercase tracking-[0.12em] text-white/50";
+  "block type-label text-white/60";
 
 const FreeWebsiteReviewForm = () => {
   const [mode, setMode] = useState("have");
@@ -24,6 +24,9 @@ const FreeWebsiteReviewForm = () => {
   });
   const [status, setStatus] = useState("idle"); // idle | submitting | success
   const [errorMessage, setErrorMessage] = useState("");
+  // Which field the current error belongs to, so it can be marked invalid,
+  // described by the message, and focused.
+  const [errorField, setErrorField] = useState(null);
   const hasStarted = useRef(false);
 
   const trackStart = () => {
@@ -38,27 +41,40 @@ const FreeWebsiteReviewForm = () => {
   const handleModeChange = (nextMode) => {
     trackStart();
     setMode(nextMode);
+    setErrorField(null);
+    setErrorMessage("");
   };
 
   const handleChange = (field) => (event) => {
     trackStart();
     setValues((prev) => ({ ...prev, [field]: event.target.value }));
+    if (field === errorField) {
+      setErrorField(null);
+      setErrorMessage("");
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
+    setErrorField(null);
 
-    if (!values.email || !values.email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
+    const fail = (field, message) => {
+      setErrorField(field);
+      setErrorMessage(message);
+      document.getElementById(field)?.focus();
+    };
+
     if (mode === "have" && !values.websiteUrl.trim()) {
-      setErrorMessage("Please enter your website URL.");
+      fail("websiteUrl", "Please enter your website URL.");
       return;
     }
     if (mode === "need" && !values.businessName.trim()) {
-      setErrorMessage("Please enter your business name.");
+      fail("businessName", "Please enter your business name.");
+      return;
+    }
+    if (!values.email || !values.email.includes("@")) {
+      fail("email", "Please enter a valid email address.");
       return;
     }
 
@@ -120,16 +136,16 @@ const FreeWebsiteReviewForm = () => {
   return (
     <section
       id="review"
-      className="scroll-mt-[calc(var(--header-height,68px)+8px)] bg-ink py-16 sm:py-24"
+      className="scroll-mt-[calc(var(--header-height,68px)+8px)] section-y-lg bg-ink"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Kicker tone="inverted">Free Website Review</Kicker>
-            <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="type-heading mt-3 text-white">
               Send the site. Get three things to fix.
             </h2>
-            <p className="mt-4 max-w-md text-base text-white/60">
+            <p className="type-body mt-4 max-w-md text-white/80">
               No call, no pitch deck. One email back covering mobile
               usability, how clearly the next step is presented, and whether
               the site can be found.
@@ -138,11 +154,11 @@ const FreeWebsiteReviewForm = () => {
             <a
               href={PHONE_HREF}
               onClick={handlePhoneClick}
-              className="mt-6 block text-base font-semibold text-white hover:text-violet-400"
+              className="mt-6 inline-flex min-h-[44px] items-center text-base font-semibold text-white transition-colors duration-150 hover:text-accent-400"
             >
               {PHONE_DISPLAY}
             </a>
-            <p className="mt-3 max-w-md text-sm text-white/50">
+            <p className="type-small mt-2 max-w-md text-white/60">
               Miami based, working with clients anywhere. Consultations
               available in English and Spanish.
             </p>
@@ -151,10 +167,10 @@ const FreeWebsiteReviewForm = () => {
           <div className="lg:col-span-7">
             {status === "success" ? (
               <div className="border border-white/15 bg-white/5 p-6 sm:p-8">
-                <h3 className="font-display text-xl font-semibold text-white">
+                <h3 className="type-card text-white">
                   Got it, thank you.
                 </h3>
-                <p className="mt-2 text-base text-white/60">
+                <p className="type-body mt-2 text-white/80">
                   No call required. We reply by email, usually within two
                   business days, with your 3-point review.
                 </p>
@@ -162,7 +178,7 @@ const FreeWebsiteReviewForm = () => {
             ) : (
               <form onSubmit={handleSubmit} noValidate>
                 <fieldset>
-                  <legend className="block text-xs font-semibold uppercase tracking-[0.14em] text-white">
+                  <legend className="block type-label text-white">
                     Where are you starting from?
                   </legend>
                   {/* A single bordered, divided control (not two separate
@@ -170,10 +186,10 @@ const FreeWebsiteReviewForm = () => {
                       exclusive positions, not a pair of inputs. */}
                   <div className="mt-3 grid grid-cols-2 overflow-hidden rounded-md border border-white/15">
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-violet-400 ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
                         mode === "have"
-                          ? "bg-violet-600 text-white"
-                          : "bg-transparent text-white/50 hover:text-white/75"
+                          ? "bg-accent-600 text-white"
+                          : "bg-transparent text-white/60 hover:text-white/80"
                       }`}
                     >
                       <input
@@ -205,10 +221,10 @@ const FreeWebsiteReviewForm = () => {
                       I already have a website
                     </label>
                     <label
-                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-1.5 border-l border-white/15 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-violet-400 ${
+                      className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 border-l border-white/15 px-2 text-center text-sm font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-accent-400 ${
                         mode === "need"
-                          ? "bg-violet-600 text-white"
-                          : "bg-transparent text-white/50 hover:text-white/75"
+                          ? "bg-accent-600 text-white"
+                          : "bg-transparent text-white/60 hover:text-white/80"
                       }`}
                     >
                       <input
@@ -242,7 +258,7 @@ const FreeWebsiteReviewForm = () => {
                   </div>
                 </fieldset>
 
-                <div className="mt-7 space-y-4">
+                <div className="mt-8 space-y-4">
                   {mode === "have" ? (
                     <div>
                       <label htmlFor="websiteUrl" className={labelClasses}>
@@ -250,14 +266,16 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <input
                         id="websiteUrl"
+                        aria-invalid={errorField === "websiteUrl" || undefined}
+                        aria-describedby={errorField === "websiteUrl" ? "review-form-error websiteUrl-hint" : "websiteUrl-hint"}
                         type="text"
                         inputMode="url"
                         placeholder="yourbusiness.com"
                         value={values.websiteUrl}
                         onChange={handleChange("websiteUrl")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        className={`mt-2 ${fieldClasses}`}
                       />
-                      <p className="mt-1 text-xs text-white/40">
+                      <p id="websiteUrl-hint" className="type-small mt-1 text-white/60">
                         No http needed.
                       </p>
                     </div>
@@ -268,11 +286,13 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <input
                         id="businessName"
+                        aria-invalid={errorField === "businessName" || undefined}
+                        aria-describedby={errorField === "businessName" ? "review-form-error" : undefined}
                         type="text"
                         placeholder="Your business name"
                         value={values.businessName}
                         onChange={handleChange("businessName")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        className={`mt-2 ${fieldClasses}`}
                       />
                     </div>
                   )}
@@ -283,11 +303,13 @@ const FreeWebsiteReviewForm = () => {
                     </label>
                     <input
                       id="email"
+                      aria-invalid={errorField === "email" || undefined}
+                      aria-describedby={errorField === "email" ? "review-form-error" : undefined}
                       type="email"
                       placeholder="you@business.com"
                       value={values.email}
                       onChange={handleChange("email")}
-                      className={`mt-1.5 ${fieldClasses}`}
+                      className={`mt-2 ${fieldClasses}`}
                     />
                   </div>
 
@@ -297,11 +319,13 @@ const FreeWebsiteReviewForm = () => {
                     </label>
                     <input
                       id="businessType"
+                      aria-invalid={errorField === "businessType" || undefined}
+                      aria-describedby={errorField === "businessType" ? "review-form-error" : undefined}
                       type="text"
                       placeholder="Contractor or trade"
                       value={values.businessType}
                       onChange={handleChange("businessType")}
-                      className={`mt-1.5 ${fieldClasses}`}
+                      className={`mt-2 ${fieldClasses}`}
                     />
                   </div>
 
@@ -312,11 +336,13 @@ const FreeWebsiteReviewForm = () => {
                       </label>
                       <textarea
                         id="goal"
+                        aria-invalid={errorField === "goal" || undefined}
+                        aria-describedby={errorField === "goal" ? "review-form-error" : undefined}
                         rows={3}
                         placeholder="Call, request an estimate, book, buy..."
                         value={values.goal}
                         onChange={handleChange("goal")}
-                        className={`mt-1.5 ${fieldClasses}`}
+                        className={`mt-2 ${fieldClasses}`}
                       />
                     </div>
                   )}
@@ -324,8 +350,9 @@ const FreeWebsiteReviewForm = () => {
 
                 {errorMessage && (
                   <p
+                    id="review-form-error"
                     role="alert"
-                    className="mt-4 text-sm font-medium text-red-400"
+                    className="type-small mt-4 font-medium text-error"
                   >
                     {errorMessage}
                   </p>
@@ -334,14 +361,14 @@ const FreeWebsiteReviewForm = () => {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-md bg-violet-600 px-6 text-base font-semibold text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="btn btn-primary mt-6 w-full"
                 >
                   {status === "submitting"
                     ? "Sending..."
                     : "Get My Free 3-Point Review"}
                 </button>
 
-                <p className="mt-3 text-xs text-white/40">
+                <p className="type-small mt-3 text-white/60">
                   No call required. We reply by email. Your details are not
                   shared or added to a list.
                 </p>

@@ -12,9 +12,9 @@ const Star = () => (
 
 const GoogleTrustStrip = () => (
   <div className="bg-ink">
-    <div className="mx-auto flex max-w-6xl flex-col items-center gap-1 px-4 py-2.5 text-center sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-3 sm:px-6 sm:py-5 sm:text-left lg:px-8">
+    <div className="mx-auto flex max-w-6xl flex-col items-center gap-1 px-4 py-3 text-center sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-3 sm:px-6 sm:py-5 sm:text-left lg:px-8">
       <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 sm:justify-start sm:gap-x-3 sm:gap-y-2">
-        <span className="flex items-center gap-0.5 text-violet-400" aria-hidden="true">
+        <span className="flex items-center gap-0.5 text-accent-400" aria-hidden="true">
           <Star />
           <Star />
           <Star />
@@ -28,14 +28,14 @@ const GoogleTrustStrip = () => (
       </div>
 
       <div className="flex items-center gap-4">
-        <span className="text-sm text-white/50">
+        <span className="text-sm text-white/60">
           {`${GOOGLE_REVIEW_COUNT} verified reviews`}
         </span>
         <a
           href={GOOGLE_REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
+          className="link-on-dark text-sm"
         >
           Read reviews ↗
         </a>

@@ -56,7 +56,7 @@ const SECTIONS = [
     id: "who-we-are",
     heading: "01 Who operates this service",
     paragraphs: [
-      "SiteLaunch Studios operates the SiteLaunch Marketing Cockpit and the website at sitelaunchstudios.com. In this policy, “we” and “us” mean SiteLaunch Studios, and “the Cockpit” means the SiteLaunch Marketing Cockpit application.",
+      "SiteLaunch Studios operates the SiteLaunch Marketing Cockpit and the website at sitelaunchstudios.com. In this policy, \"we\" and \"us\" mean SiteLaunch Studios, and \"the Cockpit\" means the SiteLaunch Marketing Cockpit application.",
       "This policy covers both the Cockpit and this website. It explains what we collect, what we do with it, who else sees it, and how you get rid of it.",
     ],
   },
@@ -110,7 +110,7 @@ const SECTIONS = [
             href={GOOGLE_USER_DATA_POLICY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-violet-600 underline underline-offset-2 hover:text-violet-700"
+            className="text-accent-600 underline underline-offset-2 hover:text-accent-700"
           >
             {"Google API Services User Data Policy"}
           </a>
@@ -157,7 +157,7 @@ const SECTIONS = [
             href={GOOGLE_PERMISSIONS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-violet-600 underline underline-offset-2 hover:text-violet-700"
+            className="text-accent-600 underline underline-offset-2 hover:text-accent-700"
           >
             {"myaccount.google.com/permissions"}
           </a>
@@ -174,7 +174,7 @@ const SECTIONS = [
       () => (
         <>
           {"Write to "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-violet-600 underline underline-offset-2 hover:text-violet-700">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent-600 underline underline-offset-2 hover:text-accent-700">
             {CONTACT_EMAIL}
           </a>
           {" from the address on your account and ask us to delete it. We will remove your account, the leads, notes, tasks and activity stored against it, and any Google authorization still held, and we will confirm when it is done."}
@@ -185,7 +185,7 @@ const SECTIONS = [
   },
   {
     id: "children",
-    heading: "12 Children’s privacy",
+    heading: "12 Children's privacy",
     paragraphs: [
       "The Cockpit is a tool for running a business and is not directed to children. We do not knowingly collect information from anyone under 13. If you believe a child has provided us with information, contact us and we will delete it.",
     ],
@@ -204,11 +204,11 @@ const SECTIONS = [
       () => (
         <>
           {"Questions about this policy, or about anything described in it, go to "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-violet-600 underline underline-offset-2 hover:text-violet-700">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent-600 underline underline-offset-2 hover:text-accent-700">
             {CONTACT_EMAIL}
           </a>
           {" or "}
-          <a href={CONTACT_PHONE_HREF} className="text-violet-600 underline underline-offset-2 hover:text-violet-700">
+          <a href={CONTACT_PHONE_HREF} className="text-accent-600 underline underline-offset-2 hover:text-accent-700">
             {CONTACT_PHONE_DISPLAY}
           </a>
           {". We answer in English and Spanish."}
@@ -225,10 +225,10 @@ const SectionHeading = ({ heading }) => {
   // page still reads as part of this site rather than as a pasted-in document.
   const match = heading.match(NUMBERED_HEADING);
   return (
-    <h2 className="font-display text-2xl font-bold leading-[1.1] tracking-[-0.025em] text-ink lg:text-[2.125rem]">
+    <h2 className="type-heading text-ink">
       {match ? (
         <>
-          <span className="text-violet-600">{match[1]}</span>
+          <span className="text-accent-600">{match[1]}</span>
           {` ${match[2]}`}
         </>
       ) : (
@@ -264,28 +264,28 @@ const Privacy = () => {
         structuredData={structuredData}
       />
 
-      <header className="pb-8 pt-7 sm:pb-12 sm:pt-10 lg:pb-16 lg:pt-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <header className="pb-8 pt-8 sm:pb-12 sm:pt-10 lg:pb-16 lg:pt-20">
+        <div className="container-page">
           <div className="max-w-[43.75rem] lg:ml-[8.333%]">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600">
+            <span className="type-label text-accent-600">
               Legal
             </span>
 
-            <h1 className="mt-3 font-display text-[2.1875rem] font-bold leading-[1.02] tracking-[-0.03em] text-ink sm:text-[2.75rem] lg:text-[3.25rem] lg:leading-[1.0] lg:tracking-[-0.035em]">
+            <h1 className="type-title mt-3 text-ink">
               Privacy Policy
             </h1>
 
-            <p className="mt-3.5 text-[1.0625rem] leading-[1.45] text-ink/70 sm:mt-5 sm:text-[1.1875rem] sm:leading-[1.5] lg:text-[1.3125rem] lg:leading-[1.5]">
+            <p className="type-lead mt-4 text-ink/80 sm:mt-5">
               How SiteLaunch Studios handles information in the SiteLaunch
               Marketing Cockpit and on this website, including the Google
               Calendar data the Cockpit uses and how to take it back.
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-ink/[0.18] pt-3 text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-ink/50 sm:mt-6 sm:pt-4">
+            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-ink/20 pt-3 type-label text-ink/65 sm:mt-6 sm:pt-4">
               <span>SiteLaunch Studios</span>
               <span
                 aria-hidden="true"
-                className="h-1 w-1 flex-none bg-violet-600"
+                className="h-1 w-1 flex-none bg-accent-600"
               />
               <span>{`Effective ${EFFECTIVE_DATE}`}</span>
             </div>
@@ -299,15 +299,15 @@ const Privacy = () => {
           id={section.id}
           className="py-4 sm:py-5 lg:py-6"
         >
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="container-page">
             <div className="max-w-[43.75rem] lg:ml-[8.333%]">
               <SectionHeading heading={section.heading} />
 
-              <div className="mt-5 space-y-[1.125rem] lg:mt-7 lg:space-y-5">
+              <div className="mt-5 space-y-4 lg:mt-7 lg:space-y-5">
                 {section.paragraphs.map((paragraph, i) => (
                   <p
                     key={`${section.id}-${i}`}
-                    className="text-[1.0625rem] leading-[1.7] text-[#2A2926] lg:text-[1.1875rem]"
+                    className="type-prose text-ink/80"
                   >
                     {typeof paragraph === "function" ? paragraph() : paragraph}
                   </p>
@@ -318,11 +318,11 @@ const Privacy = () => {
         </section>
       ))}
 
-      <div className="pb-14 pt-6 sm:pb-20 lg:pb-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="pb-16 pt-6 sm:pb-20 lg:pb-24">
+        <div className="container-page">
           <div className="max-w-[43.75rem] lg:ml-[8.333%]">
-            <div className="h-px w-full bg-violet-600/60" />
-            <p className="mt-4 text-sm text-ink/50">
+            <div className="h-px w-full bg-accent-600/60" />
+            <p className="type-small mt-4 text-ink/65">
               {`SiteLaunch Studios \u00b7 Miami, clients anywhere \u00b7 Effective ${EFFECTIVE_DATE}`}
             </p>
           </div>

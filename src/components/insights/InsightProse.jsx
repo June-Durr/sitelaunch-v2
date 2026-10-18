@@ -10,9 +10,9 @@ const NUMBERED_HEADING = /^(\d+)\s+(.+)$/;
 
 const OutcomeMarker = ({ pass }) =>
   pass ? (
-    <span aria-hidden="true" className="h-3.5 w-3.5 flex-none bg-violet-600" />
+    <span aria-hidden="true" className="h-3.5 w-3.5 flex-none bg-accent-600" />
   ) : (
-    <span aria-hidden="true" className="h-3.5 w-3.5 flex-none border-[3px] border-[#D95D5D]" />
+    <span aria-hidden="true" className="h-3.5 w-3.5 flex-none border-[3px] border-signal" />
   );
 
 const InsightProse = ({ section }) => {
@@ -24,13 +24,13 @@ const InsightProse = ({ section }) => {
 
   return (
     <div className="bg-ivory py-4 sm:py-5 lg:py-6">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="max-w-[43.75rem] lg:ml-[8.333%]">
           {heading && (
-            <h2 className="font-display text-2xl font-bold leading-[1.1] tracking-[-0.025em] text-ink lg:text-[2.125rem]">
+            <h2 className="type-heading text-ink">
               {match ? (
                 <>
-                  <span className="text-violet-600">{match[1]}</span>
+                  <span className="text-accent-600">{match[1]}</span>
                   {` ${match[2]}`}
                 </>
               ) : (
@@ -42,8 +42,8 @@ const InsightProse = ({ section }) => {
           <div
             className={
               heading
-                ? "mt-5 space-y-[1.125rem] lg:mt-7 lg:space-y-5"
-                : "space-y-[1.125rem] lg:space-y-5"
+                ? "mt-5 space-y-4 lg:mt-7 lg:space-y-5"
+                : "space-y-4 lg:space-y-5"
             }
           >
             {paragraphs.map((paragraph, i) => (
@@ -51,8 +51,8 @@ const InsightProse = ({ section }) => {
                 key={paragraph.slice(0, 24) + i}
                 className={
                   isOpening && i === 0
-                    ? "text-[1.125rem] leading-[1.6] text-[#2A2926] lg:text-[1.3125rem] lg:leading-[1.6]"
-                    : "text-[1.0625rem] leading-[1.7] text-[#2A2926] lg:text-[1.1875rem]"
+                    ? "type-lead text-ink/80"
+                    : "type-prose text-ink/80"
                 }
               >
                 {paragraph}
@@ -60,11 +60,11 @@ const InsightProse = ({ section }) => {
             ))}
 
             {outcomes && (
-              <ul className="list-none divide-y divide-ink/[0.18] border-t border-ink/[0.18]">
+              <ul className="list-none divide-y divide-ink/20 border-t border-ink/20">
                 {outcomes.map((outcome) => (
                   <li
                     key={outcome.text.slice(0, 24)}
-                    className="flex items-center gap-3 py-4 text-[1.0625rem] leading-[1.5] text-[#2A2926] lg:text-[1.1875rem]"
+                    className="flex items-center gap-3 py-4 type-prose text-ink/80"
                   >
                     <OutcomeMarker pass={outcome.pass} />
                     {outcome.text}

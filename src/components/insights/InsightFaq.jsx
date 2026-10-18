@@ -8,22 +8,22 @@ const InsightFaq = ({ section }) => {
 
   return (
     <section className="bg-ivory py-8 sm:py-10 lg:py-14" aria-labelledby="article-faq-heading">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="max-w-[43.75rem] lg:ml-[8.333%]">
           <h2
             id="article-faq-heading"
-            className="font-display text-2xl font-bold leading-[1.1] tracking-[-0.025em] text-ink lg:text-[2.125rem]"
+            className="type-heading text-ink"
           >
             {heading}
           </h2>
 
-          <dl className="mt-5 divide-y divide-ink/[0.18] border-t border-ink/[0.18] lg:mt-7">
+          <dl className="mt-6 divide-y divide-ink/20 border-t border-ink/20 lg:mt-8">
             {items.map((item) => (
               <div key={item.question} className="py-5">
-                <dt className="font-display text-lg font-semibold leading-snug text-ink sm:text-xl">
+                <dt className="type-card text-ink ">
                   {item.question}
                 </dt>
-                <dd className="mt-2 text-[1.0625rem] leading-[1.7] text-[#2A2926] lg:text-[1.1875rem]">
+                <dd className="mt-2 type-prose text-ink/80">
                   {item.answer}
                 </dd>
               </div>

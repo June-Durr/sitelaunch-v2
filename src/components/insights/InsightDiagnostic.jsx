@@ -11,17 +11,17 @@ const InsightDiagnostic = ({ section }) => (
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
         <h2
           id="diagnostic-heading"
-          className="font-display text-[1.75rem] font-bold text-ivory lg:text-[2.5rem]"
+          className="type-heading text-white"
         >
           {section.heading}
         </h2>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400 sm:text-right">
+        <p className="type-label text-accent-400 sm:text-right">
           {section.eyebrow}
         </p>
       </div>
 
       <motion.ol
-        className="mt-6 list-none border-t border-ivory/[0.28] lg:mt-10"
+        className="mt-6 list-none border-t border-white/25 lg:mt-10"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
@@ -31,15 +31,15 @@ const InsightDiagnostic = ({ section }) => (
           <motion.li
             key={item.number}
             variants={staggerItem}
-            className="grid grid-cols-[2rem_1fr] items-baseline gap-x-4 border-b border-ivory/[0.28] py-4 lg:grid-cols-[2.375rem_25rem_1fr] lg:gap-x-8 lg:py-6"
+            className="grid grid-cols-[2rem_1fr] items-baseline gap-x-4 border-b border-white/25 py-4 lg:grid-cols-[2.375rem_25rem_1fr] lg:gap-x-8 lg:py-6"
           >
-            <span className="font-display text-lg font-bold text-violet-400 lg:text-xl">
+            <span className="font-display text-lg font-bold text-accent-400 lg:text-xl">
               {item.number}
             </span>
-            <span className="font-display text-xl font-semibold text-ivory lg:text-[1.875rem]">
+            <span className="type-subheading text-white">
               {item.question}
             </span>
-            <span className="hidden text-[1.0625rem] leading-[1.6] text-ivory/[0.66] lg:block">
+            <span className="type-prose hidden text-white/60 lg:block">
               {item.support}
             </span>
           </motion.li>

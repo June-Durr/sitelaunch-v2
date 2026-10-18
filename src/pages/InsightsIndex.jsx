@@ -36,63 +36,63 @@ const InsightsIndex = () => {
         structuredData={structuredData}
       />
 
-      <header className="border-b border-ink/10 px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+      <header className="section-y border-b border-ink/10">
+        <div className="container-page">
           <Kicker>SiteLaunch Insights</Kicker>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold leading-tight text-ink sm:text-6xl">
+          <h1 className="type-title mt-3 max-w-3xl text-ink">
             Field notes for clearer contractor websites.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-ink/65 sm:text-lg">
+          <p className="type-lead mt-4 max-w-2xl text-ink/80 sm:mt-5">
             Direct tests, practical fixes, and plain-language guidance for the
             moment a homeowner reaches your website on a phone.
           </p>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
-        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="container-page section-y">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {INSIGHTS.map((insight) => (
             <article
               key={insight.slug}
-              className="overflow-hidden rounded-2xl border border-ink/15 bg-white"
+              className="overflow-hidden border border-ink/20 bg-white"
             >
               <Link
                 to={`/insights/${insight.slug}/`}
-                className="flex h-72 items-center justify-center bg-[#FCF6EE] p-5"
+                className="flex h-72 items-center justify-center bg-paper p-5"
                 aria-label={`Read Insight ${insight.number}: ${insight.title}`}
               >
                 <img
                   src={insight.coverImage}
                   alt={insight.coverAlt}
-                  className="h-full w-auto object-contain shadow-[0_12px_22px_rgba(23,23,23,0.14)]"
+                  className="h-full w-auto object-contain shadow-media"
                   width={insight.coverWidth}
                   height={insight.coverHeight}
                   loading="lazy"
                 />
               </Link>
               <div className="p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-violet-600">
+                <p className="type-label text-accent-600">
                   {`Insight ${insight.number} / ${insight.category}`}
                 </p>
-                <h2 className="mt-3 font-display text-2xl font-bold leading-tight text-ink">
+                <h2 className="type-subheading mt-3 text-ink">
                   <Link
                     to={`/insights/${insight.slug}/`}
-                    className="hover:text-violet-700"
+                    className="hover:text-accent-700"
                   >
                     {insight.title}
                   </Link>
                 </h2>
-                <p className="mt-3 text-sm leading-6 text-ink/65">
+                <p className="type-body mt-3 text-ink/65">
                   {insight.homepageExcerpt}
                 </p>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-ink/45">
+                <p className="type-label mt-5 text-ink/65">
                   {`${readingTimeFor(insight)} · ${insight.published}`}
                 </p>
               </div>
             </article>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 };

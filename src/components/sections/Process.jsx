@@ -31,8 +31,8 @@ const STEPS = [
 ];
 
 const Process = () => (
-  <section className="border-t border-ink/10 bg-ivory py-12 sm:py-24 lg:py-[4.5rem]">
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+  <section className="section-y border-t border-ink/10 bg-ivory">
+    <div className="container-page">
       <Kicker as="h2">Process</Kicker>
 
       <div className="relative mt-6 sm:mt-8">
@@ -45,7 +45,7 @@ const Process = () => (
         />
         <motion.div
           aria-hidden="true"
-          className="absolute left-[6px] top-2 w-px origin-top bg-violet-600 sm:hidden"
+          className="absolute left-[6px] top-2 w-px origin-top bg-accent-600 sm:hidden"
           style={{ height: "calc(100% - 16px)" }}
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
@@ -68,15 +68,15 @@ const Process = () => (
             >
               <span
                 aria-hidden="true"
-                className="absolute left-0 top-[7px] h-3.5 w-3.5 rounded-full border-2 border-violet-600 bg-ivory sm:hidden"
+                className="absolute left-0 top-[7px] h-3.5 w-3.5 rounded-full border-2 border-accent-600 bg-ivory sm:hidden"
               />
-              <span className="font-display text-2xl font-bold text-violet-600">
+              <span className="font-display text-2xl font-bold text-accent-600">
                 {step.number}
               </span>
-              <h3 className="mt-1.5 font-display text-lg font-semibold text-ink sm:mt-2">
+              <h3 className="type-card mt-2 text-ink">
                 {step.title}
               </h3>
-              <p className="mt-1 text-sm text-ink/70 sm:mt-1.5">{step.description}</p>
+              <p className="type-body mt-1 text-ink/80 sm:mt-2">{step.description}</p>
             </motion.div>
           ))}
         </motion.div>

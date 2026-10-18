@@ -6,9 +6,9 @@ const InsightFigure = ({ section }) => {
 
   return (
     <section className="bg-ivory py-6 sm:py-8 lg:py-10">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <figure className="max-w-[43.75rem] lg:ml-[8.333%]">
-          <div className="flex items-center justify-center bg-[#FCF6EE] p-4 sm:p-6">
+          <div className="flex items-center justify-center bg-paper p-4 sm:p-6">
             <img
               src={src}
               alt={alt}
@@ -20,7 +20,7 @@ const InsightFigure = ({ section }) => {
             />
           </div>
           {caption && (
-            <figcaption className="mt-3 text-sm leading-6 text-ink/55">
+            <figcaption className="mt-3 type-small text-ink/65">
               {caption}
             </figcaption>
           )}

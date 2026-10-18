@@ -141,16 +141,16 @@ const SelectedWorkReel = () => {
       aria-label="SiteLaunch Studios showreel"
       className="scroll-mt-[calc(var(--header-height,68px)+8px)] bg-ivory pb-8 pt-1 sm:pb-20 sm:pt-2"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="mb-4 hidden items-center justify-between sm:flex">
           <Kicker>Selected Work / 2026 Reel</Kicker>
-          <span className="font-display text-sm font-semibold text-ink/50">
+          <span className="type-small font-display font-semibold text-ink/65">
             00:22
           </span>
         </div>
 
         <motion.div
-          className="relative overflow-hidden rounded-lg bg-ink sm:rounded-none"
+          className="relative overflow-hidden bg-ink"
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}

@@ -26,13 +26,13 @@ const CarlosReviewBlock = ({ wide = false }) => {
         <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
           <div>
             <Kicker tone="inverted">Verified Google Review</Kicker>
-            <p className="mt-2 text-sm text-white/50">The Client</p>
+            <p className="type-small mt-2 text-white/60">The Client</p>
           </div>
           <div>
-            <blockquote className="text-xl leading-relaxed text-white/90 lg:text-2xl lg:leading-[1.5]">
+            <blockquote className="type-lead text-white/80">
               {`"${carlosReview.quote}"`}
             </blockquote>
-            <p className="mt-5 text-sm text-white/50">
+            <p className="type-small mt-5 text-white/60">
               {`${carlosReview.author}, ${carlosReview.attribution}`}
             </p>
           </div>
@@ -45,7 +45,7 @@ const CarlosReviewBlock = ({ wide = false }) => {
     <div className="mt-8 bg-ink p-6 sm:p-8">
       <Kicker tone="inverted">Verified Google Review / The Client</Kicker>
       <blockquote
-        className={`mt-3 text-base leading-relaxed text-white/90 ${
+        className={`type-body mt-3 text-white/80 ${
           expanded ? "" : "line-clamp-3"
         }`}
       >
@@ -55,11 +55,11 @@ const CarlosReviewBlock = ({ wide = false }) => {
         type="button"
         onClick={() => setExpanded((value) => !value)}
         aria-expanded={expanded}
-        className="mt-3 text-sm font-semibold text-violet-400 underline underline-offset-4 hover:text-violet-300"
+        className="link-on-dark mt-3 text-sm"
       >
         {expanded ? "Show less" : "Read full review"}
       </button>
-      <p className="mt-4 text-sm text-white/50">
+      <p className="type-small mt-4 text-white/60">
         {`${carlosReview.author}, ${carlosReview.attribution}`}
       </p>
     </div>
@@ -86,17 +86,17 @@ const CaseStudyBlock = ({ project }) => {
     >
       {/* Mobile-only compact header: name, summary, CTA - text before image. */}
       <div className="order-1 lg:hidden">
-        <p className="text-sm text-ink/50">{project.serviceLabel}</p>
-        <h3 className="mt-1 font-display text-2xl font-bold text-ink">
+        <p className="type-small text-ink/65">{project.serviceLabel}</p>
+        <h3 className="type-subheading mt-1 text-ink">
           {project.name}
         </h3>
-        <p className="mt-2 max-w-md text-base text-ink/80">{project.summary}</p>
+        <p className="type-body mt-2 max-w-md text-ink/80">{project.summary}</p>
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleLinkClick("case_studies")}
-          className="mt-4 inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
+          className="link mt-4 inline-block text-base"
         >
           View case study
         </a>
@@ -106,7 +106,7 @@ const CaseStudyBlock = ({ project }) => {
         className="order-2 lg:order-none lg:col-span-7"
         variants={mediaReveal}
       >
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-ink sm:rounded-none">
+        <div className="grid grid-cols-2 gap-px overflow-hidden bg-ink">
           {project.images.map((image) => (
             <div key={image.src} className="aspect-[3/4]">
               <img
@@ -129,18 +129,18 @@ const CaseStudyBlock = ({ project }) => {
 
       {/* Desktop-only full detail column - unchanged from the approved design. */}
       <div className="order-3 hidden lg:col-span-5 lg:block">
-        <p className="text-sm text-ink/50">{project.serviceLabel}</p>
-        <h3 className="mt-1 font-display text-2xl font-bold text-ink sm:text-3xl">
+        <p className="type-small text-ink/65">{project.serviceLabel}</p>
+        <h3 className="type-subheading mt-1 text-ink">
           {project.name}
         </h3>
 
         <dl className="mt-6 divide-y divide-ink/10 border-y border-ink/10">
           {DETAILS.map((detail) => (
             <div key={detail.key} className="py-4">
-              <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/40">
+              <dt className="type-label text-ink/65">
                 {detail.label}
               </dt>
-              <dd className="mt-1.5 text-base text-ink/80">
+              <dd className="type-body mt-2 text-ink/80">
                 {project[detail.key]}
               </dd>
             </div>
@@ -152,7 +152,7 @@ const CaseStudyBlock = ({ project }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleLinkClick("case_studies")}
-          className="mt-6 inline-block text-base font-semibold text-violet-600 underline underline-offset-4 hover:text-violet-700"
+          className="link mt-6 inline-block text-base"
         >
           See the project
         </a>
@@ -166,14 +166,14 @@ const CaseStudyBlock = ({ project }) => {
 };
 
 const CaseStudies = () => (
-  <section id="case-studies" className="scroll-mt-[calc(var(--header-height,68px)+8px)] bg-ivory py-12 sm:py-24">
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+  <section id="case-studies" className="scroll-mt-[calc(var(--header-height,68px)+8px)] section-y bg-ivory">
+    <div className="container-page">
       <Kicker>Case Studies</Kicker>
-      <h2 className="mt-2 font-display text-3xl font-bold text-ink sm:text-4xl">
+      <h2 className="type-heading mt-3 text-ink">
         Two recent projects.
       </h2>
 
-      <div>
+      <div className="mt-8 sm:mt-10">
         {projects.map((project) => (
           <CaseStudyBlock key={project.id} project={project} />
         ))}

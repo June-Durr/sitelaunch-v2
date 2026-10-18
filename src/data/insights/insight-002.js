@@ -42,10 +42,10 @@ export const insight002 = {
       leftLabel: "The claim",
       rightLabel: "What it invites",
       rows: [
-        { left: "“Trusted.”", right: "By whom?" },
-        { left: "“High quality.”", right: "Show the work." },
-        { left: "“Experienced.”", right: "At what, and since when?" },
-        { left: "“Customer first.”", right: "In whose words?" },
+        { left: "\"Trusted.\"", right: "By whom?" },
+        { left: "\"High quality.\"", right: "Show the work." },
+        { left: "\"Experienced.\"", right: "At what, and since when?" },
+        { left: "\"Customer first.\"", right: "In whose words?" },
       ],
       note: "Anyone in your trade can write the claim. Nobody has to back it up. That is exactly why it carries so little weight: it costs nothing to say, so it proves nothing to read.",
     },
@@ -165,15 +165,15 @@ export const insight002 = {
       rightLabel: "Proof",
       rows: [
         {
-          left: "“We do quality work.”",
+          left: "\"We do quality work.\"",
           right: "Project photography, with what was actually done underneath it.",
         },
         {
-          left: "“Customers trust us.”",
+          left: "\"Customers trust us.\"",
           right: "A verified review from a real customer, shown in full.",
         },
         {
-          left: "“We make it easy.”",
+          left: "\"We make it easy.\"",
           right: "The visitor can see what happens next, straight away.",
         },
       ],
@@ -202,7 +202,7 @@ export const insight002 = {
         "Each photograph labeled with the service and the area it was done in.",
         "At least one review shown in full, with the customer's name and the job.",
         "Services written in the words a customer would say out loud, not industry terms.",
-        "The areas you cover named individually, not described as “and surrounding areas”.",
+        "The areas you cover named individually, not described as \"and surrounding areas\".",
         "What happens after an enquiry, written out as steps with no vague timing.",
         "A real person named somewhere on the site, with licenses where they apply.",
         "One obvious next step on the first screen, before any scrolling.",
@@ -237,7 +237,7 @@ export const insight002 = {
         {
           question: "How do I replace a generic claim with verifiable information?",
           answer:
-            "Take the claim, ask what a stranger would have to see to believe it, and publish that instead. “We do quality work” becomes project photography with a plain description of what was actually done. “Customers trust us” becomes one review shown in full with the customer’s name and the job. “We make it easy” becomes the steps that follow an enquiry, written out. The replacement is almost always more specific rather than louder.",
+            "Take the claim, ask what a stranger would have to see to believe it, and publish that instead. \"We do quality work\" becomes project photography with a plain description of what was actually done. \"Customers trust us\" becomes one review shown in full with the customer's name and the job. \"We make it easy\" becomes the steps that follow an enquiry, written out. The replacement is almost always more specific rather than louder.",
         },
         {
           question: "How many project examples does a small business need?",

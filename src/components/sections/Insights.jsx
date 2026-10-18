@@ -122,7 +122,7 @@ const Insights = () => {
       ref={sectionRef}
       id="insights"
       aria-labelledby="insights-heading"
-      className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-20"
+      className="scroll-mt-[calc(var(--header-height,68px)+8px)] section-y border-t border-ink/10 bg-ivory"
       onMouseEnter={() => setIsPointerInside(true)}
       onMouseLeave={() => setIsPointerInside(false)}
       onFocusCapture={() => setIsFocusInside(true)}
@@ -130,24 +130,24 @@ const Insights = () => {
         if (!event.currentTarget.contains(event.relatedTarget)) setIsFocusInside(false);
       }}
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="max-w-2xl">
           <Kicker>{`Insights / ${storyLabel}`}</Kicker>
           <h2
             id="insights-heading"
-            className="mt-3 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl"
+            className="type-heading mt-3 text-ink"
           >
             Practical insights for better contractor websites.
           </h2>
-          <p className="mt-3 text-sm leading-6 text-ink/65 sm:text-base">
+          <p className="type-body mt-3 text-ink/65">
             Browse the field notes. Open a cover to read the full article.
           </p>
         </div>
 
-        <div className="mt-7 overflow-hidden rounded-2xl border border-ink/15 bg-white md:grid md:grid-cols-[0.76fr_1.24fr] md:rounded-none">
+        <div className="mt-8 overflow-hidden border border-ink/20 bg-white md:grid md:grid-cols-[0.76fr_1.24fr]">
           <div className="bg-ink md:min-h-[520px]">
             <div className="hidden border-b border-white/15 px-7 py-6 md:block">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-violet-400">
+              <p className="type-label text-accent-400">
                 Select a field note
               </p>
             </div>
@@ -189,14 +189,14 @@ const Insights = () => {
                       onClick={() => selectInsight(index)}
                       className="flex min-h-[228px] w-full items-start gap-4 px-5 pb-16 pt-5 text-left transition-colors hover:bg-white/[0.06] md:min-h-[134px] md:px-7 md:pb-14 md:pt-6"
                     >
-                      <span className="mt-1 shrink-0 text-xs font-semibold tracking-[0.14em] text-violet-400">
+                      <span className="type-label mt-1 shrink-0 text-accent-400">
                         {insight.number}
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
+                        <span className="block type-label text-white/60">
                           {readingTimeFor(insight)}
                         </span>
-                        <span className="mt-2 block font-display text-2xl font-bold leading-tight text-white md:text-xl lg:text-2xl">
+                        <span className="type-subheading mt-2 block text-white md:text-xl lg:text-2xl">
                           {insight.title}
                         </span>
                       </span>
@@ -206,7 +206,7 @@ const Insights = () => {
                       to={path}
                       onClick={() => trackOpen(insight, "homepage_list")}
                       aria-label={`Read Insight ${insight.number}: ${insight.title}`}
-                      className="absolute bottom-3 left-5 inline-flex min-h-[44px] items-center text-xs font-semibold uppercase tracking-[0.1em] text-violet-400 underline decoration-violet-400/50 underline-offset-4 hover:text-violet-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 md:bottom-2 md:left-7"
+                      className="absolute bottom-3 left-5 inline-flex min-h-[44px] items-center type-label text-accent-400 underline decoration-accent-400/50 underline-offset-4 hover:text-accent-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-400 md:bottom-2 md:left-7"
                     >
                       Read insight <span aria-hidden="true" className="ml-1">↗</span>
                     </Link>
@@ -225,7 +225,7 @@ const Insights = () => {
             <div className="px-5 py-5 md:px-7 md:py-6">
               <Link
                 to="/insights"
-                className="inline-flex min-h-[44px] items-center text-sm font-semibold text-violet-400 underline decoration-violet-400/50 underline-offset-4 hover:text-violet-300"
+                className="inline-flex min-h-[44px] items-center text-sm font-semibold text-accent-400 underline decoration-accent-400/50 underline-offset-4 hover:text-accent-300"
               >
                 View all published insights
               </Link>
@@ -258,7 +258,7 @@ const Insights = () => {
               to={articlePath}
               onClick={() => trackOpen(active, "homepage_cover")}
               aria-label={`Read Insight ${active.number}: ${active.title}`}
-              className="relative block h-[280px] w-full shrink-0 bg-[#FCF6EE] p-4 sm:h-[360px] md:h-[390px] md:flex-1 md:p-8"
+              className="relative block h-[280px] w-full shrink-0 bg-paper p-4 sm:h-[360px] md:h-[390px] md:flex-1 md:p-8"
             >
               {INSIGHTS.map((insight, index) => {
                 const selected = index === activeIndex;
@@ -272,7 +272,7 @@ const Insights = () => {
                     height={insight.coverHeight}
                     loading="lazy"
                     decoding="async"
-                    className={`absolute inset-4 m-auto max-h-[calc(100%-2rem)] max-w-[calc(100%-2rem)] object-contain shadow-[0_14px_24px_rgba(23,23,23,0.16)] md:inset-8 md:max-h-[calc(100%-4rem)] md:max-w-[calc(100%-4rem)] ${
+                    className={`absolute inset-4 m-auto max-h-[calc(100%-2rem)] max-w-[calc(100%-2rem)] object-contain shadow-media md:inset-8 md:max-h-[calc(100%-4rem)] md:max-w-[calc(100%-4rem)] ${
                       prefersReducedMotion ? "" : "transition-opacity duration-300"
                     } ${selected ? "opacity-100" : "opacity-0"}`}
                   />
@@ -285,13 +285,13 @@ const Insights = () => {
                 * Reserves the tallest excerpt. Without it a two line excerpt and
                 * a three line one moved the card by 24px on a phone.
                 */}
-              <p className="min-h-[4.5rem] max-w-md text-sm leading-6 text-ink/65 md:min-h-0">
+              <p className="type-body min-h-[6.5rem] max-w-md text-ink/65 md:min-h-0">
                 {active.homepageExcerpt}
               </p>
               <Link
                 to={articlePath}
                 onClick={() => trackOpen(active, "homepage_read")}
-                className="mt-3 inline-block shrink-0 text-sm font-semibold uppercase tracking-[0.08em] text-violet-600 hover:text-violet-700 md:mt-0"
+                className="mt-3 inline-block shrink-0 text-sm font-semibold uppercase tracking-[0.14em] text-accent-600 hover:text-accent-700 md:mt-0"
               >
                 Read insight <span aria-hidden="true">↗</span>
               </Link>
@@ -303,7 +303,7 @@ const Insights = () => {
                     * expressions React emits three text nodes while the
                     * prerendered HTML serialises one, and hydration fails.
                     */}
-                  <span className="text-xs font-semibold tracking-[0.12em] text-violet-600">
+                  <span className="type-label text-accent-600">
                     {`${String(activeIndex + 1).padStart(2, "0")} / ${String(
                       INSIGHTS.length
                     ).padStart(2, "0")}`}
@@ -313,12 +313,12 @@ const Insights = () => {
                       <span
                         key={insight.slug}
                         className={`h-[3px] w-5 rounded-full ${
-                          index === activeIndex ? "bg-violet-600" : "bg-ink/20"
+                          index === activeIndex ? "bg-accent-600" : "bg-ink/20"
                         }`}
                       />
                     ))}
                   </div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.08em] text-ink/55">
+                  <span className="type-label text-ink/65">
                     Swipe ↔
                   </span>
                 </div>

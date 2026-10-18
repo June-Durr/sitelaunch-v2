@@ -153,14 +153,17 @@ const Header = () => {
 
   return (
     <>
+      {/* Hidden only visually: it stays in the accessibility tree and
+          slides back as soon as anything inside it takes keyboard focus, so
+          focus never lands on an off-screen control. */}
       <header
         ref={headerRef}
-        aria-hidden={headerHidden}
+        onFocus={() => setIsHidden(false)}
         className={`fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-ivory/95 backdrop-blur transition-transform duration-[260ms] ease-out motion-reduce:transition-none ${
           headerHidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 md:py-4 lg:px-8">
+        <div className="container-page flex items-center justify-between py-3 md:py-4">
           <Link
             to="/"
             className="flex items-center gap-2"
@@ -190,7 +193,7 @@ const Header = () => {
                 <Link
                   key={link.label}
                   to={link.to}
-                  className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+                  className="text-sm font-medium text-ink/80 transition-colors duration-150 hover:text-ink"
                 >
                   {link.label}
                 </Link>
@@ -199,7 +202,7 @@ const Header = () => {
                   key={link.label}
                   type="button"
                   onClick={() => handleNavClick(link.id)}
-                  className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+                  className="text-sm font-medium text-ink/80 transition-colors duration-150 hover:text-ink"
                 >
                   {link.label}
                 </button>
@@ -211,7 +214,7 @@ const Header = () => {
             <button
               type="button"
               onClick={() => handleReviewCta("header")}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-ink px-5 text-sm font-semibold text-ivory transition-colors hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+              className="btn btn-dark btn-compact"
             >
               Get a Website Review
             </button>
@@ -256,7 +259,7 @@ const Header = () => {
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="mx-auto max-w-6xl divide-y divide-ink/10 px-4 pt-2 sm:px-6"
+              className="container-page divide-y divide-ink/10 pt-2"
             >
               {NAV_LINKS.map((link) => (
                 <motion.li key={link.label} variants={staggerItem}>
@@ -284,12 +287,12 @@ const Header = () => {
               variants={staggerItem}
               initial="hidden"
               animate="visible"
-              className="mx-auto max-w-6xl px-4 pb-6 pt-4 sm:px-6"
+              className="container-page pb-6 pt-4"
             >
               <button
                 type="button"
                 onClick={() => handleReviewCta("header_mobile")}
-                className="flex min-h-[44px] w-full items-center justify-center rounded-md bg-ink px-5 text-sm font-semibold text-ivory transition-colors hover:bg-ink/85"
+                className="btn btn-primary w-full"
               >
                 Get a Website Review
               </button>

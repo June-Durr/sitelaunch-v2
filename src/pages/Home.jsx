@@ -63,9 +63,9 @@ const Home = () => {
 
       <section
         id="services"
-        className="scroll-mt-[calc(var(--header-height,68px)+8px)] border-t border-ink/10 bg-ivory py-12 sm:py-24 lg:py-[4.5rem]"
+        className="scroll-mt-[calc(var(--header-height,68px)+8px)] section-y border-t border-ink/10 bg-ivory"
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="container-page">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="lg:border-r lg:border-ink/10 lg:pr-16">
               <ServicesPricing />

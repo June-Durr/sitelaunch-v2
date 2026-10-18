@@ -211,7 +211,7 @@ export const insight003 = {
         {
           question: "How can I check whether my website feels interchangeable?",
           answer:
-            "Cover the logo on your homepage and ask whether anything left identifies the business. Then open two competitors beside it and ask which one a stranger could name a day later. A faster version: count how many images could appear unchanged on a competitor’s site. Those are the parts doing no work for recognition, and they are usually the stock photography.",
+            "Cover the logo on your homepage and ask whether anything left identifies the business. Then open two competitors beside it and ask which one a stranger could name a day later. A faster version: count how many images could appear unchanged on a competitor's site. Those are the parts doing no work for recognition, and they are usually the stock photography.",
         },
         {
           question: "Is branding more than a logo and colors?",
