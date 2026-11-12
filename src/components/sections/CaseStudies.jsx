@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Kicker from "../common/Kicker";
 import { projects } from "../../data/projects";
@@ -66,6 +67,26 @@ const CarlosReviewBlock = ({ wide = false }) => {
   );
 };
 
+// Internal case studies use a router link; the rest still open the client's
+// site in a new tab.
+const ProjectLink = ({ project, onClick, className, externalLabel }) =>
+  project.caseStudyPath ? (
+    <Link to={project.caseStudyPath} onClick={onClick} className={className}>
+      View case study
+      <span className="sr-only">{`: ${project.name}`}</span>
+    </Link>
+  ) : (
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={onClick}
+      className={className}
+    >
+      {externalLabel}
+    </a>
+  );
+
 const CaseStudyBlock = ({ project }) => {
   const handleLinkClick = (source) => {
     analytics.trackEvent("portfolio_open", {
@@ -91,15 +112,12 @@ const CaseStudyBlock = ({ project }) => {
           {project.name}
         </h3>
         <p className="type-body mt-2 max-w-md text-ink/80">{project.summary}</p>
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        <ProjectLink
+          project={project}
           onClick={() => handleLinkClick("case_studies")}
           className="link mt-4 inline-block text-base"
-        >
-          View case study
-        </a>
+          externalLabel="View case study"
+        />
       </div>
 
       <motion.div
@@ -147,15 +165,12 @@ const CaseStudyBlock = ({ project }) => {
           ))}
         </dl>
 
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        <ProjectLink
+          project={project}
           onClick={() => handleLinkClick("case_studies")}
           className="link mt-6 inline-block text-base"
-        >
-          See the project
-        </a>
+          externalLabel="See the project"
+        />
       </div>
 
       {/* Testimonial moment: full-width row beneath the image+story
@@ -170,7 +185,7 @@ const CaseStudies = () => (
     <div className="container-page">
       <Kicker>Case Studies</Kicker>
       <h2 className="type-heading mt-3 text-ink">
-        Two recent projects.
+        Three recent projects.
       </h2>
 
       <div className="mt-8 sm:mt-10">

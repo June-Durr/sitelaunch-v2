@@ -17,6 +17,9 @@ export const ROUTES = [
   "/",
   "/insights",
   ...INSIGHTS.map((insight) => `/insights/${insight.slug}`),
+  "/work/on-the-brew",
+  "/work/moth-to-flame",
+  "/work/sweet-stax",
   "/privacy",
 ];
 

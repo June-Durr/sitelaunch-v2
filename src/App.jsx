@@ -10,6 +10,9 @@ import InsightsIndex from "./pages/InsightsIndex";
 import InsightArticle from "./pages/InsightArticle";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
+import CaseStudyOnTheBrew from "./pages/CaseStudyOnTheBrew";
+import CaseStudyPage from "./pages/CaseStudyPage";
+import { caseStudies } from "./data/caseStudies";
 import analytics from "./services/analytics";
 
 /**
@@ -25,6 +28,14 @@ export function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/insights" element={<InsightsIndex />} />
       <Route path="/insights/:slug" element={<InsightArticle />} />
+      <Route path="/work/on-the-brew" element={<CaseStudyOnTheBrew />} />
+      {caseStudies.map((study) => (
+        <Route
+          key={study.id}
+          path={study.path}
+          element={<CaseStudyPage study={study} />}
+        />
+      ))}
       <Route path="/privacy" element={<Privacy />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

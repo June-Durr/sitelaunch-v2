@@ -5,12 +5,12 @@ import analytics from "../../services/analytics";
 // element, per handoff) to /#review - Link performs a client-side route
 // change to the homepage, and Home's existing mount effect picks up the
 // #review hash and scrolls to the Website Review form there.
-const InsightCTA = ({ cta }) => {
+const InsightCTA = ({ cta, location = "insight_article" }) => {
   const handleClick = () => {
     analytics.trackEvent("review_cta_click", {
       category: "engagement",
-      label: "insight_article",
-      location: "insight_article",
+      label: location,
+      location,
     });
   };
 

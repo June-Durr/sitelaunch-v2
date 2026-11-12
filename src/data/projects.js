@@ -2,10 +2,44 @@
 // display — see docs/rebrand for the source design and approval notes.
 export const projects = [
   {
+    id: "on-the-brew",
+    name: "On The Brew",
+    category: "Café website",
+    serviceLabel: "Café website",
+    // Internal case-study route. When set, the Work section links here
+    // instead of out to the client's site.
+    caseStudyPath: "/work/on-the-brew",
+    url: null,
+    poster: "/images/projects/on-the-brew/mobile-homepage-600.webp",
+    images: [
+      {
+        src: "/images/projects/on-the-brew/mobile-homepage-600.webp",
+        alt: "On The Brew homepage on a phone with branded drinks, the Guatemalan coffee headline and a Find Us button",
+        width: 600,
+        height: 1301,
+      },
+      {
+        src: "/images/projects/on-the-brew/mobile-hours-directions-600.webp",
+        alt: "On The Brew Come Find Us section on a phone with the Level 3 Green South address, opening hours and a Get Directions button",
+        width: 600,
+        height: 1301,
+      },
+    ],
+    video: { desktop: null, mobile: null },
+    summary:
+      "A café website built around the next visit: the drinks first, then the hours and the way to the shop inside Stamford Town Center.",
+    ask: "Help people looking for coffee near Stamford Town Center understand what the café offers, check its hours, and find the shop inside the mall.",
+    whatWeDid:
+      "Redesigned the homepage around the café's actual drinks and its Guatemalan coffee story, with Menu, Our Story and Visit Us as the navigation.",
+    keyDecision:
+      "Make Find Us the one button in the opening, so the hours, the Level 3 Green South address and directions are a tap away from the first screen.",
+  },
+  {
     id: "moth-to-flame",
     name: "Moth to Flame",
     category: "Band site",
     serviceLabel: "Band and booking site",
+    caseStudyPath: "/work/moth-to-flame",
     url: "https://mothtoflameband.com",
     poster: "/images/projects/moth-to-flame/hero.webp",
     images: [
@@ -39,6 +73,7 @@ export const projects = [
     name: "Sweet Stax",
     category: "Website refinement / Webflow",
     serviceLabel: "Website refinement / Webflow",
+    caseStudyPath: "/work/sweet-stax",
     url: "https://sweetstax.webflow.io",
     poster: "/images/projects/sweet-stax/hero.webp",
     images: [
